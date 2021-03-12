@@ -4,6 +4,75 @@
   
   
   <entry>
+    <title>Day1-Text1 VSCode配置keil5插件</title>
+    <link href="/2021/03/12/21-01-undefined/"/>
+    <url>/2021/03/12/21-01-undefined/</url>
+    
+    <content type="html"><![CDATA[<h3 id="安装拓展-插件"><a href="#安装拓展-插件" class="headerlink" title="安装拓展(插件)"></a>安装拓展(插件)</h3><p>首先在插件页面搜索“keil”，找到并安装该插件。</p><p><img src="https://img-blog.csdnimg.cn/20200806133846882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTkwNTY1MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200806133931372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTkwNTY1MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>删掉上图中插件搜索框中的“keil”字符，显示出所有的插件。然后鼠标右键点击Keil Assistant，弹出菜单，点击：Extension Settings，即扩展设置</p><p><img src="https://img-blog.csdnimg.cn/20200806134152857.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTkwNTY1MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>添加keil的可执行文件的路径，这里有两个路径，上面是C51的，下面是MDK的，这里以STM32为例，添加的是我电脑上的MDK的可执行文件的路径，如下：</p><p><img src="https://img-blog.csdnimg.cn/20200806134905733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTkwNTY1MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>打开一个STM32工程<br>第一次打开需要安装以下插件(C/C++必须有，其它随意)：</p><p>C/C++<br>Chinese (Simplified) Language Pack</p><p>选择KEIL UVISION PROJECT，点击右边加号打开工程，也可通过菜单栏文件打开。</p><p><img src="https://img-blog.csdnimg.cn/20200806140103329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTkwNTY1MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>接下来就可以使用vs code了</p><p>打开工程后出现错误：检测到 #include 错误，请更新 includePath。已为此翻译单元 禁用波形曲线。C/C++ 无法打开源文件 “stdint.h”)</p><h5 id="安装好vs-code后，我们打开一个工程，发现打开后报错，无法打开源文件stdint-h"><a href="#安装好vs-code后，我们打开一个工程，发现打开后报错，无法打开源文件stdint-h" class="headerlink" title="安装好vs code后，我们打开一个工程，发现打开后报错，无法打开源文件stdint.h"></a>安装好vs code后，我们打开一个工程，发现打开后报错，无法打开源文件stdint.h</h5><p><strong>原因是我们没有调用编译器，如果你电脑装了visual studio，或者wsl（windows下Linux子系统），vscode会优先用前两者的编译器，如果前两个都没检测到，vscode才会使用mingw等编译器。</strong></p><h4 id="解决办法：下载编译器MinGW"><a href="#解决办法：下载编译器MinGW" class="headerlink" title="解决办法：下载编译器MinGW"></a>解决办法：下载编译器MinGW</h4><h4 id="首先要确保已经下载了C-C-拓展-插件-。因为我的电脑没有装过VS或wsl，所以我需要去下载mingw，进mingw官网，网址：http-www-mingw-org-。选择下载。一直下一步即可安装。记下安装路径（很重要）。"><a href="#首先要确保已经下载了C-C-拓展-插件-。因为我的电脑没有装过VS或wsl，所以我需要去下载mingw，进mingw官网，网址：http-www-mingw-org-。选择下载。一直下一步即可安装。记下安装路径（很重要）。" class="headerlink" title="首先要确保已经下载了C/C++拓展(插件)。因为我的电脑没有装过VS或wsl，所以我需要去下载mingw，进mingw官网，网址：http://www.mingw.org/ 。选择下载。一直下一步即可安装。记下安装路径（很重要）。"></a>首先要确保已经下载了C/C++拓展(插件)。因为我的电脑没有装过VS或wsl，所以我需要去下载mingw，进mingw官网，网址：<a href="http://www.mingw.org/">http://www.mingw.org/</a> 。选择下载。一直下一步即可安装。记下安装路径（很重要）。</h4><p>后面的配置步骤请参考：<a href="https://blog.csdn.net/weixin_45905650/article/details/108273323">使用VScode搭建轻量美观的C/C++</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>32单片机 keil5</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>tags</title>
+    <link href="/2021/03/12/20-39-undefined/"/>
+    <url>/2021/03/12/20-39-undefined/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>初期尝试2</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-test</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2021-3-12-test</title>
+    <link href="/2021/03/12/20-23-undefined/"/>
+    <url>/2021/03/12/20-23-undefined/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>世间八万字，唯有情字最伤人</p>          </div>]]></content>
+    
+    
+    <categories>
+      
+      <category>初期尝试</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-test</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>《题金山寺》</title>
     <link href="/2021/03/11/14-56-undefined/"/>
     <url>/2021/03/11/14-56-undefined/</url>
