@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  
+    <meta name="description" content="君应有语，渺万里层云">
+  
+  <meta name="author" content="ARIES">
+  <meta name="keywords" content="">
+  
+  <title>java-text2 - 千山暮雪</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"anselpz.github.io","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>千山暮雪</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="java-text2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-01 11:35" pubdate>
+        2021年4月1日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">java-text2</h1>
+            
+            <div class="markdown-body">
+              <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><p>运算符顾名思义是一种符号，它是连接一个以上的操作符，实现某种功能的运算。</p>
+<h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><p>算术运算符用在数学表达式中，主要实现的是算术运算，如常见的<em>加减乘除</em>等。</p>
+<p>表格中的例子中，变量 <code>a</code> 的值为 5，变量 <code>b</code> 的值为 3，变量 <code>i</code> 的值为 1：</p>
+<table>
+<thead>
+<tr>
+<th>算术运算符</th>
+<th>名称</th>
+<th>描述</th>
+<th>类型</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加法</td>
+<td>相加运算符两侧的值</td>
+<td>双目运算符</td>
+<td>a + b 等于 8</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+<td>左操作数减去右操作数</td>
+<td>双目运算符</td>
+<td>a - b 等于 2</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+<td>相乘操作符两侧的值</td>
+<td>双目运算符</td>
+<td>a * b 等于 15</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法</td>
+<td>左操作数除以右操作数</td>
+<td>双目运算符</td>
+<td>a / b 等于 1</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取余</td>
+<td>左操作数除右操作数的余数</td>
+<td>双目运算符</td>
+<td>a % b 等于 2</td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增</td>
+<td>操作数的值增加 1</td>
+<td>单目运算符</td>
+<td>++i（或 i++） 等于 2</td>
+</tr>
+<tr>
+<td>–</td>
+<td>自减</td>
+<td>操作数的值减少 1</td>
+<td>单目运算符</td>
+<td>–i（或 i–） 等于 0</td>
+</tr>
+</tbody></table>
+<p>其中，自增 (++) 和自减 (–) 运算符有两种写法：<strong>前缀（++i,–i）</strong>和<strong>后缀（i++,i–）</strong>。</p>
+<ul>
+<li>前缀自增自减法 (++i,–i): 先进行自增或者自减运算，再进行表达式运算。</li>
+<li>后缀自增自减法 (i++,i–): 先进行表达式运算，再进行自增或者自减运算</li>
+</ul>
+<p>新建一个源代码文件 <code>ArithmeticOperation.java</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArithmeticOperation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> a = <span class="hljs-number">5</span>;<br>        <span class="hljs-keyword">int</span> b = <span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">int</span> c = <span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">int</span> d = <span class="hljs-number">3</span>;<br>        System.out.println(<span class="hljs-string">&quot;a + b = &quot;</span> + (a + b));<br>        System.out.println(<span class="hljs-string">&quot;a - b = &quot;</span> + (a - b));<br>        System.out.println(<span class="hljs-string">&quot;a * b = &quot;</span> + (a * b));<br>        System.out.println(<span class="hljs-string">&quot;a / b = &quot;</span> + (a / b));<br>        System.out.println(<span class="hljs-string">&quot;a % b = &quot;</span> + (a % b));<br>        System.out.println(<span class="hljs-string">&quot;a++ = &quot;</span> + (a++));<br>        System.out.println(<span class="hljs-string">&quot;++a = &quot;</span> + (++a));<br>        System.out.println(<span class="hljs-string">&quot;b-- = &quot;</span> + (b--));<br>        System.out.println(<span class="hljs-string">&quot;--b = &quot;</span> + (--b));<br>        System.out.println(<span class="hljs-string">&quot;c++ = &quot;</span> + (c++));<br>        System.out.println(<span class="hljs-string">&quot;++d = &quot;</span> + (++d));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ javac ArithmeticOperation.java<br>$ java ArithmeticOperation<br>a + b = 8<br>a - b = 2<br>a * b = 15<br>a / b = 1<br>a % b = 2<br>a++ = 5<br>++a = 7<br>b-- = 3<br>--b = 1<br>c++ = 3<br>++d = 4<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><p>Java 定义了位运算符，应用于整数类型 (<code>int</code>)，长整型 (<code>long</code>)，短整型 (<code>short</code>)，字符型 (<code>char</code>)，和字节型 (<code>byte</code>) 等类型。位运算时先转换为二进制，再按位运算。</p>
+<p>表格中的例子中，变量 <code>a</code> 的值为 60（二进制：<code>00111100</code>），变量 <code>b</code> 的值为 13（二进制：<code>00001101</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>位运算符</th>
+<th>名称</th>
+<th>描述</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>按位与</td>
+<td>如果相对应位都是 1，则结果为 1，否则为 0</td>
+<td>（a＆b），得到 12，即 0000 1100</td>
+</tr>
+<tr>
+<td>丨</td>
+<td>按位或</td>
+<td>如果相对应位都是 0，则结果为 0，否则为 1</td>
+<td>（ a 丨 b ）得到 61，即 0011 1101</td>
+</tr>
+<tr>
+<td>^</td>
+<td>按位异或</td>
+<td>如果相对应位值相同，则结果为 0，否则为 1</td>
+<td>（a^b）得到 49，即 0011 0001</td>
+</tr>
+<tr>
+<td>~</td>
+<td>按位补</td>
+<td>翻转操作数的每一位，即 0 变成 1，1 变成 0</td>
+<td>（~a）得到 -61，即 1100 0011</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>按位左移</td>
+<td>左操作数按位左移右操作数指定的位数</td>
+<td>a&lt;&lt;2 得到 240，即 1111 0000</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>按位右移</td>
+<td>左操作数按位右移右操作数指定的位数</td>
+<td>a&gt;&gt;2 得到 15 即 1111</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>按位右移补零</td>
+<td>左操作数的值按右操作数指定的位数右移，移动得到的空位以零填充</td>
+<td>a&gt;&gt;&gt;2 得到 15 即 0000 1111</td>
+</tr>
+</tbody></table>
+<p>在 <code>/home/project</code> 目录下新建一个源代码文件 <code>BitOperation.java</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BitOperation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> a = <span class="hljs-number">60</span>;<br>        <span class="hljs-keyword">int</span> b = <span class="hljs-number">13</span>;<br>        System.out.println(<span class="hljs-string">&quot;a &amp; b = &quot;</span> + (a &amp; b));<br>        System.out.println(<span class="hljs-string">&quot;a | b = &quot;</span> + (a | b));<br>        System.out.println(<span class="hljs-string">&quot;a ^ b = &quot;</span> + (a ^ b));<br>        System.out.println(<span class="hljs-string">&quot;~a = &quot;</span> + (~a));<br>        System.out.println(<span class="hljs-string">&quot;a &lt;&lt; 2 = &quot;</span> + (a &lt;&lt; <span class="hljs-number">2</span>));<br>        System.out.println(<span class="hljs-string">&quot;a &gt;&gt; 2 = &quot;</span> + (a &gt;&gt; <span class="hljs-number">2</span>));<br>        System.out.println(<span class="hljs-string">&quot;a &gt;&gt;&gt; 2 = &quot;</span> + (a &gt;&gt;&gt; <span class="hljs-number">2</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ javac BitOperation.java<br>$ java BitOperation<br>a &amp; b = 12<br>a | b = 61<br>a ^ b = 49<br>~a = -61<br>a &lt;&lt; <span class="hljs-string">2 = 240</span><br><span class="hljs-string">a &gt;&gt; 2</span> = 15<br>a &gt;&gt;&gt; 2 = 15<br></code></pre></td></tr></table></figure>
+
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p>逻辑运算符是通过运算符将操作数或等式进行逻辑判断的语句。</p>
+<p>表格中的例子中，假设布尔变量 <code>a</code> 为真（<code>true</code>），变量 <code>b</code> 为假（<code>false</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>逻辑运算符</th>
+<th>名称</th>
+<th>描述</th>
+<th>类型</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&amp; 或 &amp;</td>
+<td>与</td>
+<td>当且仅当两个操作数都为真，条件才为真</td>
+<td>双目运算符</td>
+<td>(a &amp;&amp; b) 或 (a &amp; b) 为假</td>
+</tr>
+<tr>
+<td>|| 或 |</td>
+<td>或</td>
+<td>两个操作数任何一个为真，条件为真</td>
+<td>双目运算符</td>
+<td>（a || b) 或 (a | b) 为真</td>
+</tr>
+<tr>
+<td>!</td>
+<td>非</td>
+<td>用来反转操作数的逻辑状态。如果条件为真，则逻辑非运算符将得到假</td>
+<td>单目运算符</td>
+<td>（!a）为假</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或</td>
+<td>如果两个操作数逻辑相同，则结果为假，否则为真</td>
+<td>双目运算符</td>
+<td>(a ^ b) 为真</td>
+</tr>
+</tbody></table>
+<p><code>&amp;&amp;</code> 与 <code>||</code> 是具有短路性质，当按优先级顺序计算到当前表达式时，表达式的结果可以确定整个表达式的结果时，便不会继续向后进行判断和计算，而直接返回结果。</p>
+<p>例如：当使用 <code>&amp;&amp;</code> 逻辑运算符时，在两个操作数都为 <code>true</code> 时，结果才为 <code>true</code>，但是当得到第一个操作为 <code>false</code> 时，其结果就必定是 <code>false</code>，这时候就不会再判断第二个操作了。在计算表达式 <code>(a &amp; b) &amp;&amp; (a | b)</code> 时，首先计算 <code>a &amp; b</code> 得到了 <code>false</code>，因为之后是 <code>&amp;&amp;</code>，任何值与 <code>false</code> 进行与操作都是 <code>false</code>，所以可以不用再计算下去，而直接返回 <code>a &amp; b</code> 的结果 <code>false</code>。</p>
+<p>在<code>/home/project</code>目录下新建一个<code>LogicOperation.java</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogicOperation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> </span>&#123;<br>        <span class="hljs-keyword">boolean</span> a = <span class="hljs-keyword">true</span>;<br>        <span class="hljs-keyword">boolean</span> b = <span class="hljs-keyword">false</span>;<br>        System.out.println(<span class="hljs-string">&quot;a &amp;&amp; b = &quot;</span> + (a &amp;&amp; b));<br>        System.out.println(<span class="hljs-string">&quot;a || b = &quot;</span> + (a || b));<br>        System.out.println(<span class="hljs-string">&quot;!a = &quot;</span> + (!a));<br>        System.out.println(<span class="hljs-string">&quot;a ^ b = &quot;</span> + (a ^ b));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ javac LogicOperation.java<br>$ java LogicOperation<br>a &amp;&amp; b = <span class="hljs-literal">false</span><br>a || b = <span class="hljs-literal">true</span><br>!a = <span class="hljs-literal">false</span><br>a ^ b = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<p>关系运算符</p>
+<p>关系运算符生成的是一个 <code>boolean</code>（布尔）结果，它们计算的是操作数的值之间的关系。如果关系是真实的，结果为 <code>true</code>（真），否则，结果为 <code>false</code>（假）。</p>
+<p>表格中的例子中，假设变量 <code>a</code> 为 3，变量 <code>b</code> 为 5：</p>
+<table>
+<thead>
+<tr>
+<th>比较运算符</th>
+<th>名称</th>
+<th>描述</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>==</td>
+<td>等于</td>
+<td>判断两个操作数的值是否相等，如果相等则条件为真</td>
+<td>(a == b） 为 false</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+<td>判断两个操作数的值是否相等，如果值不相等则条件为真</td>
+<td>(a != b) 为 true</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+<td>判断左操作数的值是否大于右操作数的值，如果是那么条件为真</td>
+<td>(a &gt; b) 为 false</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+<td>判断左操作数的值是否小于右操作数的值，如果是那么条件为真</td>
+<td>(a &lt; b) 为 true</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+<td>判断左操作数的值是否大于或等于右操作数的值，如果是那么条件为真</td>
+<td>(a &gt;= b) 为 false</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+<td>判断左操作数的值是否小于或等于右操作数的值，如果是那么条件为真</td>
+<td>(a &lt;= b) 为 true</td>
+</tr>
+</tbody></table>
+<p>除了上表列出的二元运算符，Java 还有唯一的一个三目运算符 <code>?:</code> 。</p>
+<p>语法格式：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">布尔表达式 ？表达式 1 : 表达式 2;<br></code></pre></td></tr></table></figure>
+
+<p>运算过程：如果布尔表达式的值为 <code>true</code>，则返回<strong>表达式 1</strong>的值，否则返回<strong>表达式 2</strong>的值。</p>
+<p>在 <code>/home/project</code> 目录下新建一个源代码文件 <code>RelationalOperation.java</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RelationalOperation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> a = <span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">int</span> b = <span class="hljs-number">5</span>;<br>        System.out.println(<span class="hljs-string">&quot;a == b = &quot;</span> + (a == b));<br>        System.out.println(<span class="hljs-string">&quot;a != b = &quot;</span> + (a != b));<br>        System.out.println(<span class="hljs-string">&quot;a &gt; b = &quot;</span> + (a &gt; b));<br>        System.out.println(<span class="hljs-string">&quot;a &lt; b = &quot;</span> + (a &lt; b));<br>        System.out.println(<span class="hljs-string">&quot;a &gt;= b = &quot;</span> + (a &gt;= b));<br>        System.out.println(<span class="hljs-string">&quot;a &lt;= b = &quot;</span> + (a &lt;= b));<br>        System.out.println(<span class="hljs-string">&quot;a &gt; b ? a : b = &quot;</span> + (a &gt; b ? a : b));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ javac RelationalOperation.java<br>$ java RelationalOperation<br>a == b = <span class="hljs-literal">false</span><br>a != b = <span class="hljs-literal">true</span><br>a &gt; b = <span class="hljs-literal">false</span><br>a &lt; b = <span class="hljs-literal">true</span><br>a &gt;= b = <span class="hljs-literal">false</span><br>a &lt;= b = <span class="hljs-literal">true</span><br>a &gt; b ? a : b = 5<br></code></pre></td></tr></table></figure>
+
+<p><strong>强调</strong>：</p>
+<ul>
+<li><code>==</code> 和 <code>!=</code> 适用于所有的基本数据类型，其他关系运算符不适用于 <code>boolean</code>，因为 <code>boolean</code> 值只有 <code>true</code> 和 <code>false</code>，比较没有任何意义。</li>
+<li><code>==</code> 和 <code>!=</code> 也适用于所有对象，可以比较对象的<strong>引用</strong>是否相同。</li>
+</ul>
+<p><strong>引用：Java 中一切都是对象，但操作的标识符实际是对象的一个引用。</strong></p>
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>运算符的优先级是帮助我们在一个表达式中如何对于不同的运算符和相同的运算符，进行正确的运算顺序。</p>
+<p>运算符的优先级不需要特别地去记忆它，比较复杂的表达式一般使用圆括号 <code>()</code> 分开，提高可读性。</p>
+<p>!<img src="https://doc.shiyanlou.com/document-uid79144labid1050timestamp1434082078141.png" srcset="/img/loading.gif" alt="运算符的优先级"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://doc.shiyanlou.com/document-uid79144labid1050timestamp1434082102195.png" srcset="/img/loading.gif" alt="运算符的优先级2"></h2><h2 id="关键字和语句"><a href="#关键字和语句" class="headerlink" title="关键字和语句"></a>关键字和语句</h2><h4 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h4><p>Java 的关键字对 Java 的编译器有特殊的意义，他们用来表示一种数据类型，或者表示程序的结构等，关键字不能用作变量名、方法名、类名、包名。</p>
+<p>Java 关键字有如下表所列，目前共有 50 个 Java 关键字，其中，”const” 和 “goto” 这两个关键字在 Java 语言中并没有具体含义。</p>
+<p><img src="https://doc.shiyanlou.com/document-uid79144labid1048timestamp1434006344973.png" srcset="/img/loading.gif" alt="Java关键字"></p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>Java 中的方法，可以将其看成一个功能的集合，它们是为了解决特定问题的代码组合。</p>
+<p>方法的定义语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">访问修饰符 返回值类型 方法名(参数列表) &#123;<br>    方法体<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">functionName</span><span class="hljs-params">(Object arg)</span> </span>&#123;<br>  System.out.println(<span class="hljs-string">&quot;Hello World.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上面的语法说明中：</p>
+<ol>
+<li><strong>访问修饰符</strong>：代表方法允许被访问的权限范围， 可以是 <code>public</code>、<code>protected</code>、<code>private</code> 或者省略（<code>default</code>） ，其中 <code>public</code> 表示该方法可以被其他任何代码调用。</li>
+<li><strong>返回值类型</strong>：方法返回值的类型，如果方法不返回任何值，则返回值类型指定为 <code>void</code> （代表无类型）；如果方法具有返回值，则需要指定返回值的类型，并且在方法体中使用 <code>return</code> 语句返回值。</li>
+<li><strong>方法名</strong>：是方法的名字，必须使用合法的标识符。</li>
+<li><strong>参数列表</strong>：是传递给方法的参数列表，参数可以有多个，多个参数间以逗号隔开，每个参数由参数类型和参数名组成，以空格隔开。当方法被调用时，传递值给参数。这个值被称为实参或变量。参数列表是指方法的参数类型、顺序和参数的个数。参数是可选的，方法可以不包含任何参数。</li>
+<li><strong>方法体</strong>：方法体包含具体的语句，定义该方法的功能。</li>
+</ol>
+<p>根据方法是否带参、是否带返回值，可将方法分为四类：</p>
+<ul>
+<li>无参无返回值方法</li>
+<li>无参带返回值方法</li>
+<li>带参无返回值方法</li>
+<li>带参带返回值方法</li>
+</ul>
+<p>当方法定义好之后，需要调用才可以生效，我们可以通过 <code>main</code> 方法（<code>main</code> 方法是 Java 程序的入口，所以需要用它来调用）来调用它，比如：</p>
+<p>在 <code>/home/project</code> 下建立 <code>MethodDemo.java</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MethodDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        method();<br>    &#125;<br>    <span class="hljs-comment">//这里要加上 static 关键字 因为静态方法只能调用静态方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">method</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;方法被调用&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">javac MethodDemo.java<br>java MethodDemo<br>方法被调用<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/java%E5%AD%A6%E4%B9%A0/">java学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/01/11-32-undefined/">
+                        <span class="hidden-mobile">java-text1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                  
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'https://anselpz.github.io/2021/04/01/11-35-undefined/';
+        this.page.identifier = '/2021/04/01/11-35-undefined/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'fluid' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
