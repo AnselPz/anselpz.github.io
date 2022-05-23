@@ -24,7 +24,7 @@
 <meta property="og:description" content="主函数一个完整的Fortran代码，一般来说，以 program code_name 开始，以 end program code_name 结束的首末声明，变量声明以及需要执行的命令或者操作三个部分组成。通用的 Fortran 代码文件的文件后缀可以是 .f90、.f、.g95 等等，但通常为了统一和适应不同版本的 Fortran 编译环境建议采用 .f90 后缀。和 C、C++ 语言比较类似，F">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-23T07:01:53.000Z">
-<meta property="article:modified_time" content="2022-05-23T07:30:01.715Z">
+<meta property="article:modified_time" content="2022-05-23T07:33:32.823Z">
 <meta property="article:author" content="Aries Peng">
 <meta property="article:tag" content="Fortran">
 <meta name="twitter:card" content="summary_large_image">
@@ -560,7 +560,7 @@
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">integer</span> m(<span class="hljs-number">10</span>)         <span class="hljs-comment">! 长度为 10 的整数型数组</span><br><span class="hljs-keyword">real</span> x(<span class="hljs-number">20</span>), y(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)   <span class="hljs-comment">! 长度为 20 的实数型数组， 4 行 x 5 列的二维实数型数组</span><br><span class="hljs-keyword">complex</span> matrix(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment">! 5 行 x 5 列的二维复数型数组</span><br></code></pre></td></tr></table></figure>
 
 <h5 id="小提示-2"><a href="#小提示-2" class="headerlink" title="小提示"></a>小提示</h5><p>这里需要注意的是，在定义数组的时候<strong>不仅可以用正整数，也可以用负整数和 0</strong>。比如 <code>real n(-3:5)</code> 表示定义一个长度为 9、序号从 -3 到 5 (包括 0)的一维数组，<code>real m(-2:1, 0:4)</code> 表示定义一个 3 行 x 4 列、行序号从 -2 到 0、列序号从 1 到 4 的二维数组。一般来说，为了与实际数学运算中的理解保持一致，建议采用正整数来定义数组更加方便。</p>
-<h3 id="数组元素的选取"><a href="#数组元素的选取" class="headerlink" title="数组元素的选取"></a>数组元素的选取</h3><p>既然定义了数组，那么我们就需要有对于数组的增加、选择这样的基本操作。Fortran <strong>数组中的序号是从 1 开始的，即写作 n(1)<strong>，这点与其他高级编程语言略有不同，不过符合人类的数学认识。因此如下所示，当定义一个长度为 10 的数组 n 时，数组 n 的最后一个元素就是 n(10)。在实际的存储中，我们能够很容易理解一维数组是按照 1 到 10 的顺序从左往右排列的，但是在二维数组中又会是怎么样呢？是行优先还是列优先呢？一般来说，在我们接触过的高级编程语言中几乎都是行优先的，即先存储第一行再存储第二行，以此类推。但是，在 Fortran 中则是</strong>列优先</strong>的，也就是说 Fortran 的二维数组<strong>存储时会先存储第一列再存储第二列</strong>，再以此类推。</p>
+<h3 id="数组元素的选取"><a href="#数组元素的选取" class="headerlink" title="数组元素的选取"></a>数组元素的选取</h3><p>既然定义了数组，那么我们就需要有对于数组的增加、选择这样的基本操作。<strong>Fortran 数组中的序号是从 1 开始的，即写作 n(1)<strong>，这点与其他高级编程语言略有不同，不过符合人类的数学认识。因此如下所示，当定义一个长度为 10 的数组 n 时，数组 n 的最后一个元素就是 n(10)。在实际的存储中，我们能够很容易理解一维数组是按照 1 到 10 的顺序从左往右排列的，但是在二维数组中又会是怎么样呢？是行优先还是列优先呢？一般来说，在我们接触过的高级编程语言中几乎都是行优先的，即先存储第一行再存储第二行，以此类推。但是，在 Fortran 中则是</strong>列优先</strong>的，也就是说 Fortran 的二维数组<strong>存储时会先存储第一列再存储第二列</strong>，再以此类推。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">real</span> n(<span class="hljs-number">10</span>)     <span class="hljs-comment">! n(1) ~ n(10)</span><br><span class="hljs-keyword">real</span> m(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)   <span class="hljs-comment">! m(1, 1) m(2, 1) m(3, 1) ... m(4, 4)</span><br></code></pre></td></tr></table></figure>
 
 <h5 id="小提示-3"><a href="#小提示-3" class="headerlink" title="小提示"></a>小提示</h5><p>如果我们在使用数组 n 的过程中忘记了加上序号，那么程序<strong>默认就会对整个数组的全部元素进行操作</strong>，而非像其他高级编程语言可能会指向数组的第一个元素。</p>
@@ -640,6 +640,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/05/23/Fortran-%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/" title="Fortran-条件与循环语句">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Fortran-条件与循环语句</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

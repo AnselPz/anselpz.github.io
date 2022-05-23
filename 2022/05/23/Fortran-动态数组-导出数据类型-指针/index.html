@@ -1,0 +1,857 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Aries Peng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="动态数组动态数组是一种数组，其尺寸在编译时不知道，而是在执行时才已知&#x2F;确定的。 ​	动态数组的属性使用 allocatable 声明。 . ​	例如， 1real, dimension (:,:), allocatable :: darray      ​	数组的秩，即尺寸，必须提到但是，分配内存以这样的阵列，可以使用allocate函数。 1allocate ( darray(s1,s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态数组&amp;导出数据类型&amp;指针">
+<meta property="og:url" content="http://example.com/2022/05/23/Fortran-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="千山慕晗">
+<meta property="og:description" content="动态数组动态数组是一种数组，其尺寸在编译时不知道，而是在执行时才已知&#x2F;确定的。 ​	动态数组的属性使用 allocatable 声明。 . ​	例如， 1real, dimension (:,:), allocatable :: darray      ​	数组的秩，即尺寸，必须提到但是，分配内存以这样的阵列，可以使用allocate函数。 1allocate ( darray(s1,s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-23T09:21:15.000Z">
+<meta property="article:modified_time" content="2022-05-23T09:30:56.108Z">
+<meta property="article:author" content="Aries Peng">
+<meta property="article:tag" content="Fortran">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>动态数组&amp;导出数据类型&amp;指针 - 千山慕晗</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","app_key":"8Ua5DhRiSHzavGRmSjJzGoa3","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>慕晗</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="动态数组&amp;导出数据类型&amp;指针"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-23 17:21" pubdate>
+          2022年5月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">动态数组&amp;导出数据类型&amp;指针</h1>
+            
+            <div class="markdown-body">
+              
+              <h2 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h2><p>动态数组是一种数组，其尺寸在编译时不知道，而是在执行时才已知&#x2F;确定的。</p>
+<p>​	动态数组的属性使用 allocatable 声明。 .</p>
+<p>​	例如，</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (:,:), <span class="hljs-keyword">allocatable</span> :: darray    <br></code></pre></td></tr></table></figure>
+
+<p>​	数组的秩，即尺寸，必须提到但是，分配内存以这样的阵列，可以使用allocate函数。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-built_in">allocate</span> ( darray(s1,s2) )      <br></code></pre></td></tr></table></figure>
+
+<p>​	该阵列使用后，在该程序中，所创建的存储器应该使用 deallocate 函数解除</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-built_in">deallocate</span> (darray)  <br></code></pre></td></tr></table></figure>
+
+<p>​	<strong>示例</strong></p>
+<p>​	下面的例子演示了上面讨论的概念。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> dynamic_array <br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span> <br><br>   <span class="hljs-comment">!rank is 2, but size not known   </span><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (:,:), <span class="hljs-keyword">allocatable</span> :: darray    <br>   <span class="hljs-keyword">integer</span> :: s1, s2     <br>   <span class="hljs-keyword">integer</span> :: i, j     <br>   <br>   <span class="hljs-built_in">print</span>*, <span class="hljs-string">&quot;Enter the size of the array:&quot;</span>     <br>   read*, s1, s2      <br>   <br>   <span class="hljs-comment">! allocate memory      </span><br>   <span class="hljs-built_in">allocate</span> ( darray(s1,s2) )      <br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, s1           <br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, s2                <br>         darray(i,j) = i*j               <br>         <span class="hljs-built_in">print</span>*, <span class="hljs-string">&quot;darray(&quot;</span>,i,<span class="hljs-string">&quot;,&quot;</span>,j,<span class="hljs-string">&quot;) = &quot;</span>, darray(i,j)           <br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span>      <br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span>      <br>   <br>   <span class="hljs-built_in">deallocate</span> (darray)  <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> dynamic_array<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs fortran">Enter the <span class="hljs-built_in">size</span> of the array: <span class="hljs-number">3</span>,<span class="hljs-number">4</span><br>darray( <span class="hljs-number">1</span> , <span class="hljs-number">1</span> ) = <span class="hljs-number">1.00000000</span>    <br>darray( <span class="hljs-number">1</span> , <span class="hljs-number">2</span> ) = <span class="hljs-number">2.00000000</span>    <br>darray( <span class="hljs-number">1</span> , <span class="hljs-number">3</span> ) = <span class="hljs-number">3.00000000</span>    <br>darray( <span class="hljs-number">1</span> , <span class="hljs-number">4</span> ) = <span class="hljs-number">4.00000000</span>    <br>darray( <span class="hljs-number">2</span> , <span class="hljs-number">1</span> ) = <span class="hljs-number">2.00000000</span>    <br>darray( <span class="hljs-number">2</span> , <span class="hljs-number">2</span> ) = <span class="hljs-number">4.00000000</span>    <br>darray( <span class="hljs-number">2</span> , <span class="hljs-number">3</span> ) = <span class="hljs-number">6.00000000</span>    <br>darray( <span class="hljs-number">2</span> , <span class="hljs-number">4</span> ) = <span class="hljs-number">8.00000000</span>    <br>darray( <span class="hljs-number">3</span> , <span class="hljs-number">1</span> ) = <span class="hljs-number">3.00000000</span>    <br>darray( <span class="hljs-number">3</span> , <span class="hljs-number">2</span> ) = <span class="hljs-number">6.00000000</span>    <br>darray( <span class="hljs-number">3</span> , <span class="hljs-number">3</span> ) = <span class="hljs-number">9.00000000</span>    <br>darray( <span class="hljs-number">3</span> , <span class="hljs-number">4</span> ) = <span class="hljs-number">12.0000000</span>   <br></code></pre></td></tr></table></figure>
+
+<h3 id="使用data语句"><a href="#使用data语句" class="headerlink" title="使用data语句"></a>使用data语句</h3><p>​	data 语句可用于初始化多个阵列，或用于阵列部分的初始化。</p>
+<p>​	data 语句的语法是：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">data</span> variable / list / ...<br></code></pre></td></tr></table></figure>
+
+<p>​	<strong>示例</strong></p>
+<p>​	下面的例子演示了这一概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> dataStatement<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span> :: a(<span class="hljs-number">5</span>), b(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>), c(<span class="hljs-number">10</span>),i, j<br>   <span class="hljs-keyword">data</span> a /<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>/ <br>   <br>   <span class="hljs-keyword">data</span> b(<span class="hljs-number">1</span>,:) /<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>/ <br>   <span class="hljs-keyword">data</span> b(<span class="hljs-number">2</span>,:)/<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>/ <br>   <span class="hljs-keyword">data</span> b(<span class="hljs-number">3</span>,:)/<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>/ <br>   <span class="hljs-keyword">data</span> (c(i),i=<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">2</span>) /<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>/ <br>   <span class="hljs-keyword">data</span> (c(i),i=<span class="hljs-number">2</span>,<span class="hljs-number">10</span>,<span class="hljs-number">2</span>)/<span class="hljs-number">5</span>*<span class="hljs-number">2</span>/<br>   <br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-string">&#x27;The A array:&#x27;</span><br>   <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">5</span>                <br>      <span class="hljs-built_in">print</span>*, a(j)           <br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span> <br>   <br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-string">&#x27;The B array:&#x27;</span><br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(b,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(b,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (b(i,j), j = <span class="hljs-built_in">lbound</span>(b,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(b,<span class="hljs-number">2</span>))<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br><br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-string">&#x27;The C array:&#x27;</span> <br>   <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">10</span>                <br>      <span class="hljs-built_in">print</span>*, c(j)           <br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span>      <br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> dataStatement<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs fortran">The A array:<br><span class="hljs-number">7</span><br><span class="hljs-number">8</span><br><span class="hljs-number">9</span><br><span class="hljs-number">10</span><br><span class="hljs-number">11</span><br>The B array:<br><span class="hljs-number">1</span>  <span class="hljs-number">1</span>  <span class="hljs-number">1</span><br><span class="hljs-number">2</span>  <span class="hljs-number">2</span>  <span class="hljs-number">2</span><br><span class="hljs-number">3</span>  <span class="hljs-number">3</span>  <span class="hljs-number">3</span><br>The C array:<br><span class="hljs-number">4</span><br><span class="hljs-number">2</span><br><span class="hljs-number">5</span><br><span class="hljs-number">2</span><br><span class="hljs-number">6</span><br><span class="hljs-number">2</span><br><span class="hljs-number">7</span><br><span class="hljs-number">2</span><br><span class="hljs-number">8</span><br><span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="使用where语句"><a href="#使用where语句" class="headerlink" title="使用where语句"></a>使用where语句</h3><p>​	where语句可以使用数组中的某些元素在一个表达式，根据一些逻辑条件的结果。它允许表达的执行在一个元素上，如果给定的条件为真。</p>
+<p>​	<strong>例子</strong></p>
+<p>​	下面的例子演示了这一概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> whereStatement<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span> :: a(<span class="hljs-number">3</span>,<span class="hljs-number">5</span>), i , j<br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>,<span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">5</span>                <br>         a(i,j) = j-i          <br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span> <br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-string">&#x27;The A array:&#x27;</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (a(i,j), j = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">2</span>))<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-keyword">where</span>( a&lt;<span class="hljs-number">0</span> ) <br>      a = <span class="hljs-number">1</span> <br>   <span class="hljs-keyword">elsewhere</span><br>      a = <span class="hljs-number">5</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">where</span><br>  <br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-string">&#x27;The A array:&#x27;</span><br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (a(i,j), j = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">2</span>))<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span>   <br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> whereStatement<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran">The A array:<br><span class="hljs-number">0</span>   <span class="hljs-number">1</span>   <span class="hljs-number">2</span>  <span class="hljs-number">3</span>  <span class="hljs-number">4</span><br>-<span class="hljs-number">1</span>  <span class="hljs-number">0</span>   <span class="hljs-number">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">3</span><br>-<span class="hljs-number">2</span>  -<span class="hljs-number">1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">1</span>  <span class="hljs-number">2</span><br>The A array:<br><span class="hljs-number">5</span>   <span class="hljs-number">5</span>   <span class="hljs-number">5</span>  <span class="hljs-number">5</span>  <span class="hljs-number">5</span><br><span class="hljs-number">1</span>   <span class="hljs-number">5</span>   <span class="hljs-number">5</span>  <span class="hljs-number">5</span>  <span class="hljs-number">5</span><br><span class="hljs-number">1</span>   <span class="hljs-number">1</span>   <span class="hljs-number">5</span>  <span class="hljs-number">5</span>  <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="导出数据类型"><a href="#导出数据类型" class="headerlink" title="导出数据类型"></a>导出数据类型</h2><p>Fortran语言可以定义导出的数据类型。导出的数据类型也被称为一个结构，它可以包含不同类型的数据对象。</p>
+<p>​	导出的数据类型被用来代表一个记录。例如要跟踪在图书馆的书，可能希望跟踪的每本书有如下属性：</p>
+<ul>
+<li>​		标题- Title</li>
+<li>​		作者 - Author</li>
+<li>​		科目 - Subject</li>
+<li>​		编号 - Book ID</li>
+</ul>
+<h2 id="定义一个导出的数据类型"><a href="#定义一个导出的数据类型" class="headerlink" title="定义一个导出的数据类型"></a>定义一个导出的数据类型</h2><p>​	定义一个派生数据类型，类型和端类型的语句被使用。类型语句定义了一个新的数据类型，项目不止一个成员。类型声明的格式是这样的：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">type</span> type_name      <br>   declarations<br><span class="hljs-keyword">end</span> <span class="hljs-keyword">type</span> <br></code></pre></td></tr></table></figure>
+
+<p>​	这里是会声明书的结构方式：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">type</span> Books<br>   <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: title<br>   <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: author<br>   <span class="hljs-keyword">character</span>(len=<span class="hljs-number">150</span>) :: subject<br>   <span class="hljs-keyword">integer</span> :: book_id<br><span class="hljs-keyword">end</span> <span class="hljs-keyword">type</span> Books<br></code></pre></td></tr></table></figure>
+
+<h2 id="访问结构成员"><a href="#访问结构成员" class="headerlink" title="访问结构成员"></a>访问结构成员</h2><p>​	一个派生数据类型的对象被称为结构</p>
+<p>​	类型书籍(Books) 的结构像一个类型声明语句创建如下：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">type</span>(Books) :: book1 <br></code></pre></td></tr></table></figure>
+
+<p>​	结构的组成部分可以使用该组件选择字符(%)进行访问 :</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fortran">book1%title = <span class="hljs-string">&quot;C Programming&quot;</span><br>book1%author = <span class="hljs-string">&quot;Nuha Ali&quot;</span><br>book1%subject = <span class="hljs-string">&quot;C Programming Tutorial&quot;</span><br>book1%book_id = <span class="hljs-number">6495407</span><br></code></pre></td></tr></table></figure>
+
+<p>​	<strong>请注意，</strong>％符号前后没有空格。</p>
+<p>​	<strong>示例</strong></p>
+<p>​	下面的程序说明了上述概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> deriveDataType<br><br>   <span class="hljs-comment">!type declaration</span><br>   <span class="hljs-keyword">type</span> Books<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: title<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: author<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">150</span>) :: subject<br>      <span class="hljs-keyword">integer</span> :: book_id<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">type</span> Books<br>   <br>   <span class="hljs-comment">!declaring type variables</span><br>   <span class="hljs-keyword">type</span>(Books) :: book1 <br>   <span class="hljs-keyword">type</span>(Books) :: book2 <br>   <br>   <span class="hljs-comment">!accessing the components of the structure</span><br>   <br>   book1%title = <span class="hljs-string">&quot;C Programming&quot;</span><br>   book1%author = <span class="hljs-string">&quot;Nuha Ali&quot;</span><br>   book1%subject = <span class="hljs-string">&quot;C Programming Tutorial&quot;</span><br>   book1%book_id = <span class="hljs-number">6495407</span> <br>   <br>   book2%title = <span class="hljs-string">&quot;Telecom Billing&quot;</span><br>   book2%author = <span class="hljs-string">&quot;Zara Ali&quot;</span><br>   book2%subject = <span class="hljs-string">&quot;Telecom Billing Tutorial&quot;</span><br>   book2%book_id = <span class="hljs-number">6495700</span><br>  <br>   <span class="hljs-comment">!display book info</span><br>   <br>   <span class="hljs-built_in">Print</span> *, book1%title <br>   <span class="hljs-built_in">Print</span> *, book1%author <br>   <span class="hljs-built_in">Print</span> *, book1%subject <br>   <span class="hljs-built_in">Print</span> *, book1%book_id  <br>   <br>   <span class="hljs-built_in">Print</span> *, book2%title <br>   <span class="hljs-built_in">Print</span> *, book2%author <br>   <span class="hljs-built_in">Print</span> *, book2%subject <br>   <span class="hljs-built_in">Print</span> *, book2%book_id  <br><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> deriveDataType<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">C Programming                                     </span><br>Nuha Ali                                          <br><span class="hljs-comment">C Programming Tutorial            </span><br>    <span class="hljs-number">6495407</span><br>Telecom Billing                                   <br>Zara Ali                                          <br>Telecom Billing Tutorial            <br>    <span class="hljs-number">6495700</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="结构数组"><a href="#结构数组" class="headerlink" title="结构数组"></a>结构数组</h2><p>​	还可以创建一个派生类型的数组：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">type</span>(Books), <span class="hljs-keyword">dimension</span>(<span class="hljs-number">2</span>) :: list<br></code></pre></td></tr></table></figure>
+
+<p>​	数组的单个元素，可以访问如下：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fortran">list(<span class="hljs-number">1</span>)%title = <span class="hljs-string">&quot;C Programming&quot;</span><br>list(<span class="hljs-number">1</span>)%author = <span class="hljs-string">&quot;Nuha Ali&quot;</span><br>list(<span class="hljs-number">1</span>)%subject = <span class="hljs-string">&quot;C Programming Tutorial&quot;</span><br>list(<span class="hljs-number">1</span>)%book_id = <span class="hljs-number">6495407</span><br></code></pre></td></tr></table></figure>
+
+<p>​	下面的程序说明了这个概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> deriveDataType<br><br>   <span class="hljs-comment">!type declaration</span><br>   <span class="hljs-keyword">type</span> Books<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: title<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">50</span>) :: author<br>      <span class="hljs-keyword">character</span>(len=<span class="hljs-number">150</span>) :: subject<br>      <span class="hljs-keyword">integer</span> :: book_id<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">type</span> Books<br>   <br>   <span class="hljs-comment">!declaring array of books</span><br>   <span class="hljs-keyword">type</span>(Books), <span class="hljs-keyword">dimension</span>(<span class="hljs-number">2</span>) :: list <br>    <br>   <span class="hljs-comment">!accessing the components of the structure</span><br>   <br>   list(<span class="hljs-number">1</span>)%title = <span class="hljs-string">&quot;C Programming&quot;</span><br>   list(<span class="hljs-number">1</span>)%author = <span class="hljs-string">&quot;Nuha Ali&quot;</span><br>   list(<span class="hljs-number">1</span>)%subject = <span class="hljs-string">&quot;C Programming Tutorial&quot;</span><br>   list(<span class="hljs-number">1</span>)%book_id = <span class="hljs-number">6495407</span> <br>   <br>   list(<span class="hljs-number">2</span>)%title = <span class="hljs-string">&quot;Telecom Billing&quot;</span><br>   list(<span class="hljs-number">2</span>)%author = <span class="hljs-string">&quot;Zara Ali&quot;</span><br>   list(<span class="hljs-number">2</span>)%subject = <span class="hljs-string">&quot;Telecom Billing Tutorial&quot;</span><br>   list(<span class="hljs-number">2</span>)%book_id = <span class="hljs-number">6495700</span><br>  <br>   <span class="hljs-comment">!display book info</span><br>   <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">1</span>)%title <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">1</span>)%author <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">1</span>)%subject <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">1</span>)%book_id  <br>   <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">1</span>)%title <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">2</span>)%author <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">2</span>)%subject <br>   <span class="hljs-built_in">Print</span> *, list(<span class="hljs-number">2</span>)%book_id  <br><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> deriveDataType<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">C Programming                                     </span><br>Nuha Ali                                          <br><span class="hljs-comment">C Programming Tutorial               </span><br>   <span class="hljs-number">6495407</span><br><span class="hljs-comment">C Programming                                     </span><br>Zara Ali                                          <br>Telecom Billing Tutorial                                      <br>   <span class="hljs-number">6495700</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><p>在大多数编程语言中，一个指针变量存储对象的内存地址。然而，在Fortran中，指针是具有不是仅仅存储存储器地址多功能性的数据对象。它包含有关特定对象的详细信息，如类型，等级，扩展和存储器地址。</p>
+<p>​	指针是通过分配或指针赋值的目标相关联。</p>
+<h3 id="声明一个指针变量"><a href="#声明一个指针变量" class="headerlink" title="声明一个指针变量"></a>声明一个指针变量</h3><p>​	一个指针变量与指针属性声明。</p>
+<p>​	下面的实施例示出了声明指针变量：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">integer</span>, <span class="hljs-keyword">pointer</span> :: p1 <span class="hljs-comment">! pointer to integer  </span><br><span class="hljs-keyword">real</span>, <span class="hljs-keyword">pointer</span>, <span class="hljs-keyword">dimension</span> (:) :: pra <span class="hljs-comment">! pointer to 1-dim real array  </span><br><span class="hljs-keyword">real</span>, <span class="hljs-keyword">pointer</span>, <span class="hljs-keyword">dimension</span> (:,:) :: pra2 <span class="hljs-comment">! pointer to 2-dim real array</span><br></code></pre></td></tr></table></figure>
+
+<p>​	指针可以指向：</p>
+<ul>
+<li><p>​		动态分配的内存区域</p>
+</li>
+<li><p>​		数据对象与目标属性相同类型的指针</p>
+<h3 id="分配指针的空间"><a href="#分配指针的空间" class="headerlink" title="分配指针的空间"></a>分配指针的空间</h3></li>
+</ul>
+<p>​	allocate语句可以分配指针对象空间。例如：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">pointer</span> :: p1<br>   <span class="hljs-built_in">allocate</span>(p1)<br>   <br>   p1 = <span class="hljs-number">1</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <br>   p1 = p1 + <span class="hljs-number">4</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-number">1</span><br><span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>​	应该解除分配语句清空该分配的存储空间当它不再需要，并避免未使用的和不可用的存储器空间的积累。</p>
+<h3 id="目标和关联"><a href="#目标和关联" class="headerlink" title="目标和关联"></a>目标和关联</h3><p>​	目标是另一个正态变量，空间预留给它。目标变量必须与目标属性进行声明。</p>
+<p>​	一个指针变量使用的关联操作符使目标变量相关联(&#x3D;&gt;)。</p>
+<p>​	让我们重写前面的例子中，以说明这个概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">pointer</span> :: p1<br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">target</span> :: t1 <br>   <br>   p1=&gt;t1<br>   p1 = <span class="hljs-number">1</span><br>   <br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   p1 = p1 + <span class="hljs-number">4</span><br>   <br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   t1 = <span class="hljs-number">8</span><br>   <br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-number">1</span><br><span class="hljs-number">1</span><br><span class="hljs-number">5</span><br><span class="hljs-number">5</span><br><span class="hljs-number">8</span><br><span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+
+<p>​	指针可以是：</p>
+<ul>
+<li>​		未定义的</li>
+<li>​		关联的</li>
+<li>​		未关联的</li>
+</ul>
+<p>​	在上面的程序中，我们使用associated的指针p1与目标t1时，使用&#x3D;&gt;运算符。相关的函数，测试指针的关联状态。</p>
+<p>​	这个声明无效的关联从一个目标一个指针。</p>
+<p>​	无效非空目标，因为可能有多个指针指向同一个目标。然而空指针指也是无效的。</p>
+<p>​	示例 1</p>
+<p>​	下面的例子演示了概念：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">pointer</span> :: p1<br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">target</span> :: t1 <br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">target</span> :: t2<br>   <br>   p1=&gt;t1<br>   p1 = <span class="hljs-number">1</span><br>   <br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   p1 = p1 + <span class="hljs-number">4</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   t1 = <span class="hljs-number">8</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   <span class="hljs-built_in">nullify</span>(p1)<br>   <span class="hljs-built_in">Print</span> *, t1<br>   <br>   p1=&gt;t2<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">associated</span>(p1)<br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-built_in">associated</span>(p1, t1)<br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-built_in">associated</span>(p1, t2)<br>   <br>   <span class="hljs-comment">!what is the value of p1 at present</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t2<br>   <br>   p1 = <span class="hljs-number">10</span><br>   <span class="hljs-built_in">Print</span> *, p1<br>   <span class="hljs-built_in">Print</span> *, t2<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-number">1</span><br><span class="hljs-number">1</span><br><span class="hljs-number">5</span><br><span class="hljs-number">5</span><br><span class="hljs-number">8</span><br><span class="hljs-number">8</span><br><span class="hljs-number">8</span><br>T<br>F<br>T<br><span class="hljs-number">952754640</span><br><span class="hljs-number">952754640</span><br><span class="hljs-number">10</span><br><span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+
+<p>​	请注意，每次运行该代码时，内存地址会有所不同。</p>
+<p>​	<strong>示例 2</strong></p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">pointer</span> :: a, b<br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">target</span> :: t<br>   <span class="hljs-keyword">integer</span> :: n<br>   <br>   t= <span class="hljs-number">1</span><br>   a=&gt;t<br>   t = <span class="hljs-number">2</span><br>   b =&gt; t<br>   n = a + b<br>   <br>   <span class="hljs-built_in">Print</span> *, a, b, t, n <br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> pointerExample<br></code></pre></td></tr></table></figure>
+
+<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-number">2</span>  <span class="hljs-number">2</span>  <span class="hljs-number">2</span>  <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Fortran/">#Fortran</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>动态数组&amp;导出数据类型&amp;指针</div>
+      <div>http://example.com/2022/05/23/Fortran-动态数组-导出数据类型-指针/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Aries Peng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/23/Fortran-%E5%87%BD%E6%95%B0/" title="Fortran-函数">
+                        <span class="hidden-mobile">Fortran-函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","appKey":"8Ua5DhRiSHzavGRmSjJzGoa3","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

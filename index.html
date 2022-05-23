@@ -223,6 +223,166 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/05/23/Fortran-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E6%8C%87%E9%92%88/" target="_self">
+          动态数组&amp;导出数据类型&amp;指针
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/2022/05/23/Fortran-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E6%8C%87%E9%92%88/" target="_self">
+        <div>
+          
+          动态数组动态数组是一种数组，其尺寸在编译时不知道，而是在执行时才已知&#x2F;确定的。 ​	动态数组的属性使用 allocatable 声明。 . ​	例如， 1real, dimension (:,:), allocatable :: darray      ​	数组的秩，即尺寸，必须提到但是，分配内存以这样的阵列，可以使用allocate函数。 1allocate ( darray(s1,s
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 17:21" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Fortran/">#Fortran</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/23/Fortran-%E5%87%BD%E6%95%B0/" target="_self">
+          Fortran-函数
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/2022/05/23/Fortran-%E5%87%BD%E6%95%B0/" target="_self">
+        <div>
+          
+          向量和矩阵乘法函数下表描述了向量和矩阵乘法函数：    函数 描述    dot_product(vector_a, vector_b) 函数返回两个输入向量，它必须具有相同长度的标量积。   **matmul **(matrix_a, matrix_b) 它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)   ​	实例 ​	下面的例子演示了内积： 12345
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 17:04" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Fortran/">#Fortran</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/23/Fortran-%E5%AD%90%E7%A8%8B%E5%BA%8F/" target="_self">
+          Fortran-子程序
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/2022/05/23/Fortran-%E5%AD%90%E7%A8%8B%E5%BA%8F/" target="_self">
+        <div>
+          
+          Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。 定义和调用子程序的一般结构如下所示： 12345678!!! 不带初始化变量的子程序subroutine sub
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 16:09" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Fortran/">#Fortran</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/23/Fortran-%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/" target="_self">
+          Fortran-条件与循环语句
+        </a>
+      </h1>
+
+      <a class="index-excerpt" href="/2022/05/23/Fortran-%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/" target="_self">
+        <div>
+          
+          循环语句Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。 do 循环Fortran 的最简单的循环语句称为 do 语句，其形式如下所示： 12345!!! 不设置步长，默认为 1do 整数型变量 &#x3D; 起始值, 结束值    ......    ......enddo   123456789101112131415161718192021
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-23 15:34" pubdate>
+              2022-05-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Fortran/">#Fortran</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/05/23/Fortran-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
           Fortran 基础知识
         </a>
