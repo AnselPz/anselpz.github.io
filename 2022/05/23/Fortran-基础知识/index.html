@@ -1,0 +1,1025 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Aries Peng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="主函数一个完整的Fortran代码，一般来说，以 program code_name 开始，以 end program code_name 结束的首末声明，变量声明以及需要执行的命令或者操作三个部分组成。通用的 Fortran 代码文件的文件后缀可以是 .f90、.f、.g95 等等，但通常为了统一和适应不同版本的 Fortran 编译环境建议采用 .f90 后缀。和 C、C++ 语言比较类似，F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fortran 基础知识">
+<meta property="og:url" content="http://example.com/2022/05/23/Fortran-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="千山慕晗">
+<meta property="og:description" content="主函数一个完整的Fortran代码，一般来说，以 program code_name 开始，以 end program code_name 结束的首末声明，变量声明以及需要执行的命令或者操作三个部分组成。通用的 Fortran 代码文件的文件后缀可以是 .f90、.f、.g95 等等，但通常为了统一和适应不同版本的 Fortran 编译环境建议采用 .f90 后缀。和 C、C++ 语言比较类似，F">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-23T07:01:53.000Z">
+<meta property="article:modified_time" content="2022-05-23T07:30:01.715Z">
+<meta property="article:author" content="Aries Peng">
+<meta property="article:tag" content="Fortran">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Fortran 基础知识 - 千山慕晗</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","app_key":"8Ua5DhRiSHzavGRmSjJzGoa3","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>慕晗</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Fortran 基础知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-23 15:01" pubdate>
+          2022年5月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Fortran 基础知识</h1>
+            
+            <div class="markdown-body">
+              
+              <h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><p>一个完整的Fortran代码，一般来说，<strong>以 <code>program code_name</code> 开始，以 <code>end program code_name</code> 结束的首末声明</strong>，<strong>变量声明</strong>以及<strong>需要执行的命令或者操作</strong>三个部分组成。通用的 Fortran 代码文件的文件后缀可以是 <code>.f90</code>、<code>.f</code>、<code>.g95</code> 等等，但通常为了统一和适应不同版本的 Fortran 编译环境<strong>建议采用 <code>.f90</code> 后缀</strong>。和 C、C++ 语言比较类似，Fortran 代码也是通过编译执行。比如对如下所示的示例代码执行 **<code>gfortran code_name.f90 -o code_name</code> **即可生成可执行程序 <code>code_name</code>，再执行 **<code>./code_name</code> **则会输出代码执行结果如下。</p>
+<p>code_name.f90</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> code_name<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y, z<br>    x = <span class="hljs-number">2</span><br>    y = <span class="hljs-number">3</span><br>    z = x + y * <span class="hljs-number">5</span><br>    <span class="hljs-built_in">print</span> *, x, y<br>    <span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;z = &#x27;</span>, z <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> code_name<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">  2.00000000       3.00000000    <br>z =    17.0000000<br></code></pre></td></tr></table></figure>
+
+<p>上面给出的示例代码中有一行 <code>implicit none</code>，明明本来的代码已经符合三个部分了，为什么要多加这一行呢？这是因为在旧 Fortran 中存在隐式类型声明，为了规避在 Fortran 95 以后的版本中可能出现错误，特意在每个开头声明之后都加上这么一行。这样我们在写代码的过程中如果使用到了未提前声明或者打错字符的变量名，编译程序就会报错告知我们。这对于形成良好的代码习惯和增强代码可维护性有很大的帮助，因此此行声明必不可少。</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>Fortran 语言和别的高级编程语言一样，都拥有完整的运算符，包括简单的加减乘除、复杂的乘方等运算。如下表所示是 Fortran 语言中的运算符的写法和使用方法，其中运算符的计算优先顺序与数学计算中一致：<strong>乘方运算 &gt; 乘除运算 &gt; 加减运算</strong>。</p>
+<h2 id="数据类型与变量声明"><a href="#数据类型与变量声明" class="headerlink" title="数据类型与变量声明"></a>数据类型与变量声明</h2><p>Fortran 语言的数据类型比较简单，没有像其他高级编程语言那样分得那么细，主要分为<strong>整数型</strong>和<strong>实数型</strong>两个大类。整数型的计算与 C、C++、Python 中有点类似，整数与整数的商还是一个整数。<strong>即使当不整除的时候，为了保持结果和参与运算的变量类型一致 Fortran 编译器会只取正常数学运算结果的整数部分</strong>。实数型其实与数学意义上的实数是一致的，既<strong>包括整数也包括小数</strong>，所以当不整除的除法中的两个变量<strong>有一个为实数型</strong>时，Fortran 编译器会将两个变量类型对应成实数型并<strong>计算出正常的带小数的结果</strong>。</p>
+<p><strong>所有变量都要在使用之前声明类型</strong>，所以<strong>当属于同一种类型时我们可以按照下面那样写在同一行</strong>，不同变量之间用逗号分隔开。为了代码美观，<strong>建议在逗号与后一个变量名之间留一个空格</strong>。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 两个整数型相除</span><br><span class="hljs-keyword">integer</span> x, y<br>x = <span class="hljs-number">2</span><br>y = <span class="hljs-number">3</span><br><span class="hljs-built_in">print</span> *, x/y   <span class="hljs-comment">! 结果为 0</span><br><span class="hljs-built_in">print</span> *, y/x   <span class="hljs-comment">! 结果为 1</span><br><br><span class="hljs-comment">!!! 被除数为实数型，除数为整数型</span><br><span class="hljs-keyword">real</span> m <br><span class="hljs-keyword">integer</span> n <br>m = <span class="hljs-number">10</span><br>n = <span class="hljs-number">3</span><br><span class="hljs-built_in">print</span> *, m/n   <span class="hljs-comment">! 结果为  3.33333325</span><br><br><span class="hljs-comment">!!! 被除数为整数型，除数为实数型</span><br><span class="hljs-keyword">integer</span> m <br><span class="hljs-keyword">real</span> n <br>m = <span class="hljs-number">10</span><br>n = <span class="hljs-number">3</span><br><span class="hljs-built_in">print</span> *, m/n   <span class="hljs-comment">! 结果为  3.33333325</span><br><br><span class="hljs-comment">!!! 被除数和除数均为实数型</span><br><span class="hljs-keyword">real</span> m, n<br>m = <span class="hljs-number">10</span><br>n = <span class="hljs-number">3</span><br><span class="hljs-built_in">print</span> *, m/n   <span class="hljs-comment">! 结果为  3.33333325</span><br></code></pre></td></tr></table></figure>
+
+<p>实际上，Fortran 语言除了整数型和实数型两个大类之外，还有一些小类，比如说<strong>复数类型、布尔类型、字符串类型</strong>。因为操作系统一般使用实数型或者复数类型时都<strong>默认采用单精度</strong>，如果需要使用双精度则需要特殊声明。所有数据类型总结如下：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>标识符</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整数型</td>
+<td>integer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>实数型</td>
+<td>real</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>双精度实数型</td>
+<td>double precision</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>复数型</td>
+<td>complex</td>
+<td>(1.0, 2.0)</td>
+</tr>
+<tr>
+<td>双精度复数型</td>
+<td>complex(kind(0d0))</td>
+<td>(1.0, 2.0)</td>
+</tr>
+<tr>
+<td>布尔型</td>
+<td>logical</td>
+<td>true&#x2F;false</td>
+</tr>
+<tr>
+<td>字符串型</td>
+<td>character</td>
+<td>“Text”</td>
+</tr>
+</tbody></table>
+<h5 id="小提示"><a href="#小提示" class="headerlink" title="小提示"></a>小提示</h5><p>这里有一点值得十分注意：一个 Fortran 文件的<strong>变量声明必须在最开始</strong>，如果多个变量声明行之间掺杂了其他的操作行或者命令行，则<strong>后续的变量声明将会无效</strong>，在编译的过程中就会直接报错。</p>
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><p>Fortran 既然是为数值计算而生的，那么自然就包含了对初等数学函数和数据类型变化函数的完整支持。如下表所示为有关初等数学函数的写法和用法。</p>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>函数名称</th>
+<th>数学表达</th>
+<th>必要条件</th>
+<th>函数值的范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sqrt(x)</td>
+<td>平方根</td>
+<td>\sqrt{x}<em>x</em></td>
+<td>x \geqq 0<em>x</em>≧0</td>
+<td></td>
+</tr>
+<tr>
+<td>sin(x)</td>
+<td>正弦函数</td>
+<td>\sin xsin<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>cos(x)</td>
+<td>余弦函数</td>
+<td>\cos xcos<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>tan(x)</td>
+<td>正切函数</td>
+<td>\tan xtan<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>asin(x)</td>
+<td>反正弦函数</td>
+<td>\sin^{-1}xsin−1<em>x</em></td>
+<td>-1\leqq x \leqq 1−1≦<em>x</em>≦1</td>
+<td>-\frac{\pi}{2} \leqq f \leqq \frac{\pi}{2}−2<em>π</em>≦<em>f</em>≦2<em>π</em></td>
+</tr>
+<tr>
+<td>acos(x)</td>
+<td>反余弦函数</td>
+<td>\cos^{-1}xcos−1<em>x</em></td>
+<td>-1\leqq x \leqq 1−1≦<em>x</em>≦1</td>
+<td>0 \leqq f \leqq \pi0≦<em>f</em>≦<em>π</em></td>
+</tr>
+<tr>
+<td>atan(x)</td>
+<td>反正切函数</td>
+<td>\tan^{-1}xtan−1<em>x</em></td>
+<td></td>
+<td>-\frac{\pi}{2} &lt; f &lt; \frac{\pi}{2}−2<em>π</em>&lt;<em>f</em>&lt;2<em>π</em></td>
+</tr>
+<tr>
+<td>atan2(y, x)</td>
+<td>反正切函数</td>
+<td>\tan^{-1}(y&#x2F;x)tan−1(<em>y</em>&#x2F;<em>x</em>)</td>
+<td></td>
+<td>-\pi &lt; f &lt; \pi−<em>π</em>&lt;<em>f</em>&lt;<em>π</em></td>
+</tr>
+<tr>
+<td>exp(x)</td>
+<td>指数函数</td>
+<td>e^x<em>e**x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>log(x)</td>
+<td>对数函数</td>
+<td>\log_{e}xlog<em>e**x</em></td>
+<td>x &gt; 0<em>x</em>&gt;0</td>
+<td></td>
+</tr>
+<tr>
+<td>log10(x)</td>
+<td>常用对数函数</td>
+<td>\log_{10}xlog10<em>x</em></td>
+<td>x &gt; 0<em>x</em>&gt;0</td>
+<td></td>
+</tr>
+<tr>
+<td>sinh(x)</td>
+<td>双曲正弦函数</td>
+<td>\sinh xsinh<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>cosh(x)</td>
+<td>双曲余弦函数</td>
+<td>\cosh xcosh<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>tanh(x)</td>
+<td>双曲正切函数</td>
+<td>\tanh xtanh<em>x</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>下表为有关数据类型变化函数的写法和用法。</p>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>函数名称</th>
+<th>输入类型</th>
+<th>输出类型</th>
+<th>函数的含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>real(n)</td>
+<td>实数化</td>
+<td>整数</td>
+<td>实数</td>
+<td>变成实数型</td>
+</tr>
+<tr>
+<td>abs(n)</td>
+<td>绝对值</td>
+<td>整数</td>
+<td>整数</td>
+<td>n<em>n</em> 的绝对值</td>
+</tr>
+<tr>
+<td>mod(m, n)</td>
+<td>求余</td>
+<td>2个整数</td>
+<td>整数</td>
+<td>m<em>m</em> 对 n<em>n</em> 求余</td>
+</tr>
+<tr>
+<td>int(x)</td>
+<td>整数化</td>
+<td>实数</td>
+<td>整数</td>
+<td>变成整数型(去尾)</td>
+</tr>
+<tr>
+<td>nint(x)</td>
+<td>整数化</td>
+<td>实数</td>
+<td>整数</td>
+<td>变成整数型(四舍五入)</td>
+</tr>
+<tr>
+<td>sign(x, s)</td>
+<td>符号变更</td>
+<td>实数</td>
+<td>实数</td>
+<td>s \geqq 0, \lvert x \rvert; s &lt; 0, -\lvert x \rvert<em>s</em>≧0,∣<em>x</em>∣;<em>s</em>&lt;0,−∣<em>x</em>∣</td>
+</tr>
+<tr>
+<td>abs(x)</td>
+<td>绝对值</td>
+<td>实数或复数</td>
+<td>实数</td>
+<td>x<em>x</em> 的绝对值</td>
+</tr>
+<tr>
+<td>mod(x, y)</td>
+<td>求余</td>
+<td>2个实数</td>
+<td>实数</td>
+<td>x<em>x</em> 对 y<em>y</em> 求余</td>
+</tr>
+<tr>
+<td>real(z)</td>
+<td>复数的实部</td>
+<td>复数</td>
+<td>实数</td>
+<td>z<em>z</em> 的实部</td>
+</tr>
+<tr>
+<td>imag(z)</td>
+<td>复数的虚部</td>
+<td>复数</td>
+<td>实数</td>
+<td>z<em>z</em> 的虚部</td>
+</tr>
+<tr>
+<td>cmplx(x, y)</td>
+<td>复数化</td>
+<td>两个实数</td>
+<td>复数</td>
+<td>x+iy<em>x</em>+<em>i**y</em></td>
+</tr>
+<tr>
+<td>conjg(z)</td>
+<td>共轭复数</td>
+<td>复数</td>
+<td>复数</td>
+<td>z<em>z</em> 的共轭复数</td>
+</tr>
+</tbody></table>
+<h2 id="打印输出"><a href="#打印输出" class="headerlink" title="打印输出"></a>打印输出</h2><p>Fortran 的打印输出其实已经在前面的示例代码中已经提到了，就是所谓的 <code>print</code> 语句。**<code>print</code> 语句必须紧接着 <code>*</code>**，其含义是按照标准格式输出，如果缺失这个的话在编译时就会报出 <code>Error: Expected comma in I/O list at (1)</code> 的错误。正确的打印输出示例代码如下：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">integer</span> n<br>n = <span class="hljs-number">2</span><br><span class="hljs-built_in">print</span> *, <span class="hljs-number">1</span>+<span class="hljs-number">2</span>, n, n-<span class="hljs-number">1</span>, n/<span class="hljs-number">1</span>, n**<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>输出结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">3           2           1           2           <br></code></pre></td></tr></table></figure>
+
+<p>如果需要和其他高级编程语言那样<strong>在输出的过程中加入字符串到其中</strong>，则按如下设置：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">real</span> m<br>m = <span class="hljs-number">5</span><br><span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;m = &#x27;</span>, m, <span class="hljs-string">&#x27;  m*2 = &#x27;</span>, m*<span class="hljs-number">2</span><br><span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;m = &#x27;</span>,m, <span class="hljs-string">&#x27;  m*2 = &#x27;</span>,m*<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>输出结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">m =    5.00000000       m*2 =    10.0000000<br>m =    5.00000000       m*2 =    10.0000000<br></code></pre></td></tr></table></figure>
+
+<p>根据以上输出结果我们可以看出，<code>m</code> 与 <code>=</code> 之间的一个空格与实际输出时是一致的，而输出变量 <code>m</code> 时不管与前一个逗号之间是否有空格，输出结果都不会发生改变，都存在超过一个以上的空格。实际上，这也是 Fortran 编译器为了能够区分输出内容，而特意在标准输出时对逗号分割的内容上添加这样的空格。不过为了代码阅读上的美观，建议在代码编写时还是保持变量与逗号之间的一个空格。</p>
+<h5 id="小提示-1"><a href="#小提示-1" class="headerlink" title="小提示"></a>小提示</h5><p>这里输出字符串的时候引用字符串的符号**可以使用<code>&#39;</code>，也可以使用<code>&quot;</code>**。本质上没有什么区别，只是需要成对使用，不然就会报错。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h3><p>前面我们所介绍的有关数据类型基本上能够涵盖一般的日常使用，但是对于科研人员来说，矩阵、行列式等等才是计算过程中不可缺少的数据类型。为此，Fortran 也有了数组一样的数据类型来支持这一需求。如下所示，我们可以直接采用原有的整数型、实数型和复数型定义数组。<strong>当括号中只有一个数字时，表示是一维数组；当括号中有逗号分割的两个数字时，表示是二维数组；三维数组以此类推</strong>。二维数组可以用于表示我们所熟知的矩阵、行列式等数据类型。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">integer</span> m(<span class="hljs-number">10</span>)         <span class="hljs-comment">! 长度为 10 的整数型数组</span><br><span class="hljs-keyword">real</span> x(<span class="hljs-number">20</span>), y(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)   <span class="hljs-comment">! 长度为 20 的实数型数组， 4 行 x 5 列的二维实数型数组</span><br><span class="hljs-keyword">complex</span> matrix(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment">! 5 行 x 5 列的二维复数型数组</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="小提示-2"><a href="#小提示-2" class="headerlink" title="小提示"></a>小提示</h5><p>这里需要注意的是，在定义数组的时候<strong>不仅可以用正整数，也可以用负整数和 0</strong>。比如 <code>real n(-3:5)</code> 表示定义一个长度为 9、序号从 -3 到 5 (包括 0)的一维数组，<code>real m(-2:1, 0:4)</code> 表示定义一个 3 行 x 4 列、行序号从 -2 到 0、列序号从 1 到 4 的二维数组。一般来说，为了与实际数学运算中的理解保持一致，建议采用正整数来定义数组更加方便。</p>
+<h3 id="数组元素的选取"><a href="#数组元素的选取" class="headerlink" title="数组元素的选取"></a>数组元素的选取</h3><p>既然定义了数组，那么我们就需要有对于数组的增加、选择这样的基本操作。Fortran <strong>数组中的序号是从 1 开始的，即写作 n(1)<strong>，这点与其他高级编程语言略有不同，不过符合人类的数学认识。因此如下所示，当定义一个长度为 10 的数组 n 时，数组 n 的最后一个元素就是 n(10)。在实际的存储中，我们能够很容易理解一维数组是按照 1 到 10 的顺序从左往右排列的，但是在二维数组中又会是怎么样呢？是行优先还是列优先呢？一般来说，在我们接触过的高级编程语言中几乎都是行优先的，即先存储第一行再存储第二行，以此类推。但是，在 Fortran 中则是</strong>列优先</strong>的，也就是说 Fortran 的二维数组<strong>存储时会先存储第一列再存储第二列</strong>，再以此类推。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">real</span> n(<span class="hljs-number">10</span>)     <span class="hljs-comment">! n(1) ~ n(10)</span><br><span class="hljs-keyword">real</span> m(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)   <span class="hljs-comment">! m(1, 1) m(2, 1) m(3, 1) ... m(4, 4)</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="小提示-3"><a href="#小提示-3" class="headerlink" title="小提示"></a>小提示</h5><p>如果我们在使用数组 n 的过程中忘记了加上序号，那么程序<strong>默认就会对整个数组的全部元素进行操作</strong>，而非像其他高级编程语言可能会指向数组的第一个元素。</p>
+<p>当我们想要去选取数组中的某一个元素时，可以直接通过对应的序号进行选取。但是如果想要选多个元素或者某一行、某一列时，这就有点不同了。比如说，现在有一个长度为 10 的一维数组 n，我们想要获取到从第 3 个元素到第 5 个元素的 3 个元素，**应该使用 <code>:</code> 来将序号的上下限分隔开同时选中，即 n(3:5)**。如果有一个 3 行 x 4 列 的二维数组 m，我们想要获取到第 2 行到第 3 行的所有元素，则应该使用 m(2:3, 1:4) 来选取。</p>
+<h2 id="跨行与注释"><a href="#跨行与注释" class="headerlink" title="跨行与注释"></a>跨行与注释</h2><p>有的时候我们编写的<strong>计算式可能会比较长</strong>，这个时候为了代码和公式的高可阅读性，我们通常采用 Fortran 语言所提供的跨行功能。比如说如下所示的原打印输出，就可以在<strong>中途使用 <code>&amp;</code> 符号来声明下一行是前一行的后续</strong>，这样的执行结果是一致的。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-built_in">print</span> *, zhang, qian, sun, li, zhou, wu, zhen, wang<br><br><span class="hljs-comment">!!! 可以换成</span><br><span class="hljs-built_in">print</span> *, zhang, qian, sun, li &amp;<br>       , zhou, wu, zhen, wang<br></code></pre></td></tr></table></figure>
+
+<p>上面的例子是变量的跨行输出，如果是一个长字符串，也是可以使用一样的方式的，<strong>只是需要在中断的前一行末尾和下一行开头同时加上 <code>&amp;</code> 符号</strong>，如下所示。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;Fortran is so good for the scientific calculation.&#x27;</span><br><br><span class="hljs-comment">!!! 可以换成</span><br><span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;Fortran is so good &amp;</span><br><span class="hljs-string">          &amp;for the scientific calculation.&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们之前在定义变量的时候已经提过，为了代码整洁性可能会同时将同一类型的变量放置在同一行，之间用逗号分割即可。如果是在给变量赋值的时候，是不是也能够将赋值式放置在同一行呢？原则上来说，<strong>如果赋值式比较短的话，是可以将多行赋值式缩短在同一行的</strong>，它们之间使用 <code>;</code> 进行连接。这里值得注意的是，**最后一个赋值式后面一定不要多加 <code>;</code>**，如下所示。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 修改前</span><br>x = <span class="hljs-number">3</span><br>y = <span class="hljs-number">4</span><br>z = <span class="hljs-number">5</span><br><br><span class="hljs-comment">!!! 修改后</span><br>x = <span class="hljs-number">3</span>; y = <span class="hljs-number">4</span>; z = <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>Fortran 语言中的注释其实在上面的内容中也已经接触到了，**<code>!</code> 之后的内容将会被 Fortran 编译器认为是注释内容<strong>。一般来说，一个 <code>!</code> 的注释其实就已经足够了，但是为了区分行注释与行末注释，建议在</strong>行注释的时候使用三个 <code>!</code><strong>，而在</strong>行末注释时使用一个 <code>!</code>**。当然如果存在相邻多行同时进行注释，或者在一个可视窗口内有多个行末注释，建议协调成同一列以增强代码整洁性。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Fortran/">#Fortran</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Fortran 基础知识</div>
+      <div>http://example.com/2022/05/23/Fortran-基础知识/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Aries Peng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/22/C++/" title="C++ 多态">
+                        <span class="hidden-mobile">C++ 多态</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","appKey":"8Ua5DhRiSHzavGRmSjJzGoa3","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
