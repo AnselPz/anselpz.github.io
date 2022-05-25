@@ -16,12 +16,12 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="向量和矩阵乘法函数下表描述了向量和矩阵乘法函数：    函数 描述    dot_product(vector_a, vector_b) 函数返回两个输入向量，它必须具有相同长度的标量积。   **matmul **(matrix_a, matrix_b) 它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)   ​	实例 ​	下面的例子演示了内积： 12345">
+    <meta name="description" content="向量和矩阵乘法函数 下表描述了向量和矩阵乘法函数：     函数 描述     dot_product(vector_a, vector_b) 函数返回两个输入向量，它必须具有相同长度的标量积。   matmul (matrix_a, matrix_b) 它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)    ​">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fortran-函数">
 <meta property="og:url" content="http://example.com/2022/05/23/Fortran-%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="向量和矩阵乘法函数下表描述了向量和矩阵乘法函数：    函数 描述    dot_product(vector_a, vector_b) 函数返回两个输入向量，它必须具有相同长度的标量积。   **matmul **(matrix_a, matrix_b) 它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)   ​	实例 ​	下面的例子演示了内积： 12345">
+<meta property="og:description" content="向量和矩阵乘法函数 下表描述了向量和矩阵乘法函数：     函数 描述     dot_product(vector_a, vector_b) 函数返回两个输入向量，它必须具有相同长度的标量积。   matmul (matrix_a, matrix_b) 它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)    ​">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-23T09:04:40.000Z">
 <meta property="article:modified_time" content="2022-05-23T09:19:14.076Z">
@@ -80,9 +80,7 @@
   <script  src="/js/color-schema.js" ></script>
 
   
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="/custom_css_source.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -280,235 +278,262 @@
             
             <div class="markdown-body">
               
-              <h2 id="向量和矩阵乘法函数"><a href="#向量和矩阵乘法函数" class="headerlink" title="向量和矩阵乘法函数"></a>向量和矩阵乘法函数</h2><p><strong>下表描述了向量和矩阵乘法函数：</strong></p>
+              <h2 id="向量和矩阵乘法函数">向量和矩阵乘法函数</h2>
+<p><strong>下表描述了向量和矩阵乘法函数：</strong></p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>dot_product</strong>(vector_a, vector_b)</td>
 <td>函数返回两个输入向量，它必须具有相同长度的标量积。</td>
 </tr>
-<tr>
-<td>**matmul **(matrix_a, matrix_b)</td>
-<td>它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和 (k, n)</td>
+<tr class="even">
+<td><strong>matmul </strong>(matrix_a, matrix_b)</td>
+<td>它返回两个矩阵的矩阵乘积，它必须是一致的，即具有相似大小 (m, k) 和
+(k, n)</td>
 </tr>
-</tbody></table>
-<p>​	<strong>实例</strong></p>
-<p>​	下面的例子演示了内积：</p>
+</tbody>
+</table>
+<p>​ <strong>实例</strong></p>
+<p>​ 下面的例子演示了内积：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayDotProduct<br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">5</span>) :: a, b<br>   <span class="hljs-keyword">integer</span>:: i, asize, bsize<br>   <br>   asize = <span class="hljs-built_in">size</span>(a)<br>   bsize = <span class="hljs-built_in">size</span>(b)<br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, asize<br>      a(i) = i<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, bsize<br>      b(i) = i*<span class="hljs-number">2</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, asize<br>      <span class="hljs-built_in">Print</span> *, a(i)<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, bsize<br>      <span class="hljs-built_in">Print</span> *, b(i)<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-string">&#x27;Vector Multiplication: Dot Product:&#x27;</span><br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-built_in">dot_product</span>(a, b)<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayDotProduct<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">2</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">3</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">4</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">5</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">2</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">4</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">6</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">8</span>.<span class="hljs-number">00000000</span>    <br><span class="hljs-attribute">10</span>.<span class="hljs-number">0000000</span>    <br><span class="hljs-attribute">Vector</span> Multiplication: Dot Product:<br><span class="hljs-attribute">110</span>.<span class="hljs-number">000000</span>   <br></code></pre></td></tr></table></figure>
-
-<p>​	<strong>实例</strong></p>
-<p>​	下面的例子演示了矩阵乘法：</p>
+<p>​ <strong>实例</strong></p>
+<p>​ 下面的例子演示了矩阵乘法：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> matMulProduct<br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>) :: a, b, c<br>   <span class="hljs-keyword">integer</span> :: i, j<br>    <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>         a(i, j) = i+j<br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-built_in">print</span> *, <span class="hljs-string">&#x27;Matrix Multiplication: A Matrix&#x27;</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>         <span class="hljs-built_in">print</span>*, a(i, j)<br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>         b(i, j) = i*j<br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-string">&#x27;Matrix Multiplication: B Matrix&#x27;</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>         <span class="hljs-built_in">print</span>*, b(i, j)<br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br>   c = <span class="hljs-built_in">matmul</span>(a, b)<br>   <span class="hljs-built_in">Print</span>*, <span class="hljs-string">&#x27;Matrix Multiplication: Result Matrix&#x27;</span><br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>      <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">3</span><br>         <span class="hljs-built_in">print</span>*, c(i, j)<br>      <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> matMulProduct<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">Matrix</span> Multiplication: A <span class="hljs-keyword">Matrix</span><br><span class="hljs-number">2</span><br><span class="hljs-number">3</span><br><span class="hljs-number">4</span><br><span class="hljs-number">3</span><br><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br><span class="hljs-number">6</span><br> <span class="hljs-keyword">Matrix</span> Multiplication: B <span class="hljs-keyword">Matrix</span><br><span class="hljs-number">1</span><br><span class="hljs-number">2</span><br><span class="hljs-number">3</span><br><span class="hljs-number">2</span><br><span class="hljs-number">4</span><br><span class="hljs-number">6</span><br><span class="hljs-number">3</span><br><span class="hljs-number">6</span><br><span class="hljs-number">9</span><br><span class="hljs-keyword">Matrix</span> Multiplication: Result <span class="hljs-keyword">Matrix</span><br><span class="hljs-number">20</span><br><span class="hljs-number">40</span><br><span class="hljs-number">60</span><br><span class="hljs-number">26</span><br><span class="hljs-number">52</span><br><span class="hljs-number">78</span><br><span class="hljs-number">32</span><br><span class="hljs-number">64</span><br><span class="hljs-number">96</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="还原函数"><a href="#还原函数" class="headerlink" title="还原函数"></a>还原函数</h2><p><strong>下表描述了还原功能</strong>：</p>
+<h2 id="还原函数">还原函数</h2>
+<p><strong>下表描述了还原功能</strong>：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>all</strong>(mask, dim)</td>
-<td>它返回一个逻辑值，指明掩码的所有关系是 .true。以及只有所需的维度，如果第二个参数是给定的。</td>
+<td>它返回一个逻辑值，指明掩码的所有关系是
+.true。以及只有所需的维度，如果第二个参数是给定的。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>any</strong>(mask, dim)</td>
 <td>它返回一个逻辑值，指明掩码的任何关系是.true。以及只有所需的维度，如果第二个参数是给定的。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>count</strong>(mask, dim)</td>
-<td>它返回一个数字值，该值为掩码为 .true 关系的数目。以及所需的维数，如果第二个参数给出。</td>
+<td>它返回一个数字值，该值为掩码为 .true
+关系的数目。以及所需的维数，如果第二个参数给出。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>maxval</strong>(array, dim, mask)</td>
-<td>它返回 的数组的数组中最大的值，那些遵守于第三个参数掩码的关系，如果一个给定的，以及具有只有所需的维数，如果第二个参数 dim给出的。</td>
+<td>它返回
+的数组的数组中最大的值，那些遵守于第三个参数掩码的关系，如果一个给定的，以及具有只有所需的维数，如果第二个参数
+dim给出的。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>minval</strong>(array, dim, mask)</td>
-<td>它返回数组的数组中那些遵守于第三个参数掩码的关系的最小值，如果一个给定的，以及具有仅在第二个参数 dim 给出所期望的维度。</td>
+<td>它返回数组的数组中那些遵守于第三个参数掩码的关系的最小值，如果一个给定的，以及具有仅在第二个参数
+dim 给出所期望的维度。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>product</strong>(array, dim, mask)</td>
-<td>它返回该产品遵守于第三个参数掩码的关系，如果一个给定的，以及具有只有所需的维数，如果第二个参数 dim 给出的所有数组的数组中的元素，。</td>
+<td>它返回该产品遵守于第三个参数掩码的关系，如果一个给定的，以及具有只有所需的维数，如果第二个参数
+dim 给出的所有数组的数组中的元素，。</td>
 </tr>
-<tr>
-<td>**sum **(array, dim, mask)</td>
-<td>它返回 遵守于第三个参数掩码关系的总和，如果给定以及具有只有所需的维数，如果第二个参数 dim给出的所有数组的数组中的元素。</td>
+<tr class="odd">
+<td><strong>sum </strong>(array, dim, mask)</td>
+<td>它返回
+遵守于第三个参数掩码关系的总和，如果给定以及具有只有所需的维数，如果第二个参数
+dim给出的所有数组的数组中的元素。</td>
 </tr>
-</tbody></table>
-<p>​	例子</p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ 例子</p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">program</span> arrayReduction<br><br>   <span class="hljs-attribute">real</span>, dimension(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>) :: a <br>   <span class="hljs-attribute">a</span> = reshape( (/<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">6</span>,<span class="hljs-number">10</span>,<span class="hljs-number">8</span>,<span class="hljs-number">12</span>/), (/<span class="hljs-number">3</span>,<span class="hljs-number">2</span>/) ) <br>   <br>   <span class="hljs-attribute">Print</span> *, <span class="hljs-literal">all</span>(a&gt;<span class="hljs-number">5</span>)<br>   <span class="hljs-attribute">Print</span> *, any(a&gt;<span class="hljs-number">5</span>)<br>   <span class="hljs-attribute">Print</span> *, count(a&gt;<span class="hljs-number">5</span>)<br>   <span class="hljs-attribute">Print</span> *, <span class="hljs-literal">all</span>(a&gt;=<span class="hljs-number">5</span> .and. a&lt;<span class="hljs-number">10</span>)<br>  <br><span class="hljs-attribute">end</span> program arrayReduction<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs r"><span class="hljs-built_in">F</span><br><span class="hljs-built_in">T</span><br><span class="hljs-number">5</span><br><span class="hljs-built_in">F</span><br></code></pre></td></tr></table></figure>
-
-<p>​	<strong>实例</strong></p>
-<p>​	下面的例子演示了这一概念：</p>
+<p>​ <strong>实例</strong></p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayReduction<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>) :: a = (/ <span class="hljs-number">21.0</span>, <span class="hljs-number">12.0</span>,<span class="hljs-number">33.0</span>, <span class="hljs-number">24.0</span>, <span class="hljs-number">15.0</span>, <span class="hljs-number">16.0</span> /)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">maxval</span>(a)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">minval</span>(a)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">sum</span>(a)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">product</span>(a)<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayReduction <br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">33</span>.<span class="hljs-number">0000000</span>    <br><span class="hljs-attribute">12</span>.<span class="hljs-number">0000000</span>    <br><span class="hljs-attribute">121</span>.<span class="hljs-number">000000</span>    <br><span class="hljs-attribute">47900160</span>.<span class="hljs-number">0</span> <br></code></pre></td></tr></table></figure>
-
-<h2 id="查询函数"><a href="#查询函数" class="headerlink" title="查询函数"></a>查询函数</h2><p>下表描述了查询功能：</p>
+<h2 id="查询函数">查询函数</h2>
+<p>下表描述了查询功能：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>allocated</strong>(array)</td>
 <td>它是一个逻辑功能，它指示该阵列被分配。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>lbound</strong>(array, dim)</td>
 <td>它返回的数组的维数较低的限制。如果dim(尺寸)不给出一个参数，会得到一个整数向量，如果dim计算在内，得到的整数值正好具有较低维数的限制。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>shape</strong>(source)</td>
 <td>它返回一个阵列源为一个整数向量的形状。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>size</strong>(array, dim)</td>
 <td>它返回在数组元素的数目。如果dim没有给出，并在相关维数的元素个数，如果dim也包括在内。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>ubound</strong>(array, dim)</td>
 <td>它返回尺寸的限制。</td>
 </tr>
-</tbody></table>
-<p>​	例子</p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ 例子</p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayInquiry<br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>) :: a <br>   a = <span class="hljs-built_in">reshape</span>( (/<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">6</span>,<span class="hljs-number">10</span>,<span class="hljs-number">8</span>,<span class="hljs-number">12</span>/), (/<span class="hljs-number">3</span>,<span class="hljs-number">2</span>/) ) <br>   <br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">lbound</span>(a, <span class="hljs-built_in">dim</span>=<span class="hljs-number">1</span>)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">ubound</span>(a, <span class="hljs-built_in">dim</span>=<span class="hljs-number">1</span>)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">shape</span>(a)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">size</span>(a,<span class="hljs-built_in">dim</span>=<span class="hljs-number">1</span>)<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayInquiry<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">1</span><br><span class="hljs-number">3</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">2</span><br><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>下表介绍了结构功能：</p>
+<h2 id="构造函数">构造函数</h2>
+<p>下表介绍了结构功能：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>merge</strong>(tsource, fsource, mask)</td>
-<td>该功能连接两个阵列。它给出了tsource及元素，如果mask条件是.true。如果掩码的条件是.false。这两个字段tsource 和fsource 必须是相同的类型并具有相同的形状。其结果也就是这种类型和形状。还掩码必须具有相同的形状。</td>
+<td>该功能连接两个阵列。它给出了tsource及元素，如果mask条件是.true。如果掩码的条件是.false。这两个字段tsource
+和fsource
+必须是相同的类型并具有相同的形状。其结果也就是这种类型和形状。还掩码必须具有相同的形状。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>pack</strong>(array, mask, vector)</td>
 <td>它包一个阵列，以使用掩码的控制向量。逻辑阵列掩模的形状，具有以符合一个用于阵列，要不然掩码必须是一个标量。如果载体被包括在内，它必须是秩1与至少一样多的元素是在掩码为真，并且具有相同的类型的数组的数组(即一个向量)。如果掩码的值为.true。然后矢量代替必须的元件阵列的数量相同。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>spread</strong>(source, dim, ncopies)</td>
-<td>它返回相同类型作为参数源与秩增加一个阵列。参数dim 和ncopies都是整数。如果ncopies是负则用零值来代替。如果source是一个标量，然后扩散变得所有具有相同值 ncopies 元素的向量。参数dim 指示哪个索引将被延长。它必须是范围为1和1+(源级)中，如果 source 是一个标量，dim 必须是1。参数 ncopies 是在新的尺寸元素的数量。</td>
+<td>它返回相同类型作为参数源与秩增加一个阵列。参数dim
+和ncopies都是整数。如果ncopies是负则用零值来代替。如果source是一个标量，然后扩散变得所有具有相同值
+ncopies 元素的向量。参数dim
+指示哪个索引将被延长。它必须是范围为1和1+(源级)中，如果 source
+是一个标量，dim 必须是1。参数 ncopies 是在新的尺寸元素的数量。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>unpack</strong>(vector, mask, array)</td>
-<td>它散射一个载体，掩码下的控制阵列。逻辑阵列掩模的形状具有以符合一个用于数组。阵列载体必须具有等级1(即它是一个向量)与至少一样多的元素是那些掩码内值都为true，并且还必须具有相同类型阵列。如果阵列被给定为一个标量，然后它被认为是使用相同形状的掩码，并在同一标量元素无处不在的阵列。 			 				其结果将是具有相同形状的掩码和类型相同的矢量阵列。该值将是那些从所接受的载体，而在阵列的剩余位置的旧值被保留。</td>
+<td>它散射一个载体，掩码下的控制阵列。逻辑阵列掩模的形状具有以符合一个用于数组。阵列载体必须具有等级1(即它是一个向量)与至少一样多的元素是那些掩码内值都为true，并且还必须具有相同类型阵列。如果阵列被给定为一个标量，然后它被认为是使用相同形状的掩码，并在同一标量元素无处不在的阵列。
+其结果将是具有相同形状的掩码和类型相同的矢量阵列。该值将是那些从所接受的载体，而在阵列的剩余位置的旧值被保留。</td>
 </tr>
-</tbody></table>
-<p>​	<strong>示例</strong></p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ <strong>示例</strong></p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayConstruction<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>   <span class="hljs-keyword">interface</span><br>      <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_array (a)<br>         <span class="hljs-keyword">real</span> :: a(:,:)<br>      <span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_array<br>      <br>      <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_l_array (a)<br>         <span class="hljs-keyword">logical</span> :: a(:,:)<br>      <span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_l_array<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">interface</span><br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>) :: tsource, fsource, result<br>   <span class="hljs-keyword">logical</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>) :: mask<br>   <br>   tsource = <span class="hljs-built_in">reshape</span>( (/ <span class="hljs-number">35</span>, <span class="hljs-number">23</span>, <span class="hljs-number">18</span>, <span class="hljs-number">28</span>, <span class="hljs-number">26</span>, <span class="hljs-number">39</span> /), &amp;<br>                    (/ <span class="hljs-number">2</span>, <span class="hljs-number">3</span> /) )<br>   fsource = <span class="hljs-built_in">reshape</span>( (/ -<span class="hljs-number">35</span>, -<span class="hljs-number">23</span>, -<span class="hljs-number">18</span>, -<span class="hljs-number">28</span>, -<span class="hljs-number">26</span>, -<span class="hljs-number">39</span> /), &amp;<br>                    (/ <span class="hljs-number">2</span>,<span class="hljs-number">3</span> /) )<br>   mask = <span class="hljs-built_in">reshape</span>( (/ .true., .false., .false., .true., &amp;<br>                 .false., .false. /), (/ <span class="hljs-number">2</span>,<span class="hljs-number">3</span> /) )<br><br>   result = <span class="hljs-built_in">merge</span>(tsource, fsource, mask)<br>   <span class="hljs-keyword">call</span> write_array(tsource)<br>   <span class="hljs-keyword">call</span> write_array(fsource)<br>   <span class="hljs-keyword">call</span> write_l_array(mask)<br>   <span class="hljs-keyword">call</span> write_array(result)<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayConstruction<br><br><br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_array (a)<br><br>   <span class="hljs-keyword">real</span> :: a(:,:)<br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (a(i, j), j = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">2</span>) )<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">return</span><br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_array<br><br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_l_array (a)<br><br>   <span class="hljs-keyword">logical</span> :: a(:,:)<br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (a(i, j), j= <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">2</span>))<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br>   <span class="hljs-keyword">return</span><br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_l_array<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-number">35.0000000</span>   <span class="hljs-number">18.0000000</span>   <span class="hljs-number">26.0000000</span>    <br><span class="hljs-number">23.0000000</span>   <span class="hljs-number">28.0000000</span>   <span class="hljs-number">39.0000000</span>    <br>-<span class="hljs-number">35.0000000</span>  -<span class="hljs-number">18.0000000</span>  -<span class="hljs-number">26.0000000</span>    <br>-<span class="hljs-number">23.0000000</span>  -<span class="hljs-number">28.0000000</span>  -<span class="hljs-number">39.0000000</span>    <br>T F F<br>F T F<br><span class="hljs-number">35.0000000</span>   -<span class="hljs-number">18.0000000</span>  -<span class="hljs-number">26.0000000</span>    <br></code></pre></td></tr></table></figure>
-
-<h2 id="重塑函数"><a href="#重塑函数" class="headerlink" title="重塑函数"></a>重塑函数</h2><p>下表描述了重塑函数：</p>
+<h2 id="重塑函数">重塑函数</h2>
+<p>下表描述了重塑函数：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>reshape</strong>(source, shape, pad, order)</td>
-<td>它构造一个特定形状的形状，从一个给定source阵列中的元素开始的数组。如果垫不包含则soure的尺寸必须至少为产物(形状)。如果pad包括在内，它必须具有相同的类型的soure。如果order被包括，它必须使用相同的形状的形状的整数数组，值必须是一个排列(1,2,3，…，n)，其中n是在形状要素的数量，它必须小于或等于7。</td>
+<td>它构造一个特定形状的形状，从一个给定source阵列中的元素开始的数组。如果垫不包含则soure的尺寸必须至少为产物(形状)。如果pad包括在内，它必须具有相同的类型的soure。如果order被包括，它必须使用相同的形状的形状的整数数组，值必须是一个排列(1,2,3，...，n)，其中n是在形状要素的数量，它必须小于或等于7。</td>
 </tr>
-</tbody></table>
-<p>​	<strong>示例</strong></p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ <strong>示例</strong></p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayReshape<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br><span class="hljs-keyword">interface</span><br>   <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_matrix(a)<br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(:,:) :: a<br>   <span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_matrix<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">interface</span><br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">9</span>) :: b = (/ <span class="hljs-number">21</span>, <span class="hljs-number">22</span>, <span class="hljs-number">23</span>, <span class="hljs-number">24</span>, <span class="hljs-number">25</span>, <span class="hljs-number">26</span>, <span class="hljs-number">27</span>, <span class="hljs-number">28</span>, <span class="hljs-number">29</span> /)<br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-number">1</span>:<span class="hljs-number">3</span>) :: c, d, e<br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">4</span>, <span class="hljs-number">1</span>:<span class="hljs-number">4</span>) :: f, g, h<br><br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">2</span>) :: order1 = (/ <span class="hljs-number">1</span>, <span class="hljs-number">2</span> /)<br>   <span class="hljs-keyword">integer</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">2</span>) :: order2 = (/ <span class="hljs-number">2</span>, <span class="hljs-number">1</span> /)<br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span> (<span class="hljs-number">1</span>:<span class="hljs-number">16</span>) :: pad1 = (/ -<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">4</span>, -<span class="hljs-number">5</span>, -<span class="hljs-number">6</span>, -<span class="hljs-number">7</span>, -<span class="hljs-number">8</span>, &amp;<br>                                 &amp; -<span class="hljs-number">9</span>, -<span class="hljs-number">10</span>, -<span class="hljs-number">11</span>, -<span class="hljs-number">12</span>, -<span class="hljs-number">13</span>, -<span class="hljs-number">14</span>, -<span class="hljs-number">15</span>, -<span class="hljs-number">16</span> /)<br><br>   c = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">3</span>, <span class="hljs-number">3</span> /) )<br>   <span class="hljs-keyword">call</span> write_matrix(c)<br><br>   d = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">3</span>, <span class="hljs-number">3</span> /), order = order1)<br>   <span class="hljs-keyword">call</span> write_matrix(d)<br><br>   e = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">3</span>, <span class="hljs-number">3</span> /), order = order2)<br>   <span class="hljs-keyword">call</span> write_matrix(e)<br><br>   f = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">4</span>, <span class="hljs-number">4</span> /), <span class="hljs-keyword">pad</span> = pad1)<br>   <span class="hljs-keyword">call</span> write_matrix(f)<br><br>   g = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">4</span>, <span class="hljs-number">4</span> /), <span class="hljs-keyword">pad</span> = pad1, order = order1)<br>   <span class="hljs-keyword">call</span> write_matrix(g)<br><br>   h = <span class="hljs-built_in">reshape</span>( b, (/ <span class="hljs-number">4</span>, <span class="hljs-number">4</span> /), <span class="hljs-keyword">pad</span> = pad1, order = order2)<br>   <span class="hljs-keyword">call</span> write_matrix(h)<br><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayReshape<br><br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_matrix(a)<br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(:,:) :: a<br>   <span class="hljs-built_in">write</span>(*,*)<br>   <br>   <span class="hljs-keyword">do</span> i = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">1</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">1</span>)<br>      <span class="hljs-built_in">write</span>(*,*) (a(i,j), j = <span class="hljs-built_in">lbound</span>(a,<span class="hljs-number">2</span>), <span class="hljs-built_in">ubound</span>(a,<span class="hljs-number">2</span>))<br>   <span class="hljs-keyword">end</span> <span class="hljs-keyword">do</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> write_matrix<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-number">21.0000000</span>  <span class="hljs-number">24.0000000</span>  <span class="hljs-number">27.0000000</span>    <br><span class="hljs-number">22.0000000</span>  <span class="hljs-number">25.0000000</span>  <span class="hljs-number">28.0000000</span>    <br><span class="hljs-number">23.0000000</span>  <span class="hljs-number">26.0000000</span>  <span class="hljs-number">29.0000000</span>    <br><br><span class="hljs-number">21.0000000</span>  <span class="hljs-number">24.0000000</span>  <span class="hljs-number">27.0000000</span>    <br><span class="hljs-number">22.0000000</span>  <span class="hljs-number">25.0000000</span>  <span class="hljs-number">28.0000000</span>    <br><span class="hljs-number">23.0000000</span>  <span class="hljs-number">26.0000000</span>  <span class="hljs-number">29.0000000</span>    <br><br><span class="hljs-number">21.0000000</span>  <span class="hljs-number">22.0000000</span>  <span class="hljs-number">23.0000000</span>    <br><span class="hljs-number">24.0000000</span>  <span class="hljs-number">25.0000000</span>  <span class="hljs-number">26.0000000</span>    <br><span class="hljs-number">27.0000000</span>  <span class="hljs-number">28.0000000</span>  <span class="hljs-number">29.0000000</span>    <br><br><span class="hljs-number">21.0000000</span>  <span class="hljs-number">25.0000000</span>  <span class="hljs-number">29.0000000</span>   -<span class="hljs-number">4.00000000</span>    <br><span class="hljs-number">22.0000000</span>  <span class="hljs-number">26.0000000</span>  -<span class="hljs-number">1.00000000</span>  -<span class="hljs-number">5.00000000</span>    <br><span class="hljs-number">23.0000000</span>  <span class="hljs-number">27.0000000</span>  -<span class="hljs-number">2.00000000</span>  -<span class="hljs-number">6.00000000</span>    <br><span class="hljs-number">24.0000000</span>  <span class="hljs-number">28.0000000</span>  -<span class="hljs-number">3.00000000</span>  -<span class="hljs-number">7.00000000</span>    <br><br><span class="hljs-number">21.0000000</span>  <span class="hljs-number">25.0000000</span>  <span class="hljs-number">29.0000000</span>   -<span class="hljs-number">4.00000000</span>    <br><span class="hljs-number">22.0000000</span>  <span class="hljs-number">26.0000000</span>  -<span class="hljs-number">1.00000000</span>  -<span class="hljs-number">5.00000000</span>    <br><span class="hljs-number">23.0000000</span>  <span class="hljs-number">27.0000000</span>  -<span class="hljs-number">2.00000000</span>  -<span class="hljs-number">6.00000000</span>    <br><span class="hljs-number">24.0000000</span>  <span class="hljs-number">28.0000000</span>  -<span class="hljs-number">3.00000000</span>  -<span class="hljs-number">7.00000000</span>    <br><br><span class="hljs-number">21.0000000</span>  <span class="hljs-number">22.0000000</span>  <span class="hljs-number">23.0000000</span>   <span class="hljs-number">24.0000000</span>    <br><span class="hljs-number">25.0000000</span>  <span class="hljs-number">26.0000000</span>  <span class="hljs-number">27.0000000</span>   <span class="hljs-number">28.0000000</span>    <br><span class="hljs-number">29.0000000</span>  -<span class="hljs-number">1.00000000</span> -<span class="hljs-number">2.00000000</span>  -<span class="hljs-number">3.00000000</span>    <br>-<span class="hljs-number">4.00000000</span> -<span class="hljs-number">5.00000000</span> -<span class="hljs-number">6.00000000</span>  -<span class="hljs-number">7.00000000</span>  <br></code></pre></td></tr></table></figure>
-
-<h2 id="操作函数"><a href="#操作函数" class="headerlink" title="操作函数"></a>操作函数</h2><p>处理函数平移功能。移位函数返回一个数组不变的形状，但移动元素。</p>
+<h2 id="操作函数">操作函数</h2>
+<p>处理函数平移功能。移位函数返回一个数组不变的形状，但移动元素。</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>cshift</strong>(array, shift, dim)</td>
 <td>它执行循环移位由移位置的左边，如果移位是正和到右侧，如果它是负的。如果阵列是一个矢量移位正在做以自然的方式中，如果它是一个较高级的阵列则移是沿着维数dim的所有部分。若dim缺少它被认为是1，在其它情况下它必须是1和n(其中n等于阵列的等级)之间的标量整数。该参数换档是一个标量整数或秩n-1个整数的数组和形状相同的阵列中，除沿维数dim(在较低级的，因为它被移除)。不同的部分，因此可以转移在各个方向上，并与各种数目的位置。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>eoshift</strong>(array, shift, boundary, dim)</td>
-<td>这是端关闭的转变。它执行向左移动，如果移位是正和到右侧，如果它是负的。相反的元素移出新元素均取自边界。如果阵列是一个矢量移位正在做以自然的方式中，如果它是一个较高级的阵列，在所有各节中的移位是以及该维度暗淡。若 dim 丢失，它被认为是1，但在其它情况下，它为1和n(其中n等于阵列的秩)之间有一个标量的整数值。该参数换档是一个标量整数，如果阵列具有秩1，在其他情况下，它可以是一个标量整数或秩n-1和形状相同的阵列排列的与除沿维数dim 的整数数组(其被取出因为较低级的)。</td>
+<td>这是端关闭的转变。它执行向左移动，如果移位是正和到右侧，如果它是负的。相反的元素移出新元素均取自边界。如果阵列是一个矢量移位正在做以自然的方式中，如果它是一个较高级的阵列，在所有各节中的移位是以及该维度暗淡。若
+dim
+丢失，它被认为是1，但在其它情况下，它为1和n(其中n等于阵列的秩)之间有一个标量的整数值。该参数换档是一个标量整数，如果阵列具有秩1，在其他情况下，它可以是一个标量整数或秩n-1和形状相同的阵列排列的与除沿维数dim
+的整数数组(其被取出因为较低级的)。</td>
 </tr>
-<tr>
-<td>**transpose **(matrix)</td>
+<tr class="odd">
+<td><strong>transpose </strong>(matrix)</td>
 <td>其转置矩阵，这是秩2的阵列它取代了的行和列矩阵。</td>
 </tr>
-</tbody></table>
-<p>​	<strong>示例</strong></p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ <strong>示例</strong></p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">program</span> arrayShift<br><span class="hljs-attribute">implicit</span> none<br><br>   <span class="hljs-attribute">real</span>, dimension(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>) :: a = (/ <span class="hljs-number">21</span>.<span class="hljs-number">0</span>, <span class="hljs-number">22</span>.<span class="hljs-number">0</span>, <span class="hljs-number">23</span>.<span class="hljs-number">0</span>, <span class="hljs-number">24</span>.<span class="hljs-number">0</span>, <span class="hljs-number">25</span>.<span class="hljs-number">0</span>, <span class="hljs-number">26</span>.<span class="hljs-number">0</span> /)<br>   <span class="hljs-attribute">real</span>, dimension(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>) :: x, y<br>   <span class="hljs-attribute">write</span>(*,<span class="hljs-number">10</span>) a<br>   <br>   <span class="hljs-attribute">x</span> = cshift ( a, shift = <span class="hljs-number">2</span>)<br>   <span class="hljs-attribute">write</span>(*,<span class="hljs-number">10</span>) x<br>   <br>   <span class="hljs-attribute">y</span> = cshift (a, shift = -<span class="hljs-number">2</span>)<br>   <span class="hljs-attribute">write</span>(*,<span class="hljs-number">10</span>) y<br>   <br>   <span class="hljs-attribute">x</span> = eoshift ( a, shift = <span class="hljs-number">2</span>)<br>   <span class="hljs-attribute">write</span>(*,<span class="hljs-number">10</span>) x<br>   <br>   <span class="hljs-attribute">y</span> = eoshift ( a, shift = -<span class="hljs-number">2</span>)<br>   <span class="hljs-attribute">write</span>(*,<span class="hljs-number">10</span>) y<br>   <br>   <span class="hljs-attribute">10</span> format(<span class="hljs-number">1</span>x,<span class="hljs-number">6</span>f6.<span class="hljs-number">1</span>)<br><br><span class="hljs-attribute">end</span> program arrayShift<br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">21</span>.<span class="hljs-number">0</span>  <span class="hljs-number">22</span>.<span class="hljs-number">0</span>  <span class="hljs-number">23</span>.<span class="hljs-number">0</span>  <span class="hljs-number">24</span>.<span class="hljs-number">0</span>  <span class="hljs-number">25</span>.<span class="hljs-number">0</span>  <span class="hljs-number">26</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">23</span>.<span class="hljs-number">0</span>  <span class="hljs-number">24</span>.<span class="hljs-number">0</span>  <span class="hljs-number">25</span>.<span class="hljs-number">0</span>  <span class="hljs-number">26</span>.<span class="hljs-number">0</span>  <span class="hljs-number">21</span>.<span class="hljs-number">0</span>  <span class="hljs-number">22</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">25</span>.<span class="hljs-number">0</span>  <span class="hljs-number">26</span>.<span class="hljs-number">0</span>  <span class="hljs-number">21</span>.<span class="hljs-number">0</span>  <span class="hljs-number">22</span>.<span class="hljs-number">0</span>  <span class="hljs-number">23</span>.<span class="hljs-number">0</span>  <span class="hljs-number">24</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">23</span>.<span class="hljs-number">0</span>  <span class="hljs-number">24</span>.<span class="hljs-number">0</span>  <span class="hljs-number">25</span>.<span class="hljs-number">0</span>  <span class="hljs-number">26</span>.<span class="hljs-number">0</span>   <span class="hljs-number">0</span>.<span class="hljs-number">0</span>   <span class="hljs-number">0</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">0</span>.<span class="hljs-number">0</span>    <span class="hljs-number">0</span>.<span class="hljs-number">0</span>  <span class="hljs-number">21</span>.<span class="hljs-number">0</span>  <span class="hljs-number">22</span>.<span class="hljs-number">0</span>  <span class="hljs-number">23</span>.<span class="hljs-number">0</span>  <span class="hljs-number">24</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
-
-<p>​	<strong>示例</strong></p>
-<p>​	下面的例子演示了转置矩阵：</p>
+<p>​ <strong>示例</strong></p>
+<p>​ 下面的例子演示了转置矩阵：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">program matrixTranspose<br>implicit none<br><br>   <span class="hljs-keyword">interface</span><br>      <span class="hljs-symbol">subroutine</span> <span class="hljs-symbol">write_matrix</span>(<span class="hljs-symbol">a</span>)<br>         <span class="hljs-symbol">integer</span>, <span class="hljs-symbol">dimension</span>(:,:) :: <span class="hljs-symbol">a</span><br>      <span class="hljs-symbol">end</span> <span class="hljs-symbol">subroutine</span> <span class="hljs-symbol">write_matrix</span><br>   <span class="hljs-symbol">end</span> <span class="hljs-symbol">interface</span><br><br>   <span class="hljs-symbol">integer</span>, <span class="hljs-symbol">dimension</span>(<span class="hljs-symbol">3</span>,<span class="hljs-symbol">3</span>) :: <span class="hljs-symbol">a</span>, <span class="hljs-symbol">b</span><br>   <span class="hljs-symbol">integer</span> :: <span class="hljs-symbol">i</span>, <span class="hljs-symbol">j</span><br>    <br>   <span class="hljs-symbol">do</span> <span class="hljs-symbol">i</span> = <span class="hljs-symbol">1</span>, <span class="hljs-symbol">3</span><br>      <span class="hljs-symbol">do</span> <span class="hljs-symbol">j</span> = <span class="hljs-symbol">1</span>, <span class="hljs-symbol">3</span><br>         <span class="hljs-symbol">a</span>(<span class="hljs-symbol">i</span>, <span class="hljs-symbol">j</span>) = <span class="hljs-symbol">i</span><br>      <span class="hljs-symbol">end</span> <span class="hljs-symbol">do</span><br>   <span class="hljs-symbol">end</span> <span class="hljs-symbol">do</span><br>   <br>   <span class="hljs-symbol">print</span> *, &#x27;<span class="hljs-symbol">Matrix</span> <span class="hljs-symbol">Transpose</span>: <span class="hljs-symbol">A</span> <span class="hljs-symbol">Matrix</span>&#x27;<br>   <br>   <span class="hljs-symbol">call</span> <span class="hljs-symbol">write_matrix</span>(<span class="hljs-symbol">a</span>)<br>   <span class="hljs-symbol">b</span> = <span class="hljs-symbol">transpose</span>(<span class="hljs-symbol">a</span>)<br>   <span class="hljs-symbol">print</span> *, &#x27;<span class="hljs-symbol">Transposed</span> <span class="hljs-symbol">Matrix</span>:&#x27;<br>   <br>   <span class="hljs-symbol">call</span> <span class="hljs-symbol">write_matrix</span>(<span class="hljs-symbol">b</span>)<br><span class="hljs-symbol">end</span> <span class="hljs-symbol">program</span> <span class="hljs-symbol">matrixTranspose</span><br><br><br><span class="hljs-symbol">subroutine</span> <span class="hljs-symbol">write_matrix</span>(<span class="hljs-symbol">a</span>)<br><br>   <span class="hljs-symbol">integer</span>, <span class="hljs-symbol">dimension</span>(:,:) :: <span class="hljs-symbol">a</span><br>   <span class="hljs-symbol">write</span>(*,*)<br>   <br>   <span class="hljs-symbol">do</span> <span class="hljs-symbol">i</span> = <span class="hljs-symbol">lbound</span>(<span class="hljs-symbol">a</span>,<span class="hljs-symbol">1</span>), <span class="hljs-symbol">ubound</span>(<span class="hljs-symbol">a</span>,<span class="hljs-symbol">1</span>)<br>      <span class="hljs-symbol">write</span>(*,*) (<span class="hljs-symbol">a</span>(<span class="hljs-symbol">i</span>,<span class="hljs-symbol">j</span>), <span class="hljs-symbol">j</span> = <span class="hljs-symbol">lbound</span>(<span class="hljs-symbol">a</span>,<span class="hljs-symbol">2</span>), <span class="hljs-symbol">ubound</span>(<span class="hljs-symbol">a</span>,<span class="hljs-symbol">2</span>))<br>   <span class="hljs-symbol">end</span> <span class="hljs-symbol">do</span><br>   <br><span class="hljs-symbol">end</span> <span class="hljs-symbol">subroutine</span> <span class="hljs-symbol">write_matrix</span><br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Matrix</span> Transpose: A Matrix<br><br><span class="hljs-attribute">1</span>  <span class="hljs-number">1</span>  <span class="hljs-number">1</span><br><span class="hljs-attribute">2</span>  <span class="hljs-number">2</span>  <span class="hljs-number">2</span><br><span class="hljs-attribute">3</span>  <span class="hljs-number">3</span>  <span class="hljs-number">3</span><br><span class="hljs-attribute">Transposed</span> Matrix:<br><br><span class="hljs-attribute">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">3</span><br><span class="hljs-attribute">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">3</span><br><span class="hljs-attribute">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="位置函数"><a href="#位置函数" class="headerlink" title="位置函数"></a>位置函数</h2><p>下表描述了位置函数：</p>
+<h2 id="位置函数">位置函数</h2>
+<p>下表描述了位置函数：</p>
 <table>
+
 <thead>
-<tr>
+<tr class="header">
 <th>函数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>maxloc</strong>(array, mask)</td>
 <td>它返回数组中的最大元素的位置上，如果掩码仅包含那些其中满足条件的掩码，则返回位置，其结果是一个整数向量。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>minloc</strong>(array, mask)</td>
 <td>它返回数组的数组中的最小元素的位置，如果掩码仅包含那些其中满足条件的掩码，则返回位置，其结果是一个整数向量。</td>
 </tr>
-</tbody></table>
-<p>​	<strong>示例</strong></p>
-<p>​	下面的例子演示了这一概念：</p>
+</tbody>
+</table>
+<p>​ <strong>示例</strong></p>
+<p>​ 下面的例子演示了这一概念：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayLocation<br><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br><br>   <span class="hljs-keyword">real</span>, <span class="hljs-keyword">dimension</span>(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>) :: a = (/ <span class="hljs-number">21.0</span>, <span class="hljs-number">12.0</span>,<span class="hljs-number">33.0</span>, <span class="hljs-number">24.0</span>, <span class="hljs-number">15.0</span>, <span class="hljs-number">16.0</span> /)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">maxloc</span>(a)<br>   <span class="hljs-built_in">Print</span> *, <span class="hljs-built_in">minloc</span>(a)<br>   <br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> arrayLocation   <br></code></pre></td></tr></table></figure>
-
-<p>​	当上述代码被编译和执行时，它产生了以下结果：</p>
+<p>​ 当上述代码被编译和执行时，它产生了以下结果：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">3<br>2<br></code></pre></td></tr></table></figure>
-
 
               
             </div>

@@ -16,12 +16,12 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。 定义和调用子程序的一般结构如下所示： 12345678!!! 不带初始化变量的子程序subroutine sub">
+    <meta name="description" content="Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。 定义和调用 子程序的一般结构如下所示： 12345678!!! 不带初始化变量的子程序subrouti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fortran-子程序">
 <meta property="og:url" content="http://example.com/2022/05/23/Fortran-%E5%AD%90%E7%A8%8B%E5%BA%8F/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。 定义和调用子程序的一般结构如下所示： 12345678!!! 不带初始化变量的子程序subroutine sub">
+<meta property="og:description" content="Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。 定义和调用 子程序的一般结构如下所示： 12345678!!! 不带初始化变量的子程序subrouti">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-23T08:09:54.000Z">
 <meta property="article:modified_time" content="2022-05-23T08:33:29.578Z">
@@ -80,9 +80,7 @@
   <script  src="/js/color-schema.js" ></script>
 
   
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="/custom_css_source.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -280,118 +278,184 @@
             
             <div class="markdown-body">
               
-              <p>Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到 Fortran 本身也支持函数）：<strong>把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果</strong>。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。</p>
-<h2 id="定义和调用"><a href="#定义和调用" class="headerlink" title="定义和调用"></a>定义和调用</h2><p>子程序的一般结构如下所示：</p>
+              <p>Fortran 语言中的子程序事实上和其他编程语言的函数有点类似（后面会提到
+Fortran
+本身也支持函数）：<strong>把需要重复使用的某些代码都集中成一个子程序，调用时可以给子程序初始化一些变量值从而获得不同的结果</strong>。比如说数值微分或者微分方程组的解法一类的数值计算代码就可以写成子程序的形式。</p>
+<h2 id="定义和调用">定义和调用</h2>
+<p>子程序的一般结构如下所示：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Fortran"><span class="hljs-comment">!!! 不带初始化变量的子程序</span><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a, b<br>    <span class="hljs-keyword">integer</span> i<br>    ......<br>    ......<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr1<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 带初始化变量的子程序</span><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2(x, m, y, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y, a, b, z(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">integer</span> m, n, i, k<br>    ......<br>    ......<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2<br></code></pre></td></tr></table></figure>
-
-
-
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 调用子程序</span><br><span class="hljs-keyword">real</span> z<br><span class="hljs-keyword">integer</span> m<br><span class="hljs-keyword">call</span> subr1<br>m = <span class="hljs-number">21</span><br><span class="hljs-keyword">call</span> subr2(<span class="hljs-number">10.0</span>, <span class="hljs-number">100</span>, z, m*<span class="hljs-number">5</span>+<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-
-<p>子程序是以 <code>subroutine</code> 开头、以 <code>end subroutine</code> 结尾，其中<strong>第一行与一般主程序一样需要添加一行 <code>implicit none</code> 的声明</strong>。</p>
-<h5 id="小提示"><a href="#小提示" class="headerlink" title="小提示"></a>小提示</h5><p><strong>值得注意</strong>的是，子程序可以在主程序中被任意调用若干次，但同时也是依赖主程序存在的，即<strong>只有子程序的代码无法被执行</strong>。</p>
+<p>子程序是以 <code>subroutine</code> 开头、以
+<code>end subroutine</code>
+结尾，其中<strong>第一行与一般主程序一样需要添加一行
+<code>implicit none</code> 的声明</strong>。</p>
+<h5 id="小提示">小提示</h5>
+<p><strong>值得注意</strong>的是，子程序可以在主程序中被任意调用若干次，但同时也是依赖主程序存在的，即<strong>只有子程序的代码无法被执行</strong>。</p>
 <p>从上面的例子可以看出，无论是初始化还是没初始化变量，子程序都可以在主程序中被调用执行。只不过带初始化变量的子程序应该在被调用时给定相应的变量，否则无法正常被调用。</p>
-<p>如下所示是一个完整包含主程序和子程序的代码示例。主程序是以 <code>program</code> 开头、以 <code>end program</code> 结尾的代码片段。子程序代码不被包含在主程序代码片段中，但与主程序在同一文件中。</p>
-<h5 id="小提示-1"><a href="#小提示-1" class="headerlink" title="小提示"></a>小提示</h5><p><strong>子程序可以位于主程序代码片段之前或之后，不会影响在主程序中的正常调用</strong>。</p>
+<p>如下所示是一个完整包含主程序和子程序的代码示例。主程序是以
+<code>program</code> 开头、以 <code>end program</code>
+结尾的代码片段。子程序代码不被包含在主程序代码片段中，但与主程序在同一文件中。</p>
+<h5 id="小提示-1">小提示</h5>
+<p><strong>子程序可以位于主程序代码片段之前或之后，不会影响在主程序中的正常调用</strong>。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    x = <span class="hljs-number">5.0</span><br>    y = <span class="hljs-number">100.0</span><br>    <span class="hljs-keyword">call</span> subr(x, y, <span class="hljs-number">10</span>)<br>    <span class="hljs-built_in">print</span> *, x, y<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr(x, y, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    <span class="hljs-keyword">integer</span> n<br>    x = n<br>    y = y*x<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr<br></code></pre></td></tr></table></figure>
-
-<p>子程序的调用和主程序的执行顺序是：<strong>主程序 → 子程序 → 主程序</strong>。</p>
-<p>由于<strong>子程序被调用时实际上不会与其他正在被执行的子程序相互干扰</strong>，所以可以在一个主程序中重复调用同一子程序。如果在子程序中需要根据某个条件判断中断退出，可以如下所示利用 <code>if</code> 语句和 <code>return</code> 关键字来返回主程序。</p>
+<p>子程序的调用和主程序的执行顺序是：<strong>主程序 → 子程序 →
+主程序</strong>。</p>
+<p>由于<strong>子程序被调用时实际上不会与其他正在被执行的子程序相互干扰</strong>，所以可以在一个主程序中重复调用同一子程序。如果在子程序中需要根据某个条件判断中断退出，可以如下所示利用
+<code>if</code> 语句和 <code>return</code> 关键字来返回主程序。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr(x, y, m, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    <span class="hljs-keyword">integer</span> m, n<br>    ......<br>    <span class="hljs-keyword">if</span> (m &lt; n) <span class="hljs-keyword">return</span><br>    ......<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr<br></code></pre></td></tr></table></figure>
-
-<h2 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h2><h3 id="子程序变量的局部性"><a href="#子程序变量的局部性" class="headerlink" title="子程序变量的局部性"></a>子程序变量的局部性</h3><p>子程序中定义的<strong>局部变量和参数独立于主程序</strong>。也就是说，当我们在主程序和子程序中同时定义<strong>相同名称的变量</strong>时，其实它们之间也是不同的。只有当我们在调用子程序时使用主程序中同名的变量对参数进行赋值时，主程序和子程序的同名变量才会具有相同的值。</p>
+<h2 id="局部变量">局部变量</h2>
+<h3 id="子程序变量的局部性">子程序变量的局部性</h3>
+<p>子程序中定义的<strong>局部变量和参数独立于主程序</strong>。也就是说，当我们在主程序和子程序中同时定义<strong>相同名称的变量</strong>时，其实它们之间也是不同的。只有当我们在调用子程序时使用主程序中同名的变量对参数进行赋值时，主程序和子程序的同名变量才会具有相同的值。</p>
 <p>如下面的示例 1 所示，编译执行的结果并非是期待的 10.0 和 30.0。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 1</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    x = <span class="hljs-number">10.0</span><br>    y = <span class="hljs-number">30.0</span><br>    <span class="hljs-keyword">call</span> subr1<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    <span class="hljs-built_in">print</span> *, x, y<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr1<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;    <span class="hljs-number">2.80259693E-45</span>   <span class="hljs-number">0.00000000</span><br></code></pre></td></tr></table></figure>
-
-<p>当我们修改为带初始化变量的子程序时，如示例 2 所示，编译执行的结果和期待的一样。</p>
+<p>当我们修改为带初始化变量的子程序时，如示例 2
+所示，编译执行的结果和期待的一样。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 2</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest2<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    x = <span class="hljs-number">10.0</span><br>    y = <span class="hljs-number">30.0</span><br>    <span class="hljs-keyword">call</span> subr2(x, y)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest2<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2(x, y)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    <span class="hljs-built_in">print</span> *, x, y<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;    <span class="hljs-number">10.0000000</span>       <span class="hljs-number">30.0000000</span><br></code></pre></td></tr></table></figure>
-
 <p>这两个例子的对比再一次证明了子程序中定义的变量所具有的局部性，<strong>必须通过参数传递的方式才能与主程序同名变量保持一样的初始化值</strong>。同样地，这种局部性也会让主程序的变量值不会因为子程序的同名变量值发生改变而改变。</p>
-<p>有人可能会有疑问，如果子程序中的参数使用的变量名与主程序的变量名不一致，调用能不能成功呢？当然是能够成功的。如下所示，将示例 2 中子程序原来的参数 x 和 y 换成 a 和 b，依然可以输出正确结果。</p>
+<p>有人可能会有疑问，如果子程序中的参数使用的变量名与主程序的变量名不一致，调用能不能成功呢？当然是能够成功的。如下所示，将示例
+2 中子程序原来的参数 x 和 y 换成 a 和 b，依然可以输出正确结果。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2(a, b)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a, b<br>    <span class="hljs-built_in">print</span> *, a, b<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr2<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;    <span class="hljs-number">10.0000000</span>       <span class="hljs-number">30.0000000</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="类型声明的一致性"><a href="#类型声明的一致性" class="headerlink" title="类型声明的一致性"></a>类型声明的一致性</h3><p>主程序中调用带初始化变量的子程序时，需要注意使用相同类型的变量来给子程序初始化参数，否则就会报错。如示例 3 中所示，子程序中所定义的参数 x 和 y 为实数、参数 m 和 n 为整数。主程序中调用时传递的变量值也是对应的实数和整数，具体如下表所示。</p>
+<h3 id="类型声明的一致性">类型声明的一致性</h3>
+<p>主程序中调用带初始化变量的子程序时，需要注意使用相同类型的变量来给子程序初始化参数，否则就会报错。如示例
+3 中所示，子程序中所定义的参数 x 和 y 为实数、参数 m 和 n
+为整数。主程序中调用时传递的变量值也是对应的实数和整数，具体如下表所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 3</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest3<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> z<br>    <span class="hljs-keyword">integer</span> n<br>    z = <span class="hljs-number">200.0</span><br>    n = <span class="hljs-number">21</span><br>    <span class="hljs-keyword">call</span> subr3(<span class="hljs-number">10.0</span>, z**<span class="hljs-number">2</span>, <span class="hljs-number">100</span>, n*<span class="hljs-number">5</span>+<span class="hljs-number">1</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest3<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr3(x, y, m, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y<br>    <span class="hljs-keyword">integer</span> m, n<br>    <span class="hljs-built_in">print</span> *, x, y, m, n<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr3<br></code></pre></td></tr></table></figure>
-
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>调用语句</th>
 <th>子程序语句</th>
 <th>数值类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>10.0</td>
 <td>x</td>
 <td>实数</td>
 </tr>
-<tr>
+<tr class="even">
 <td>z**2</td>
 <td>y</td>
 <td>实数</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>100</td>
 <td>m</td>
 <td>整数</td>
 </tr>
-<tr>
+<tr class="even">
 <td>n*5+1</td>
 <td>n</td>
 <td>整数</td>
 </tr>
-</tbody></table>
-<h3 id="子程序的返回值"><a href="#子程序的返回值" class="headerlink" title="子程序的返回值"></a>子程序的返回值</h3><p>刚才提到的子程序中定义的变量是局部变量，不会干扰主程序中的其他变量，但是如果我们想要把子程序计算的结果返回给主程序呢？在其他的编程语言中，可能大部分是使用 <code>return</code> 加变量名的方式来将子程序中的变量传递回主程序。<strong>在 Fortran 中，子程序会将参数变量全部返回给主程序，可以认为是地址引用</strong>。如果主程序调用子程序时<strong>用一个算式传递变量给子程序，那么可以认为是值引用</strong>。</p>
-<p>如下面的示例 4 所示，主程序中调用子程序时最后的变量 p 就是要保存返回值的变量。从执行结果也可以看出，变量 x 和 y 并没有受到子程序的影响，只有变量 p 带着子程序的变量 z 的值正确返回了。因为这里 x+y 作为子程序中的 x 存在，而 x+y 这个变量实际上在主程序中不存在，所以是值引用。</p>
+</tbody>
+</table>
+<h3 id="子程序的返回值">子程序的返回值</h3>
+<p>刚才提到的子程序中定义的变量是局部变量，不会干扰主程序中的其他变量，但是如果我们想要把子程序计算的结果返回给主程序呢？在其他的编程语言中，可能大部分是使用
+<code>return</code>
+加变量名的方式来将子程序中的变量传递回主程序。<strong>在 Fortran
+中，子程序会将参数变量全部返回给主程序，可以认为是地址引用</strong>。如果主程序调用子程序时<strong>用一个算式传递变量给子程序，那么可以认为是值引用</strong>。</p>
+<p>如下面的示例 4 所示，主程序中调用子程序时最后的变量 p
+就是要保存返回值的变量。从执行结果也可以看出，变量 x 和 y
+并没有受到子程序的影响，只有变量 p 带着子程序的变量 z
+的值正确返回了。因为这里 x+y 作为子程序中的 x 存在，而 x+y
+这个变量实际上在主程序中不存在，所以是值引用。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 4</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest4<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y, p<br>    x = <span class="hljs-number">10.0</span><br>    y = <span class="hljs-number">30.0</span><br>    <span class="hljs-keyword">call</span> subr4(x+y, <span class="hljs-number">20.0</span>, p)<br>    <span class="hljs-built_in">print</span> *, x, y, p<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest4<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr4(x, y, z)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y, z<br>    z = x*y<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr4<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;   <span class="hljs-number">10.0000000</span>       <span class="hljs-number">30.0000000</span>       <span class="hljs-number">800.000000</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-2"><a href="#小提示-2" class="headerlink" title="小提示"></a>小提示</h5><p><strong>值引用</strong>和<strong>地址引用</strong>的定义：值引用是指引用值而不引用原来的变量或者存储器中对应的地址，地址引用是指引用原来的变量或者存储器中对应的地址。<br><strong>值引用</strong>和<strong>地址引用</strong>的区别：前者不会因子程序的操作而发生改变，后者可能会因子程序的操作而发生改变。如果我们仅仅是为了传递某个值给子程序作为输入，可以采用值引用，从而避免对于主程序的干扰。如果我们希望子程序的操作改变变量的值，可以采用地址引用。</p>
-<h2 id="数组变量"><a href="#数组变量" class="headerlink" title="数组变量"></a>数组变量</h2><h3 id="数组作为子程序参数"><a href="#数组作为子程序参数" class="headerlink" title="数组作为子程序参数"></a>数组作为子程序参数</h3><p>如果主程序想要用数组变量或数组变量的某个位置的值为调用的子程序赋值，Fortran 也是完全支持的。如下所示，第一行是用数组变量初始化子程序参数，第二行是用数组变量 a 中编号为 1 的元素初始化子程序参数。</p>
+<h5 id="小提示-2">小提示</h5>
+<p><strong>值引用</strong>和<strong>地址引用</strong>的定义：值引用是指引用值而不引用原来的变量或者存储器中对应的地址，地址引用是指引用原来的变量或者存储器中对应的地址。
+<strong>值引用</strong>和<strong>地址引用</strong>的区别：前者不会因子程序的操作而发生改变，后者可能会因子程序的操作而发生改变。如果我们仅仅是为了传递某个值给子程序作为输入，可以采用值引用，从而避免对于主程序的干扰。如果我们希望子程序的操作改变变量的值，可以采用地址引用。</p>
+<h2 id="数组变量">数组变量</h2>
+<h3 id="数组作为子程序参数">数组作为子程序参数</h3>
+<p>如果主程序想要用数组变量或数组变量的某个位置的值为调用的子程序赋值，Fortran
+也是完全支持的。如下所示，第一行是用数组变量初始化子程序参数，第二行是用数组变量
+a 中编号为 1 的元素初始化子程序参数。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">call</span> sub(a)<br><span class="hljs-keyword">call</span> sub(a(<span class="hljs-number">1</span>))<br></code></pre></td></tr></table></figure>
-
-<p>上面第一行调用方式对应的主程序和子程序可以类似于下面的示例 5。主程序和子程序中分别将 a 和 x 都定义为长度为 10 的一维数组，并在子程序中使用循环的方式依次为数组 x 的每个元素赋值。最后，赋好值的数组 x 也会返回给主程序。从执行结果看到，输出结果为期待的 a(3) 值。</p>
+<p>上面第一行调用方式对应的主程序和子程序可以类似于下面的示例
+5。主程序和子程序中分别将 a 和 x 都定义为长度为 10
+的一维数组，并在子程序中使用循环的方式依次为数组 x
+的每个元素赋值。最后，赋好值的数组 x
+也会返回给主程序。从执行结果看到，输出结果为期待的 a(3) 值。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 5</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">call</span> sub(a)<br>    <span class="hljs-built_in">print</span> *, a(<span class="hljs-number">3</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub(x)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">integer</span> i<br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        x(i) = i<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;   <span class="hljs-number">3.00000000</span><br></code></pre></td></tr></table></figure>
-
-<p>如果我们在调用时写成了 <code>call sub(a(1))</code>，那会怎么样呢？实际上还是会得到一样的结果。</p>
-<h3 id="数组变量的顺序对应"><a href="#数组变量的顺序对应" class="headerlink" title="数组变量的顺序对应"></a>数组变量的顺序对应</h3><p>如果将 <code>a(1)</code> 修改为 <code>a(3)</code> 并保持数组 a 的长度为 10，即数组 a 和数组 x 不从第一个元素开始对应，那么源代码将无法被编译，如示例 5 的变种一所示。</p>
-<p>要想在这种情况下还能正常编译，我们就必须扩充数组 a 的长度至少为 12。这样一来，子程序中要赋值的数都能正确存入数组 x 并返回给主程序的数组变量 a，如示例 5 的变种二所示。</p>
+<p>如果我们在调用时写成了
+<code>call sub(a(1))</code>，那会怎么样呢？实际上还是会得到一样的结果。</p>
+<h3 id="数组变量的顺序对应">数组变量的顺序对应</h3>
+<p>如果将 <code>a(1)</code> 修改为 <code>a(3)</code> 并保持数组 a
+的长度为 10，即数组 a 和数组 x
+不从第一个元素开始对应，那么源代码将无法被编译，如示例 5
+的变种一所示。</p>
+<p>要想在这种情况下还能正常编译，我们就必须扩充数组 a 的长度至少为
+12。这样一来，子程序中要赋值的数都能正确存入数组 x
+并返回给主程序的数组变量 a，如示例 5 的变种二所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 5 的变种一</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">call</span> sub(a(<span class="hljs-number">3</span>))<br>    <span class="hljs-built_in">print</span> *, a(<span class="hljs-number">3</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub(x)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">integer</span> i<br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        x(i) = i<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub <br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt; Error: Actual argument <span class="hljs-keyword">contains</span> too few elements for dummy argument <span class="hljs-string">&#x27;x&#x27;</span> (<span class="hljs-number">8</span>/<span class="hljs-number">10</span>) at (<span class="hljs-number">1</span>)<br><br><span class="hljs-comment">!!! 示例 5 的变种二</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(<span class="hljs-number">12</span>)<br>    <span class="hljs-keyword">call</span> sub(a(<span class="hljs-number">3</span>))<br>    <span class="hljs-built_in">print</span> *, a(<span class="hljs-number">3</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest5<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub(x)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x(<span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">integer</span> i<br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        x(i) = i<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub <br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;   <span class="hljs-number">1.00000000</span><br></code></pre></td></tr></table></figure>
-
-<p>其实，**在子程序中也可以不定义数组的长度，将长度设置为 <code>*</code>**。</p>
-<p>如下示例 6 所示，子程序的功能是将数组 a 中的前 n 个元素复制给数组 b。</p>
+<p>其实，<strong>在子程序中也可以不定义数组的长度，将长度设置为
+<code>*</code></strong>。</p>
+<p>如下示例 6 所示，子程序的功能是将数组 a 中的前 n 个元素复制给数组
+b。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 6</span><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> copy(a, b, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(*), b(*)<br>    <span class="hljs-keyword">integer</span> n, i<br>    <span class="hljs-keyword">do</span> i = i, n<br>        b(i) = a(i)<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> copy<br></code></pre></td></tr></table></figure>
-
-<h3 id="二维数组变量"><a href="#二维数组变量" class="headerlink" title="二维数组变量"></a>二维数组变量</h3><p>当然，除了一维数组，我们也可能会想在<strong>主程序中传递二维数组给子程序，但是<code>a(*, *)</code> 的写法在 Fortran 中是不支持的</strong>。因此，我们需要把二维数组的维度也传递给子程序。</p>
-<p>如下示例 7 所示，数组 a 和 b 为二维数组，m 和 n 是它们的维度。子程序中使用数组变量名和给定的维度定义出二维数组。示例 7 的主程序定义了四个二维数组及它们的维度大小，调用子程序时不仅传递了数组本身，也传递了维度大小。而子程序采用了两个 for 循环叠加的方式来交替给二维数组中的每一行每一列的元素赋值。</p>
+<h3 id="二维数组变量">二维数组变量</h3>
+<p>当然，除了一维数组，我们也可能会想在<strong>主程序中传递二维数组给子程序，但是<code>a(*, *)</code>
+的写法在 Fortran
+中是不支持的</strong>。因此，我们需要把二维数组的维度也传递给子程序。</p>
+<p>如下示例 7 所示，数组 a 和 b 为二维数组，m 和 n
+是它们的维度。子程序中使用数组变量名和给定的维度定义出二维数组。示例 7
+的主程序定义了四个二维数组及它们的维度大小，调用子程序时不仅传递了数组本身，也传递了维度大小。而子程序采用了两个
+for 循环叠加的方式来交替给二维数组中的每一行每一列的元素赋值。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 7</span><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>), b(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>), c(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>), d(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>)<br>    ......<br>    <span class="hljs-keyword">call</span> copy2d(a, b, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>)<br>    <span class="hljs-keyword">call</span> copy2d(c, d, <span class="hljs-number">100</span>, <span class="hljs-number">200</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest1<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> copy2d(a, b, m, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> a(m, n), b(m, n)<br>    <span class="hljs-keyword">integer</span> m, n, i, j<br>    <span class="hljs-keyword">do</span> j = i, n<br>        <span class="hljs-keyword">do</span> i = i, m<br>            b(i, j) = a(i, j)<br>        <span class="hljs-keyword">enddo</span><br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> copy2d<br></code></pre></td></tr></table></figure>
-
-<p>数组 a(m, n) 的定义表示数组的行号是从 1 到 m、列号是从 1 到 n。如果想要行号和列号从 0 开始，则应该将数组定义为 a(0:m-1, 0:n-1)。一维数组时可以定义为 a(0:*)。</p>
-<h2 id="函数副程序"><a href="#函数副程序" class="headerlink" title="函数副程序"></a>函数副程序</h2><p><strong>函数副程序，这个称呼不一定十分准确，实际上就是其他编程语言中常用的函数</strong>。在某种程度上，函数只是子程序的替代，但是对于 Fortran 来说，函数必须将函数名作为变量进行声明，并将计算的结果赋给这个函数名同名变量。一个完整的例子如下示例 8 所示。</p>
-<h5 id="小提示-3"><a href="#小提示-3" class="headerlink" title="小提示"></a>小提示</h5><p><strong>函数副程序只能返回一个结果，而子程序可以返回多个结果</strong>。所以如果只是用来计算某个公式或者求解某个结果，可以优先采用函数副程序。如果需要同时返回多个变量，则优先采用子程序。</p>
+<p>数组 a(m, n) 的定义表示数组的行号是从 1 到 m、列号是从 1 到
+n。如果想要行号和列号从 0 开始，则应该将数组定义为 a(0:m-1,
+0:n-1)。一维数组时可以定义为 a(0:*)。</p>
+<h2 id="函数副程序">函数副程序</h2>
+<p><strong>函数副程序，这个称呼不一定十分准确，实际上就是其他编程语言中常用的函数</strong>。在某种程度上，函数只是子程序的替代，但是对于
+Fortran
+来说，函数必须将函数名作为变量进行声明，并将计算的结果赋给这个函数名同名变量。一个完整的例子如下示例
+8 所示。</p>
+<h5 id="小提示-3">小提示</h5>
+<p><strong>函数副程序只能返回一个结果，而子程序可以返回多个结果</strong>。所以如果只是用来计算某个公式或者求解某个结果，可以优先采用函数副程序。如果需要同时返回多个变量，则优先采用子程序。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 8</span><br><span class="hljs-function"><span class="hljs-keyword">function</span></span> square(x)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> square, x         <span class="hljs-comment">! 声明函数名同名变量</span><br>    square = x*x           <span class="hljs-comment">! 将计算结果赋给函数名同名变量</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">function</span></span> square<br><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> ftest1<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> x, y, square      <span class="hljs-comment">! 声明使用的函数名同名变量</span><br>    x = <span class="hljs-number">4.0</span><br>    y = <span class="hljs-number">3.0</span>*square(x+<span class="hljs-number">1.0</span>) + <span class="hljs-number">50.5</span><br>    <span class="hljs-built_in">print</span> *, x, y<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> ftest1<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;   <span class="hljs-number">4.00000000</span>       <span class="hljs-number">125.500000</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-4"><a href="#小提示-4" class="headerlink" title="小提示"></a>小提示</h5><p>Fortran 中的函数使用需要严格遵守函数名同名变量在主程序和函数中的相同类型声明，否则就无法通过编译。</p>
-<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><p>虽然我们在不同的子程序中使用同名的局部变量不会相互影响，但是有的时候也希望一些变量能在不同的子程序中共享使用，这类变量我们可以称之为<strong>全局变量</strong>。</p>
-<p>Fortran 语言中全局变量必须使用 <code>module</code> 的方式单独定义。当在主程序或子程序中需要使用这些已定义的全局变量时，首先要使用 <code>use &lt;module 名&gt;</code> 来声明引用，并且该声明应在 <code>implicit none</code> 之前。如下所示，定义了两个整数类型的变量 nmin 和 nmax，以及实数类型的变量 tinitial 和 二维数组 amatrix。</p>
+<h5 id="小提示-4">小提示</h5>
+<p>Fortran
+中的函数使用需要严格遵守函数名同名变量在主程序和函数中的相同类型声明，否则就无法通过编译。</p>
+<h2 id="全局变量">全局变量</h2>
+<p>虽然我们在不同的子程序中使用同名的局部变量不会相互影响，但是有的时候也希望一些变量能在不同的子程序中共享使用，这类变量我们可以称之为<strong>全局变量</strong>。</p>
+<p>Fortran 语言中全局变量必须使用 <code>module</code>
+的方式单独定义。当在主程序或子程序中需要使用这些已定义的全局变量时，首先要使用
+<code>use &lt;module 名&gt;</code> 来声明引用，并且该声明应在
+<code>implicit none</code> 之前。如下所示，定义了两个整数类型的变量 nmin
+和 nmax，以及实数类型的变量 tinitial 和 二维数组 amatrix。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">module</span> data1<br>    <span class="hljs-keyword">integer</span> nmin, nmax<br>    <span class="hljs-keyword">real</span> tinitial, amatrix(<span class="hljs-number">20</span>, <span class="hljs-number">30</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-keyword">module</span> data1<br></code></pre></td></tr></table></figure>
-
-<p>示例 9 是一个完整的全局变量定义和使用的例子。可以看到，子程序并没有声明任何参数，而是利用定义的全局变量 xais 和 yais 来从主程序中传递值到子程序中。这里的程序执行顺序是：<strong>主程序 → 调用子程序 → 子程序中的打印 → 子程序修改 yais 变量 → 主程序中的打印 → 程序结束</strong>。所以最终的执行结果的第一行是子程序中打印还未修改的两个全局变量，而第二行是主程序中打印已被子程序修改的两个全局变量，符合预期效果。</p>
+<p>示例 9
+是一个完整的全局变量定义和使用的例子。可以看到，子程序并没有声明任何参数，而是利用定义的全局变量
+xais 和 yais
+来从主程序中传递值到子程序中。这里的程序执行顺序是：<strong>主程序 →
+调用子程序 → 子程序中的打印 → 子程序修改 yais 变量 → 主程序中的打印 →
+程序结束</strong>。所以最终的执行结果的第一行是子程序中打印还未修改的两个全局变量，而第二行是主程序中打印已被子程序修改的两个全局变量，符合预期效果。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 9</span><br><span class="hljs-keyword">module</span> global<br>    <span class="hljs-keyword">real</span> xais, yais<br><span class="hljs-keyword">end</span> <span class="hljs-keyword">module</span> global<br><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> stest4<br>    <span class="hljs-keyword">use</span> global<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    xais = <span class="hljs-number">5.0</span><br>    yais = <span class="hljs-number">100.0</span><br>    <span class="hljs-keyword">call</span> subr4<br>    <span class="hljs-built_in">print</span> *, xais, yais<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> stest4<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr4<br>    <span class="hljs-keyword">use</span> global<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-built_in">print</span> *, xais, yais<br>    yais = <span class="hljs-number">25.0</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subr4<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;   <span class="hljs-number">5.00000000</span>       <span class="hljs-number">100.000000</span>    <br>&gt;&gt;&gt;   <span class="hljs-number">5.00000000</span>       <span class="hljs-number">25.0000000</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-5"><a href="#小提示-5" class="headerlink" title="小提示"></a>小提示</h5><p>有的时候子程序中可能并不需要 module 中定义的所有全局变量，只想引入几个有关的全局变量。在 Fortran 语言中可以用 <code>only</code> 的语法来限定引入的全局变量，如下所示。</p>
+<h5 id="小提示-5">小提示</h5>
+<p>有的时候子程序中可能并不需要 module
+中定义的所有全局变量，只想引入几个有关的全局变量。在 Fortran
+语言中可以用 <code>only</code>
+的语法来限定引入的全局变量，如下所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">use</span> 模块名, <span class="hljs-keyword">only</span> : 变量<span class="hljs-number">1</span>, 变量<span class="hljs-number">2</span>, ...<br><span class="hljs-keyword">use</span> global, <span class="hljs-keyword">only</span> : yaxsis<br></code></pre></td></tr></table></figure>
-
-<h2 id="混合嵌套调用"><a href="#混合嵌套调用" class="headerlink" title="混合嵌套调用"></a>混合嵌套调用</h2><p>一般地，子程序或者函数的参数都是一些来自主程序的局部变量，那么子程序中调用函数是否也需要在参数中进行声明呢？是的，子程序如果想要使用某个函数，需要将函数名作为参数引用。</p>
+<h2 id="混合嵌套调用">混合嵌套调用</h2>
+<p>一般地，子程序或者函数的参数都是一些来自主程序的局部变量，那么子程序中调用函数是否也需要在参数中进行声明呢？是的，子程序如果想要使用某个函数，需要将函数名作为参数引用。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 10</span><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subrout(subr, xmin, xmax, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> xmin, xmax, dx, y<br>    <span class="hljs-keyword">integer</span> n, i<br>    dx = (xmax - xmin)/n<br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">0</span>, n<br>        <span class="hljs-keyword">call</span> subr(dx*i+xmin, y)<br>        <span class="hljs-built_in">print</span> *, i, y<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> subrout<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> funcout(fun, xmin, xmax, n)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> fun, xmin, xmax, x, dx, y<br>    <span class="hljs-keyword">integer</span> n, i<br>    dx = (xmax-xmin)/n<br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">0</span>, n<br>        x = dx*i + xmin<br>        y = func(x)**<span class="hljs-number">3</span><br>        <span class="hljs-built_in">print</span> *, x, y<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> funcout<br><br><span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub(x, y)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> y, x<br>    y = <span class="hljs-number">2</span>*<span class="hljs-built_in">sin</span>(x) + <span class="hljs-built_in">cos</span>(x**<span class="hljs-number">2</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">subroutine</span></span> sub<br><br><span class="hljs-function"><span class="hljs-keyword">function</span></span> fun(x)<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span> fun, x<br>    fun = <span class="hljs-built_in">sin</span>(x)**<span class="hljs-number">3</span><br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">function</span></span> fun<br><br><span class="hljs-function"><span class="hljs-keyword">program</span></span> test_func<br>    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">real</span>, <span class="hljs-keyword">external</span> :: fun<br>    <span class="hljs-keyword">external</span> sub<br>    <span class="hljs-keyword">call</span> subrout(sub, <span class="hljs-number">0.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">10</span>)<br>    <span class="hljs-keyword">call</span> funcout(fun, <span class="hljs-number">0.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">10</span>)<br><span class="hljs-keyword">end</span> <span class="hljs-function"><span class="hljs-keyword">program</span></span> test_func<br><br><span class="hljs-comment">!!! 执行结果</span><br>&gt;&gt;&gt;        <span class="hljs-number">0</span>   <span class="hljs-number">1.00000000</span>    <br>           <span class="hljs-number">1</span>   <span class="hljs-number">1.58699322</span>    <br>           <span class="hljs-number">2</span>   <span class="hljs-number">2.06518173</span>    <br>           <span class="hljs-number">3</span>   <span class="hljs-number">2.25615215</span>    <br>           <span class="hljs-number">4</span>   <span class="hljs-number">1.99450183</span>    <br>           <span class="hljs-number">5</span>   <span class="hljs-number">1.36681640</span>    <br>           <span class="hljs-number">6</span>  <span class="hljs-number">0.952533364</span>    <br>           <span class="hljs-number">7</span>   <span class="hljs-number">1.42861772</span>    <br>           <span class="hljs-number">8</span>   <span class="hljs-number">2.21715832</span>    <br>           <span class="hljs-number">9</span>   <span class="hljs-number">1.38931477</span>    <br>          <span class="hljs-number">10</span> -<span class="hljs-number">0.628890276</span>    <br>   <span class="hljs-number">0.00000000</span>       <span class="hljs-number">0.00000000</span>    <br>  <span class="hljs-number">0.300000012</span>       <span class="hljs-number">1.71903503E-05</span><br>  <span class="hljs-number">0.600000024</span>       <span class="hljs-number">5.83394058E-03</span><br>  <span class="hljs-number">0.900000036</span>      <span class="hljs-number">0.111042053</span>    <br>   <span class="hljs-number">1.20000005</span>      <span class="hljs-number">0.530770957</span>    <br>   <span class="hljs-number">1.50000000</span>      <span class="hljs-number">0.977679431</span>    <br>   <span class="hljs-number">1.80000007</span>      <span class="hljs-number">0.787805617</span>    <br>   <span class="hljs-number">2.10000014</span>      <span class="hljs-number">0.266100109</span>    <br>   <span class="hljs-number">2.40000010</span>       <span class="hljs-number">2.92694476E-02</span><br>   <span class="hljs-number">2.70000005</span>       <span class="hljs-number">4.75692534E-04</span><br>   <span class="hljs-number">3.00000000</span>       <span class="hljs-number">2.21971472E-08</span><br></code></pre></td></tr></table></figure>
-
-<p>上面的示例 10 是子程序和函数副程序的混合嵌套使用的一个范例，上述代码的主要结构如下所示：在主程序 <code>test_func</code> 中调用子程序 <code>subrout</code> 和 <code>funcout</code>，再由子程序 <code>subrout</code> 调用子程序 <code>sub</code> 以及子程序 <code>funcout</code> 调用函数副程序 <code>fun</code>。</p>
+<p>上面的示例 10
+是子程序和函数副程序的混合嵌套使用的一个范例，上述代码的主要结构如下所示：在主程序
+<code>test_func</code> 中调用子程序 <code>subrout</code> 和
+<code>funcout</code>，再由子程序 <code>subrout</code> 调用子程序
+<code>sub</code> 以及子程序 <code>funcout</code> 调用函数副程序
+<code>fun</code>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">test_func（主程序）<br>├── subrout（子程序）<br>│   └── sub（子程序）<br>└── funcout（子程序）<br>    └── fun（函数副程序）<br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-6"><a href="#小提示-6" class="headerlink" title="小提示"></a>小提示</h5><p>这里比较重要的是，在主程序中需要对递归调用的子程序和函数副程序进行声明。主程序中的递归子程序调用声明只需要 <code>external</code> 加上子程序名即可，而主程序中的递归函数副程序调用声明需要同时定义函数变量和函数名，因此写为 <code>real, external ::</code> 加上函数副程序名。</p>
-<p>当然在直接调用函数副程序 <code>fun</code> 的子程序 <code>funcout</code> 中也需要定义函数同名变量，写为 <code>real fun</code>。</p>
+<h5 id="小提示-6">小提示</h5>
+<p>这里比较重要的是，在主程序中需要对递归调用的子程序和函数副程序进行声明。主程序中的递归子程序调用声明只需要
+<code>external</code>
+加上子程序名即可，而主程序中的递归函数副程序调用声明需要同时定义函数变量和函数名，因此写为
+<code>real, external ::</code> 加上函数副程序名。</p>
+<p>当然在直接调用函数副程序 <code>fun</code> 的子程序
+<code>funcout</code> 中也需要定义函数同名变量，写为
+<code>real fun</code>。</p>
 
               
             </div>

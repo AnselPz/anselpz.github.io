@@ -16,12 +16,12 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="循环语句Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。 do 循环Fortran 的最简单的循环语句称为 do 语句，其形式如下所示： 12345!!! 不设置步长，默认为 1do 整数型变量 &#x3D; 起始值, 结束值    ......    ......enddo   123456789101112131415161718192021">
+    <meta name="description" content="循环语句 Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。 do 循环 Fortran 的最简单的循环语句称为 do 语句，其形式如下所示： 12345!!! 不设置步长，默认为 1do 整数型变量 &#x3D; 起始值, 结束值    ......    ......enddo  12345678910111213141516171">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fortran-条件与循环语句">
 <meta property="og:url" content="http://example.com/2022/05/23/Fortran-%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="循环语句Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。 do 循环Fortran 的最简单的循环语句称为 do 语句，其形式如下所示： 12345!!! 不设置步长，默认为 1do 整数型变量 &#x3D; 起始值, 结束值    ......    ......enddo   123456789101112131415161718192021">
+<meta property="og:description" content="循环语句 Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。 do 循环 Fortran 的最简单的循环语句称为 do 语句，其形式如下所示： 12345!!! 不设置步长，默认为 1do 整数型变量 &#x3D; 起始值, 结束值    ......    ......enddo  12345678910111213141516171">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-23T07:34:41.000Z">
 <meta property="article:modified_time" content="2022-05-23T08:08:06.304Z">
@@ -80,9 +80,7 @@
   <script  src="/js/color-schema.js" ></script>
 
   
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="/custom_css_source.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -219,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k 字
+          4.9k 字
         
       </span>
     
@@ -280,113 +278,199 @@
             
             <div class="markdown-body">
               
-              <h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><p>Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while 循环有点类似，但也略有不同。</p>
-<h3 id="do-循环"><a href="#do-循环" class="headerlink" title="do 循环"></a>do 循环</h3><p>Fortran 的最简单的循环语句称为 do 语句，其形式如下所示：</p>
+              <h2 id="循环语句">循环语句</h2>
+<p>Fortran 语言中的循环语句与其他高级编程语言中的 For 循环、while
+循环有点类似，但也略有不同。</p>
+<h3 id="do-循环">do 循环</h3>
+<p>Fortran 的最简单的循环语句称为 do 语句，其形式如下所示：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 不设置步长，默认为 1</span><br><span class="hljs-keyword">do</span> 整数型变量 = 起始值, 结束值<br>    ......<br>    ......<br><span class="hljs-keyword">enddo</span> <br></code></pre></td></tr></table></figure>
-
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 1</span><br><span class="hljs-keyword">integer</span> a(<span class="hljs-number">10</span>)<br><span class="hljs-keyword">do</span> n = <span class="hljs-number">1</span>, <span class="hljs-number">10</span>      <span class="hljs-comment">! 计算 1，2，3，4，5，6，7，8，9，10</span><br>    a(n) = n<br><span class="hljs-keyword">enddo</span><br><br><span class="hljs-comment">!!! 设置步长，可以设置正整数和负整数，不能为 0</span><br><span class="hljs-keyword">do</span> 整数型变量 = 初始值, 结束值, 步长<br>    ......<br>    ......<br><span class="hljs-keyword">enddo</span><br><br><span class="hljs-comment">!!! 示例 2</span><br><span class="hljs-keyword">integer</span> a(<span class="hljs-number">5</span>)<br><span class="hljs-keyword">do</span> n = <span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span>   <span class="hljs-comment">! 计算 1，3，5，7，9</span><br>    a(<span class="hljs-built_in">nint</span>(n/<span class="hljs-number">2</span>)) = n<br><span class="hljs-keyword">enddo</span><br><br><span class="hljs-comment">!!! 示例 3</span><br><span class="hljs-keyword">integer</span> a(<span class="hljs-number">5</span>)<br><span class="hljs-keyword">do</span> n = <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">2</span>   <span class="hljs-comment">! 计算 10，8，6，4，2</span><br>    a(n/<span class="hljs-number">2</span>) = n<br><span class="hljs-keyword">enddo</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示"><a href="#小提示" class="headerlink" title="小提示"></a>小提示</h5><p>在使用 do 循环语句的时候，我们需要注意在<strong>结束循环语句后循环条件变量 n 仍然存在</strong>。如果后续计算中还<strong>使用到了相同变量，务必要进行重新初始化赋值</strong>，否则可能造成数据上的污染。我们可以拿示例 3 举个例子，当循环结束后，n 的值其实为 0 (不是 2)。虽然此时的 n 值并不满足循环继续的条件，但是已经完成了对步长的迭代计算，所以如果后续还是使用相同的变量 n，我们期待的 n 初始值与循环结束后的 n 值就可能不一样。<strong>建议在将某个变量设置为循环条件变量之后，循环外尽量不要使用同一个变量</strong>，从而避免这一可能存在的干扰。</p>
-<p>do 循环语句实际上也<strong>可以存在嵌套，即一个 do 循环语句包含了其他的 do 循环语句</strong>，如下示例 4 所示。其中需要注意的是，在多重 do 循环语句中，循环语句的<strong>条件变量不要使用相同的</strong>，否则很可能出现了我们意料之外的问题。建议同一个 do 循环嵌套语句中使用不同的条件变量。如果不在同一个 do 循环嵌套语句中，使用相同的条件变量产生问题的可能性比较小。</p>
+<h5 id="小提示">小提示</h5>
+<p>在使用 do
+循环语句的时候，我们需要注意在<strong>结束循环语句后循环条件变量 n
+仍然存在</strong>。如果后续计算中还<strong>使用到了相同变量，务必要进行重新初始化赋值</strong>，否则可能造成数据上的污染。我们可以拿示例
+3 举个例子，当循环结束后，n 的值其实为 0 (不是 2)。虽然此时的 n
+值并不满足循环继续的条件，但是已经完成了对步长的迭代计算，所以如果后续还是使用相同的变量
+n，我们期待的 n 初始值与循环结束后的 n
+值就可能不一样。<strong>建议在将某个变量设置为循环条件变量之后，循环外尽量不要使用同一个变量</strong>，从而避免这一可能存在的干扰。</p>
+<p>do 循环语句实际上也<strong>可以存在嵌套，即一个 do
+循环语句包含了其他的 do 循环语句</strong>，如下示例 4
+所示。其中需要注意的是，在多重 do
+循环语句中，循环语句的<strong>条件变量不要使用相同的</strong>，否则很可能出现了我们意料之外的问题。建议同一个
+do 循环嵌套语句中使用不同的条件变量。如果不在同一个 do
+循环嵌套语句中，使用相同的条件变量产生问题的可能性比较小。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 4</span><br><span class="hljs-keyword">integer</span> a(<span class="hljs-number">10</span>)<br><span class="hljs-keyword">integer</span> b(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>)<br><span class="hljs-keyword">do</span> n = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>    a(n) = n<br>    <span class="hljs-keyword">do</span> m = <span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">2</span><br>        b(n, <span class="hljs-built_in">nint</span>(m/<span class="hljs-number">2</span>)) = a(n) + m<br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-keyword">enddo</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-1"><a href="#小提示-1" class="headerlink" title="小提示"></a>小提示</h5><p>其实在 do 循环中所指定的条件变量的初始值、结束值及步长也可以用已有值的变量来代替，如下所示。</p>
+<h5 id="小提示-1">小提示</h5>
+<p>其实在 do
+循环中所指定的条件变量的初始值、结束值及步长也可以用已有值的变量来代替，如下所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">integer</span> m, <span class="hljs-built_in">sum</span><br>m = <span class="hljs-number">10</span><br><span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br><span class="hljs-keyword">do</span> n = <span class="hljs-number">1</span>, m<br>    <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + n<br><span class="hljs-keyword">enddo</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h3><p>通过上面的内容，不难发现上述的 do 循环确实看起来有点像 C、C++ 中的 For 循环，那么 Fortran 语言中是否也存在 while 循环呢？答案是<strong>当然了</strong>，其形式如下所示。</p>
+<h3 id="while-循环">while 循环</h3>
+<p>通过上面的内容，不难发现上述的 do 循环确实看起来有点像 C、C++ 中的
+For 循环，那么 Fortran 语言中是否也存在 while
+循环呢？答案是<strong>当然了</strong>，其形式如下所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">do</span> <span class="hljs-keyword">while</span> (条件)<br>   ......<br>    ......<br><span class="hljs-keyword">enddo</span><br></code></pre></td></tr></table></figure>
-
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 5</span><br><span class="hljs-comment">!!! 计算并输出 10，9，8，7，6，5，4，3，2，1 的平方</span><br><span class="hljs-keyword">integer</span> n<br>n = <span class="hljs-number">10</span><br><span class="hljs-keyword">do</span> <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">0</span>)   <br>    <span class="hljs-built_in">print</span> *, n**<span class="hljs-number">2</span><br>    n = n - <span class="hljs-number">1</span><br><span class="hljs-keyword">enddo</span><br></code></pre></td></tr></table></figure>
-
-<p>我们可以从示例 5 中发现，while 循环其实就是变化后的 do 循环。do 循环中判断条件紧跟着 do 字符串，当符合条件时进入循环体内部继续执行，否则跳出循环。while 循环中将 do 循环的初始值放置在了循环语句的前面进行声明，while 循环的条件中只有对于结束值的声明，而原来 do 循环的步长自增或自减操作则放置在了循环体中。这里有一点不同的是，如果自增或自减语句被放置在循环体的第一行，那么最后的执行结果就与 do 循环的不一致了。这是因为 <strong>do 循环实际上是在循环体执行完成后执行的步长自增或自减操作，而 while 循环中则可以自行设置自增或自减操作在循环体中的位置</strong>。</p>
-<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><p>Fortran 语言中的条件语句可以分为<strong>有条件</strong>和<strong>无条件</strong>两种。我们所熟知的 if 语句就是有条件的，而无条件的则是类似于汇编语言的 goto 语句、exit 语句、cycle 语句，甚至还有无条件 do 循环语句。</p>
-<h3 id="if-语句"><a href="#if-语句" class="headerlink" title="if 语句"></a>if 语句</h3><p>if 语句最简单的方式就是，将条件判断语句与执行语句放在同一行，如下所示。这也是因为执行语句比较短，放置在同一行反而代码更加美观。当然一般来说执行语句可能不是一行，甚至是多分支、多重的，因此也有单分支 if 语句、双分支 if 语句、多重 if 语句，如下所示。</p>
+<p>我们可以从示例 5 中发现，while 循环其实就是变化后的 do 循环。do
+循环中判断条件紧跟着 do
+字符串，当符合条件时进入循环体内部继续执行，否则跳出循环。while 循环中将
+do 循环的初始值放置在了循环语句的前面进行声明，while
+循环的条件中只有对于结束值的声明，而原来 do
+循环的步长自增或自减操作则放置在了循环体中。这里有一点不同的是，如果自增或自减语句被放置在循环体的第一行，那么最后的执行结果就与
+do 循环的不一致了。这是因为 <strong>do
+循环实际上是在循环体执行完成后执行的步长自增或自减操作，而 while
+循环中则可以自行设置自增或自减操作在循环体中的位置</strong>。</p>
+<h2 id="条件语句">条件语句</h2>
+<p>Fortran
+语言中的条件语句可以分为<strong>有条件</strong>和<strong>无条件</strong>两种。我们所熟知的
+if 语句就是有条件的，而无条件的则是类似于汇编语言的 goto 语句、exit
+语句、cycle 语句，甚至还有无条件 do 循环语句。</p>
+<h3 id="if-语句">if 语句</h3>
+<p>if
+语句最简单的方式就是，将条件判断语句与执行语句放在同一行，如下所示。这也是因为执行语句比较短，放置在同一行反而代码更加美观。当然一般来说执行语句可能不是一行，甚至是多分支、多重的，因此也有单分支
+if 语句、双分支 if 语句、多重 if 语句，如下所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 最简单的 if 语句</span><br><span class="hljs-keyword">if</span> (条件) 执行语句<br><br></code></pre></td></tr></table></figure>
-
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 6</span><br><span class="hljs-keyword">integer</span> n<br><span class="hljs-keyword">integer</span> i<br>n = <span class="hljs-number">10</span><br>i = -<span class="hljs-number">4</span><br><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>) n = <span class="hljs-number">5</span><br><span class="hljs-built_in">print</span> *, n<br><br><br><span class="hljs-comment">!!! 单分支 if 语句</span><br><span class="hljs-keyword">if</span> (条件) <span class="hljs-keyword">then</span><br>    ......<br>    ......<br><span class="hljs-keyword">endif</span><br><br><span class="hljs-comment">!!! 示例 7</span><br><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">then</span><br>    n = <span class="hljs-number">5</span><br><span class="hljs-keyword">endif</span><br><span class="hljs-built_in">print</span> *, n<br><br><br><span class="hljs-comment">!!! 双分支 if 语句 (一般)</span><br><span class="hljs-keyword">if</span> (条件) <span class="hljs-keyword">then</span><br>    ......<br><span class="hljs-keyword">else</span><br>    ......<br><span class="hljs-keyword">endif</span><br><br><span class="hljs-comment">!!! 示例 8</span><br><span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">then</span><br>    n = <span class="hljs-number">8</span><br><span class="hljs-keyword">else</span><br>    n = <span class="hljs-number">5</span><br><span class="hljs-keyword">endif</span><br><span class="hljs-built_in">print</span> *, n<br><br><br><span class="hljs-comment">!!! 多重 if 语句</span><br><span class="hljs-keyword">if</span> (条件 <span class="hljs-number">1</span>) <span class="hljs-keyword">then</span><br>    .....<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (条件 <span class="hljs-number">2</span>) <span class="hljs-keyword">then</span><br>        ......<br>    <span class="hljs-keyword">else</span><br>        .....<br>    <span class="hljs-keyword">endif</span><br><span class="hljs-keyword">endif</span><br><br><span class="hljs-comment">!!! 示例 9</span><br><span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">then</span><br>    n = <span class="hljs-number">8</span><br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i &gt; -<span class="hljs-number">2</span>) <span class="hljs-keyword">then</span><br>        n = <span class="hljs-number">6</span><br>    <span class="hljs-keyword">else</span><br>        n = <span class="hljs-number">5</span><br>    <span class="hljs-keyword">endif</span><br><span class="hljs-keyword">endif</span><br><span class="hljs-built_in">print</span> *, n<br></code></pre></td></tr></table></figure>
-
-<p>在使用条件语句对条件变量进行比较判断时，除了我们常用的 <code>&gt;</code>、<code>&lt;</code> 之外，也有其他比较符号可以使用，如下表所示。</p>
+<p>在使用条件语句对条件变量进行比较判断时，除了我们常用的
+<code>&gt;</code>、<code>&lt;</code>
+之外，也有其他比较符号可以使用，如下表所示。</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>比较条件符号</th>
 <th>含义</th>
 <th>示例</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>&#x3D;&#x3D;</td>
+<tbody>
+<tr class="odd">
+<td>==</td>
 <td>左边等于右边</td>
-<td>n &#x3D;&#x3D; 10</td>
+<td>n == 10</td>
 </tr>
-<tr>
-<td>&#x2F;&#x3D;</td>
+<tr class="even">
+<td>/=</td>
 <td>左边不等于右边</td>
-<td>n &#x2F;&#x3D; 10</td>
+<td>n /= 10</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>&gt;</td>
 <td>左边大于右边</td>
 <td>n &gt; 10</td>
 </tr>
-<tr>
-<td>&gt;&#x3D;</td>
+<tr class="even">
+<td>&gt;=</td>
 <td>左边大于或等于右边</td>
-<td>n &gt;&#x3D;10</td>
+<td>n &gt;=10</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>&lt;</td>
 <td>左边小于右边</td>
 <td>n &lt; 10</td>
 </tr>
-<tr>
-<td>&lt;&#x3D;</td>
+<tr class="even">
+<td>&lt;=</td>
 <td>左边小于或等于右边</td>
-<td>n &lt;&#x3D; 10</td>
+<td>n &lt;= 10</td>
 </tr>
-</tbody></table>
-<h5 id="小提示-2"><a href="#小提示-2" class="headerlink" title="小提示"></a>小提示</h5><p>这里需要注意一点，如果我们想要**比较左右两边是否相等，不是使用 <code>=</code>，而是使用 <code>==</code>**。其实这一点也比较容易理解，<code>=</code> 的含义是将等号右边的值或者计算结果赋值给左边的变量，为了加以区分，比较左右两边时则使用 <code>==</code>。另外，根据使用其他高级编程语言的经验来看，<code>==</code> 是恒等于的意思，即左右两边不仅值相等、类型也相等，这不正是最稳妥的比较是否相等的方式吗？</p>
-<p>当我们使用条件语句的时候还有一类使用场景，就是<strong>判断一个变量值是否在一个区间，即存在一个下限值和一个上限值</strong>。如果使用我们上述的 if 语句恐怕只有多重 if 语句才能满足我们的需求了，但是这代码写起来可能有点显得多余，毕竟我们在逻辑上是想要同时判断变量值与上下限值的大小。所以 Fortran 语言的 if 语句中也**存在逻辑运算符 <code>.and.</code>、<code>.or.</code> 和 <code>.not.</code>**，具体如下表所示。</p>
+</tbody>
+</table>
+<h5 id="小提示-2">小提示</h5>
+<p>这里需要注意一点，如果我们想要<strong>比较左右两边是否相等，不是使用
+<code>=</code>，而是使用
+<code>==</code></strong>。其实这一点也比较容易理解，<code>=</code>
+的含义是将等号右边的值或者计算结果赋值给左边的变量，为了加以区分，比较左右两边时则使用
+<code>==</code>。另外，根据使用其他高级编程语言的经验来看，<code>==</code>
+是恒等于的意思，即左右两边不仅值相等、类型也相等，这不正是最稳妥的比较是否相等的方式吗？</p>
+<p>当我们使用条件语句的时候还有一类使用场景，就是<strong>判断一个变量值是否在一个区间，即存在一个下限值和一个上限值</strong>。如果使用我们上述的
+if 语句恐怕只有多重 if
+语句才能满足我们的需求了，但是这代码写起来可能有点显得多余，毕竟我们在逻辑上是想要同时判断变量值与上下限值的大小。所以
+Fortran 语言的 if 语句中也<strong>存在逻辑运算符
+<code>.and.</code>、<code>.or.</code> 和
+<code>.not.</code></strong>，具体如下表所示。</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>逻辑运算符</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>条件 1 .and. 条件 2</td>
 <td>同时满足条件 1 和条件 2</td>
 </tr>
-<tr>
+<tr class="even">
 <td>条件 1 .or. 条件 2</td>
 <td>满足条件 1 和条件 2 之一即可</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>.not. 条件</td>
 <td>不满足条件，即满足条件的相反条件</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 10</span><br><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span> .and. i &gt; -<span class="hljs-number">2</span>) <span class="hljs-keyword">then</span><br>    n = <span class="hljs-number">5</span><br><span class="hljs-keyword">else</span><br>    n = <span class="hljs-number">10</span><br><span class="hljs-keyword">endif</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-3"><a href="#小提示-3" class="headerlink" title="小提示"></a>小提示</h5><p>我们在其他高级编程语言中可能已经习惯了类似于 <strong><code>-2 &lt; n &lt; 0</code> <strong>这样的写法，有的时候在 Fortran 语言中也会不自觉地写成这样。但是在 Fortran 语言中这种</strong>写法是不被支持的</strong>，我们需要使用逻辑运算符 <code>.and.</code> 来把上下限值判断连接起来，而不能写在一起。</p>
-<h2 id="无条件语句"><a href="#无条件语句" class="headerlink" title="无条件语句"></a>无条件语句</h2><p>无条件语句一般来说与条件语句的作用是不相同的，主要是为了程序可以跳转、中途退出，但也有类似于 do 循环这样的，只不过还是需要 if 语句来帮助完成跳出循环的判断。<strong>无条件语句有 goto 语句、exit 语句、 cycle 语句三种</strong>。</p>
-<h3 id="goto-语句"><a href="#goto-语句" class="headerlink" title="goto 语句"></a>goto 语句</h3><p>如下所示，这里的 goto 语句的用法与汇编语言的 goto 语句有点类似，<strong>指定一个行号即可无条件跳转到该行执行</strong>。如果是像下面这样<strong>调用 goto 语句的行在跳转到的行之前，那么它们之间的行都会被完全忽略</strong>。如示例 11 所示，<code>a = 15</code> 的赋值语句会被忽略所以 a 的值是在 goto 语句执行之前赋的值 10；同理，<code>b = 11</code> 的赋值语句在 goto 语句和跳转行之间会被忽略，跳转行的 <code>b = 20</code> 生效。如示例 12 所示，当 goto 语句跳转到它之前行执行时，就会造成无限循环，每次执行到 goto 语句就会又跳转到前面，这样 goto 语句后面的命令都不会被执行。</p>
-<h5 id="小提示-4"><a href="#小提示-4" class="headerlink" title="小提示"></a>小提示</h5><p>我们在使用 goto 语句时对跳转的行一定要非常注意，一不小心很容易造成死循环。建议使用 goto 语句的时候跳转到其后的行，杜绝跳转到前面的行。</p>
-<p>为了提高代码可读性，我们<strong>不想将 goto 语句跳转的行直接指向一个操作或者命令，这时我们就可以用 continue 来代替跳转行</strong>，如示例 13 所示。</p>
+<h5 id="小提示-3">小提示</h5>
+<p>我们在其他高级编程语言中可能已经习惯了类似于
+<strong><code>-2 &lt; n &lt; 0</code> </strong>这样的写法，有的时候在
+Fortran 语言中也会不自觉地写成这样。但是在 Fortran
+语言中这种<strong>写法是不被支持的</strong>，我们需要使用逻辑运算符
+<code>.and.</code> 来把上下限值判断连接起来，而不能写在一起。</p>
+<h2 id="无条件语句">无条件语句</h2>
+<p>无条件语句一般来说与条件语句的作用是不相同的，主要是为了程序可以跳转、中途退出，但也有类似于
+do 循环这样的，只不过还是需要 if
+语句来帮助完成跳出循环的判断。<strong>无条件语句有 goto 语句、exit
+语句、 cycle 语句三种</strong>。</p>
+<h3 id="goto-语句">goto 语句</h3>
+<p>如下所示，这里的 goto 语句的用法与汇编语言的 goto
+语句有点类似，<strong>指定一个行号即可无条件跳转到该行执行</strong>。如果是像下面这样<strong>调用
+goto
+语句的行在跳转到的行之前，那么它们之间的行都会被完全忽略</strong>。如示例
+11 所示，<code>a = 15</code> 的赋值语句会被忽略所以 a 的值是在 goto
+语句执行之前赋的值 10；同理，<code>b = 11</code> 的赋值语句在 goto
+语句和跳转行之间会被忽略，跳转行的 <code>b = 20</code> 生效。如示例 12
+所示，当 goto 语句跳转到它之前行执行时，就会造成无限循环，每次执行到
+goto 语句就会又跳转到前面，这样 goto 语句后面的命令都不会被执行。</p>
+<h5 id="小提示-4">小提示</h5>
+<p>我们在使用 goto
+语句时对跳转的行一定要非常注意，一不小心很容易造成死循环。建议使用 goto
+语句的时候跳转到其后的行，杜绝跳转到前面的行。</p>
+<p>为了提高代码可读性，我们<strong>不想将 goto
+语句跳转的行直接指向一个操作或者命令，这时我们就可以用 continue
+来代替跳转行</strong>，如示例 13 所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">goto</span> 行号<br><br>行号 操作或命令<br><br><span class="hljs-comment">!!! 示例 11</span><br>   a = <span class="hljs-number">10</span><br>   <span class="hljs-keyword">goto</span> <span class="hljs-number">8</span><br>   b = <span class="hljs-number">11</span><br>   a = <span class="hljs-number">15</span><br><span class="hljs-number">8</span>  b = <span class="hljs-number">20</span><br>   <span class="hljs-built_in">print</span> *, a, b  <span class="hljs-comment">! 此处输出 a 的值为 10，b 的值为 20</span><br><br><span class="hljs-comment">!!! 示例 12</span><br><br><span class="hljs-number">8</span> a = <span class="hljs-number">10</span><br>  b = <span class="hljs-number">11</span><br>  a = a + b<br>  <span class="hljs-keyword">goto</span> <span class="hljs-number">8</span><br>  b = b - a       <span class="hljs-comment">! 永远不会被执行</span><br>  <span class="hljs-built_in">print</span> *, a, b   <span class="hljs-comment">! 永远不会被执行</span><br><br><span class="hljs-comment">!!! 示例 13</span><br><span class="hljs-number">8</span> <span class="hljs-keyword">continue</span><br>  a = <span class="hljs-number">10</span><br>  b = <span class="hljs-number">11</span><br>  a = a + b<br>  <span class="hljs-keyword">goto</span> <span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="exit-语句"><a href="#exit-语句" class="headerlink" title="exit 语句"></a>exit 语句</h3><p>当我们在使用 do 循环语句时，如果<strong>想要在某个与循环条件无关的条件满足时提前退出循环，就要使用 if 语句和 exit 语句的组合</strong>了。如示例 14 所示，当 sum 的值超过 10 时循环就会被提前终止。由于 <code>1+2+3+4=10</code>，所以 i 加到 5 才会使得 sum 值超过 10，此时的 sum 则为 <code>1+2+3+4+5=15</code>，而 i 也因为提前退出循环而不会执行自增操作，所以此时输出的 i 值为最后的 5。如果将原来的 exit 语句换成 goto 语句，并将 goto 语句指向的跳转行设为循环外的下一行，则最后的效果也是一样的，如示例 15 所示。</p>
+<h3 id="exit-语句">exit 语句</h3>
+<p>当我们在使用 do
+循环语句时，如果<strong>想要在某个与循环条件无关的条件满足时提前退出循环，就要使用
+if 语句和 exit 语句的组合</strong>了。如示例 14 所示，当 sum 的值超过 10
+时循环就会被提前终止。由于 <code>1+2+3+4=10</code>，所以 i 加到 5
+才会使得 sum 值超过 10，此时的 sum 则为 <code>1+2+3+4+5=15</code>，而 i
+也因为提前退出循环而不会执行自增操作，所以此时输出的 i 值为最后的
+5。如果将原来的 exit 语句换成 goto 语句，并将 goto
+语句指向的跳转行设为循环外的下一行，则最后的效果也是一样的，如示例 15
+所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 14</span><br><span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br><span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>    <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + i<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">10</span>) <span class="hljs-keyword">exit</span><br><span class="hljs-keyword">enddo</span><br><span class="hljs-built_in">print</span> *, i, <span class="hljs-built_in">sum</span>      <span class="hljs-comment">! 输出 i 的值为 5，sum 的值为 15</span><br><br><span class="hljs-comment">!!! 示例 15</span><br>    <span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + i<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">10</span>) <span class="hljs-keyword">goto</span> <span class="hljs-number">8</span><br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-number">8</span>   <span class="hljs-built_in">print</span> *, i, <span class="hljs-built_in">sum</span>  <span class="hljs-comment">! 输出 i 的值仍为 5，sum 的值仍为 15</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="cycle-语句"><a href="#cycle-语句" class="headerlink" title="cycle 语句"></a>cycle 语句</h3><p>cycle 语句与 exit 语句正好表示了<strong>相反</strong>的意思，它指示程序在<strong>满足条件时继续执行循环、不满足条件时跳出循环</strong>。如示例 16 所示，这个 cycle 语句的效果与示例 14、15 的完全一致。</p>
+<h3 id="cycle-语句">cycle 语句</h3>
+<p>cycle 语句与 exit
+语句正好表示了<strong>相反</strong>的意思，它指示程序在<strong>满足条件时继续执行循环、不满足条件时跳出循环</strong>。如示例
+16 所示，这个 cycle 语句的效果与示例 14、15 的完全一致。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 16</span><br><span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br><span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>    <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + i<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sum</span> &lt;= <span class="hljs-number">10</span>) <span class="hljs-keyword">cycle</span><br><span class="hljs-keyword">enddo</span><br><span class="hljs-built_in">print</span> *, i, <span class="hljs-built_in">sum</span>      <span class="hljs-comment">! 输出 i 的值仍为 5，sum 的值仍为 15</span><br></code></pre></td></tr></table></figure>
-
 <p>Copy</p>
-<h3 id="多重循环下的-exit-与-goto-语句"><a href="#多重循环下的-exit-与-goto-语句" class="headerlink" title="多重循环下的 exit 与 goto 语句"></a>多重循环下的 exit 与 goto 语句</h3><p>一般来说在复杂的行列式计算中经常会遇到多重循环，这与以上 goto 和 exit 语句的场景稍显不同。goto 语句的跳转行因为可以指定任何一行，所以不会被多重循环影响，可以直接跳转到多重循环之外或者某一重循环之中的某一行，如示例 17 所示。而<strong>exit 语句如果还是按照上面的用法每次只能退出一重循环，碰到需要同时退出多重循环时就比较麻烦</strong>。所以 Fortran 语言为了尽量避免这一问题，就给 exit 语句添加一种**类似于 goto 语句指示跳转行的方法 <code>exit out</code>**，如示例 18 所示。</p>
+<h3 id="多重循环下的-exit-与-goto-语句">多重循环下的 exit 与 goto
+语句</h3>
+<p>一般来说在复杂的行列式计算中经常会遇到多重循环，这与以上 goto 和 exit
+语句的场景稍显不同。goto
+语句的跳转行因为可以指定任何一行，所以不会被多重循环影响，可以直接跳转到多重循环之外或者某一重循环之中的某一行，如示例
+17 所示。而<strong>exit
+语句如果还是按照上面的用法每次只能退出一重循环，碰到需要同时退出多重循环时就比较麻烦</strong>。所以
+Fortran 语言为了尽量避免这一问题，就给 exit 语句添加一种<strong>类似于
+goto 语句指示跳转行的方法 <code>exit out</code></strong>，如示例 18
+所示。</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-comment">!!! 示例 17</span><br>    <span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>            <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + i + j<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">10</span>) go <span class="hljs-number">10</span><br>        <span class="hljs-keyword">enddo</span><br>    <span class="hljs-keyword">enddo</span><br><span class="hljs-number">10</span>  <span class="hljs-built_in">print</span> *, i, j, <span class="hljs-built_in">sum</span>   <span class="hljs-comment">! 输出 i 的值为 1，j 的值为 4，sum 的值为 11</span><br><br><span class="hljs-comment">!!! 示例 18</span><br><span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br><span class="hljs-keyword">out</span>: <span class="hljs-keyword">do</span> i = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>        <span class="hljs-keyword">do</span> j = <span class="hljs-number">1</span>, <span class="hljs-number">10</span><br>            <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span> + i + j<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sum</span> &gt; <span class="hljs-number">10</span>) <span class="hljs-keyword">exit</span> <span class="hljs-keyword">out</span><br>        <span class="hljs-keyword">enddo</span><br>     <span class="hljs-keyword">enddo</span> <span class="hljs-keyword">out</span><br><span class="hljs-built_in">print</span> *, i, j, <span class="hljs-built_in">sum</span>       <span class="hljs-comment">! 输出 i 的值为 1，j 的值为 4，sum 的值为 11 </span><br></code></pre></td></tr></table></figure>
-
-<h5 id="小提示-5"><a href="#小提示-5" class="headerlink" title="小提示"></a>小提示</h5><p>这里需要注意的是，<strong>当使用 <code>exit out</code> 方法时，out 是对应于循环的一个别名，需要同时在 do 前和 enddo 后添加 out 的声明</strong>。当然，这里的别名也可以使用其他符合规则的字符串，只要不与同一个代码文件中的其他别名或变量名等相同即可。</p>
+<h5 id="小提示-5">小提示</h5>
+<p>这里需要注意的是，<strong>当使用 <code>exit out</code> 方法时，out
+是对应于循环的一个别名，需要同时在 do 前和 enddo 后添加 out
+的声明</strong>。当然，这里的别名也可以使用其他符合规则的字符串，只要不与同一个代码文件中的其他别名或变量名等相同即可。</p>
 
               
             </div>
