@@ -16,21 +16,22 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景信息 FTP（File Transfer Protocol）是一种文件传输协议，基于客户端&#x2F;服务器架构，支持以下两种工作模式：  主动模式：客户端向FTP服务器发送端口信息，由服务器主动连接该端口。 被动模式：FTP服务器开启并发送端口信息给客户端，由客户端连接该端口，服务器被动接受连接。  说明 大多数FTP客户端都在局域网中，没有独立的公网IP地址，且有防火墙阻拦，主动模式">
+    <meta name="description" content="计算机网络的核心内容就是网络协议的学习。 网络协议是问计算机网络中进行数据交换而建立的规则、标准或者说是约定的集合。因为不同用户的数据终端可能采集的字符集是不同的，两者需要通信，必须要在一定的标准上进行。目前TCP&#x2F;IP协议已经成为Internet的“通用语言”。 1.网络层次划分 为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在19">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建ftp服务器小结">
-<meta property="og:url" content="http://example.com/2022/05/27/%E6%90%AD%E5%BB%BAftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:title" content="计算机网络基础1">
+<meta property="og:url" content="http://example.com/2022/05/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%801/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="背景信息 FTP（File Transfer Protocol）是一种文件传输协议，基于客户端&#x2F;服务器架构，支持以下两种工作模式：  主动模式：客户端向FTP服务器发送端口信息，由服务器主动连接该端口。 被动模式：FTP服务器开启并发送端口信息给客户端，由客户端连接该端口，服务器被动接受连接。  说明 大多数FTP客户端都在局域网中，没有独立的公网IP地址，且有防火墙阻拦，主动模式">
+<meta property="og:description" content="计算机网络的核心内容就是网络协议的学习。 网络协议是问计算机网络中进行数据交换而建立的规则、标准或者说是约定的集合。因为不同用户的数据终端可能采集的字符集是不同的，两者需要通信，必须要在一定的标准上进行。目前TCP&#x2F;IP协议已经成为Internet的“通用语言”。 1.网络层次划分 为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在19">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-27T05:32:51.000Z">
-<meta property="article:modified_time" content="2022-05-27T07:40:26.770Z">
+<meta property="article:published_time" content="2022-05-28T07:50:21.000Z">
+<meta property="article:modified_time" content="2022-05-28T08:10:54.398Z">
 <meta property="article:author" content="Aries Peng">
+<meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>搭建ftp服务器小结 - 千山慕晗</title>
+  <title>计算机网络基础1 - 千山慕晗</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="搭建ftp服务器小结"></span>
+            <span id="subtitle" data-typed-text="计算机网络基础1"></span>
           
         </div>
 
@@ -208,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-27 13:32" pubdate>
-          2022年5月27日 下午
+        <time datetime="2022-05-28 15:50" pubdate>
+          2022年5月28日 下午
         </time>
       </span>
     
@@ -220,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          2.5k 字
         
       </span>
     
@@ -231,7 +232,7 @@
         
         
         
-          17 分钟
+          21 分钟
         
       </span>
     
@@ -277,120 +278,89 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">搭建ftp服务器小结</h1>
+            <h1 style="display: none">计算机网络基础1</h1>
             
             <div class="markdown-body">
               
-              <h2 id="背景信息">背景信息</h2>
-<p>FTP（File Transfer
-Protocol）是一种文件传输协议，基于客户端/服务器架构，支持以下两种工作模式：</p>
+              <p>计算机网络的核心内容就是<strong>网络协议</strong>的学习。</p>
+<p>网络协议是问计算机网络中进行数据交换而建立的规则、标准或者说是约定的集合。因为不同用户的数据终端可能采集的字符集是不同的，两者需要通信，必须要在一定的标准上进行。目前TCP/IP协议已经成为Internet的“通用语言”。</p>
+<h3 id="网络层次划分">1.网络层次划分</h3>
+<p>为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在1978年提出了"开放系统互联参考模型"，即著名的OSI/RM模型（Open
+System Interconnection/Reference
+Model）。它将计算机网络体系结构的通信协议划分为七层，自下而上依次为：物理层（Physics
+Layer）、数据链路层（Data Link Layer）、网络层（Network
+Layer）、传输层（Transport Layer）、会话层（Session
+Layer）、表示层（Presentation Layer）、应用层（Application
+Layer）。其中第四层完成数据传送服务，上面三层面向用户。</p>
+<p>除了标准的OSI七层模型以外，常见的网络层次划分还有TCP/IP四层协议以及TCP/IP五层协议。</p>
+<figure>
+<img
+src="https://www.runoob.com/wp-content/uploads/2018/09/1538030296-7490-20150904094019903-1923900106.jpg" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="osi七层网络模型">2.OSI七层网络模型</h3>
+<p>TCP/IP协议是互联网的基础协议。不管是管是OSI七层模型还是TCP/IP的四层、五层模型，每一层都要有自己的专属协议，完成自己相应的工作以及与上下层级之间进行沟通。</p>
+<figure>
+<img
+src="https://www.runoob.com/wp-content/uploads/2018/09/1538030296-8668-20150904095142060-1017190812.gif" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>1）物理层（Physical Layer）</strong></p>
+<p>激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。<strong>该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。</strong>物理层记住两个重要的设备名称，==中继器（Repeater，也叫放大器）==和==集线器==。</p>
+<p><strong>2）数据链路层（Data Link Layer）</strong></p>
+<p>数据链路层在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。为达到这一目的，数据链路必须具备一系列相应的功能，主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为<strong>帧（frame）</strong>，帧是数据链路层的传送单位；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。该层的作用包括：物理地址寻址、数据的成帧、流量控制、数据的检错、重发等。</p>
+<p>有关数据链路层的重要知识点：</p>
 <ul>
-<li>主动模式：客户端向FTP服务器发送端口信息，由服务器主动连接该端口。</li>
-<li>被动模式：FTP服务器开启并发送端口信息给客户端，由客户端连接该端口，服务器被动接受连接。</li>
+<li><strong>1&gt; 数据链路层为网络层提供可靠的数据传输；</strong></li>
+<li>　　<strong>2&gt; 基本数据单位为帧；</strong></li>
+<li>　　<strong>3&gt; 主要的协议：以太网协议；</strong></li>
+<li>　　<strong>4&gt; 两个重要设备名称：网桥和交换机。</strong></li>
 </ul>
-<p><strong>说明</strong>
-大多数FTP客户端都在局域网中，没有独立的公网IP地址，且有防火墙阻拦，主动模式下FTP服务器成功连接到客户端比较困难。因此，如无特殊需求，建议您将FTP服务器配置为被动模式。</p>
-<p>FTP支持以下三种认证模式：</p>
+<p><strong>3）网络层（Network Layer）</strong></p>
+<p>网络层的目的是<strong>实现两个端系统之间的数据透明传送</strong>，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果您想用尽量少的词来记住网络层，那就是<strong>"路径选择、路由及逻辑寻址"</strong>。</p>
+<p>网络层中涉及众多的协议，其中包括最重要的协议，也是TCP/IP的核心协议——IP协议。IP协议非常简单，仅仅提供不可靠、无连接的传送服务。IP协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与IP协议配套使用实现其功能的还有地址解析协议ARP、逆地址解析协议RARP、因特网报文协议ICMP、因特网组管理协议IGMP。具体的协议我们会在接下来的部分进行总结，有关网络层的重点为：</p>
 <ul>
-<li>匿名用户模式：任何人无需密码验证就可以直接登录到FTP服务器。这种模式最不安全，一般只用来保存不重要的公开文件，不推荐在生产环境中使用。</li>
-<li>本地用户模式：通过Linux系统本地账号进行验证的模式，相较于匿名用户模式更安全。</li>
-<li>虚拟用户模式：FTP服务器的专有用户。虚拟用户只能访问Linux系统为其提供的FTP服务，而不能访问Linux系统的其它资源，进一步增强了FTP服务器的安全性。</li>
+<li>　　<strong>1&gt;
+网络层负责对子网间的数据包进行路由选择。此外，网络层还可以实现拥塞控制、网际互连等功能；</strong></li>
+<li>　　<strong>2&gt; 基本数据单位为IP数据报；</strong></li>
+<li>　　<strong>3&gt; 包含的主要协议：</strong></li>
+<li>　　<strong>IP协议（Internet
+Protocol，因特网互联协议）;</strong></li>
+<li>　　<strong>ICMP协议（Internet Control Message
+Protocol，因特网控制报文协议）;</strong></li>
+<li>　　<strong>ARP协议（Address Resolution
+Protocol，地址解析协议）;</strong></li>
+<li>　　<strong>RARP协议（Reverse Address Resolution
+Protocol，逆地址解析协议）。</strong></li>
+<li>　　<strong>4&gt; 重要的设备：路由器。</strong></li>
 </ul>
-<p>本文主要介绍被动模式下，使用本地用户访问FTP服务器的配置方法。</p>
-<p>1.修改vsftpd.conf配置文件</p>
-<ol type="1">
-<li><p>运行以下命令，打开vsftpd的配置文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/vsftpd/vsftpd.conf<br></code></pre></td></tr></table></figure></li>
-<li><p>按i进入编辑模式。</p></li>
-<li><p>配置FTP服务器为被动模式。</p>
-<p>具体的配置参数说明如下：</p>
-<p><strong>注意</strong>
-修改和添加配置文件内的信息时，请注意格式问题。例如，==添加多余的空格会造成无法重启服务的结果==。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#除下面提及的参数，其他参数保持默认值即可。</span><br><br><span class="hljs-comment">#修改下列参数的值：</span><br><span class="hljs-comment">#禁止匿名登录FTP服务器。</span><br>anonymous_enable=NO<br><span class="hljs-comment">#允许本地用户登录FTP服务器。</span><br>local_enable=YES<br><span class="hljs-comment">#监听IPv4 sockets。</span><br>listen=YES<br><br><span class="hljs-comment">#在行首添加#注释掉以下参数：</span><br><span class="hljs-comment">#关闭监听IPv6 sockets。</span><br><span class="hljs-comment">#listen_ipv6=YES</span><br><br><span class="hljs-comment">#在配置文件的末尾添加下列参数：</span><br><span class="hljs-comment">#设置本地用户登录后所在目录。如需修改共享文件夹，修改目录即可</span><br>local_root=/var/ftp/test<br><span class="hljs-comment">#全部用户被限制在主目录。</span><br>chroot_local_user=YES<br><span class="hljs-comment">#启用例外用户名单。</span><br>chroot_list_enable=YES<br><span class="hljs-comment">#指定例外用户列表文件，列表中用户不被锁定在主目录。</span><br>chroot_list_file=/etc/vsftpd/chroot_list<br><span class="hljs-comment">#开启被动模式。</span><br>pasv_enable=YES<br>allow_writeable_chroot=YES<br><span class="hljs-comment">#本教程中为Linux实例的公网IP。</span><br>pasv_address=&lt;FTP服务器公网IP地址&gt;<br><span class="hljs-comment">#设置被动模式下，建立数据传输可使用的端口范围的最小值。</span><br><span class="hljs-comment">#建议您把端口范围设置在一段比较高的范围内，例如50000~50010，有助于提高访问FTP服务器的安全性。</span><br>pasv_min_port=&lt;port number&gt;<br><span class="hljs-comment">#设置被动模式下，建立数据传输可使用的端口范围的最大值。</span><br>pasv_max_port=&lt;port number&gt;<br></code></pre></td></tr></table></figure>
-<p>更多参数的详细信息，请参见<a
-target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/92048.htm#section-t9a-ors-44c">vsftp配置文件及参数说明</a>。</p>
-<p>4.修改完，保存退出vim。运行以下命令重启vsftpd服务即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">systemctl restart vsftpd.service<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="vsftp配置文件及参数说明">vsftp配置文件及参数说明</h2>
-<p>/etc/vsftpd目录下文件说明如下：</p>
+<p><strong>4）传输层（Transport Layer）</strong></p>
+<p>第一个端到端，即主机到主机的层次。传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。
+传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为<strong>段或报文</strong>。
+网络层只是根据网络地址将源结点发出的数据包传送到目的结点，而传输层则负责将数据可靠地传送到相应的端口。
+有关网络层的重点：</p>
 <ul>
-<li>/etc/vsftpd/vsftpd.conf是vsftpd的核心配置文件。</li>
-<li>/etc/vsftpd/ftpusers是黑名单文件，此文件中的用户不允许访问FTP服务器。</li>
-<li>/etc/vsftpd/user_list是白名单文件，此文件中的用户允许访问FTP服务器。</li>
+<li><strong>1&gt;
+传输层负责将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题；</strong></li>
+<li><strong>2&gt; 包含的主要协议：TCP协议（Transmission Control
+Protocol，传输控制协议）、UDP协议（User Datagram
+Protocol，用户数据报协议）；</strong></li>
+<li><strong>3&gt; 重要设备：网关。</strong></li>
 </ul>
-<p>配置文件vsftpd.conf参数说明如下：</p>
+<p><strong>5）会话层</strong></p>
+<p>会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<p><strong>6）表示层</strong></p>
+<p>表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<p><strong>7）应用层</strong></p>
+<p>为操作系统或网络应用程序提供访问网络服务的接口。</p>
+<p>会话层、表示层和应用层重点：</p>
 <ul>
-<li><p>用户登录控制参数说明如下表所示。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">参数</th>
-<th style="text-align: left;">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">anonymous_enable=YES</td>
-<td style="text-align: left;">接受匿名用户</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">no_anon_password=YES</td>
-<td style="text-align: left;">匿名用户login时不询问口令</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">anon_root=（none）</td>
-<td style="text-align: left;">匿名用户主目录</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">local_enable=YES</td>
-<td style="text-align: left;">接受本地用户</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">local_root=（none）</td>
-<td style="text-align: left;">本地用户主目录</td>
-</tr>
-</tbody>
-</table></li>
-<li><p>用户权限控制参数说明如下表所示。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">参数</th>
-<th style="text-align: left;">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">write_enable=YES</td>
-<td style="text-align: left;">可以上传文件（全局控制）</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">local_umask=022</td>
-<td style="text-align: left;">本地用户上传的文件权限</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">file_open_mode=0666</td>
-<td style="text-align: left;">上传文件的权限配合umask使用</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">anon_upload_enable=NO</td>
-<td style="text-align: left;">匿名用户可以上传文件</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">anon_mkdir_write_enable=NO</td>
-<td style="text-align: left;">匿名用户可以建目录</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">anon_other_write_enable=NO</td>
-<td style="text-align: left;">匿名用户修改删除</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">chown_username=lightwiter</td>
-<td style="text-align: left;">匿名上传文件所属用户名</td>
-</tr>
-</tbody>
-</table></li>
+<li><strong>1&gt; 数据传输基本单位为报文；</strong></li>
+<li><strong>2&gt;
+包含的主要协议：FTP（文件传送协议）、Telnet（远程登录协议）、DNS（域名解析协议）、SMTP（邮件传送协议），POP3协议（邮局协议），HTTP协议（Hyper
+Text Transfer Protocol）。</strong></li>
 </ul>
 
               
@@ -400,6 +370,13 @@ target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/920
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
+      
+    </div>
+  
 </div>
 
 
@@ -408,8 +385,8 @@ target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/920
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>搭建ftp服务器小结</div>
-      <div>http://example.com/2022/05/27/搭建ftp服务器小结/</div>
+      <div>计算机网络基础1</div>
+      <div>http://example.com/2022/05/28/计算机网络基础1/</div>
     </div>
     <div class="license-meta">
       
@@ -421,7 +398,7 @@ target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/920
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月27日</div>
+          <div>2022年5月28日</div>
         </div>
       
       
@@ -451,18 +428,12 @@ target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/920
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%801/" title="计算机网络基础1">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">计算机网络基础1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/26/ftp-%E5%8D%8F%E8%AE%AE/" title="ftp 协议">
-                        <span class="hidden-mobile">ftp 协议</span>
+                      <a href="/2022/05/27/%E6%90%AD%E5%BB%BAftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B0%8F%E7%BB%93/" title="搭建ftp服务器小结">
+                        <span class="hidden-mobile">搭建ftp服务器小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
