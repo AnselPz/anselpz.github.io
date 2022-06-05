@@ -1,0 +1,1023 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Aries Peng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="单片机提供给我们可以使用的内部资源。  Flash：程序存储空间，早期单片机是 OTPROM。 RAM：数据存储空间。 SFR：特殊功能寄存器。  1) Flash 在早期的单片机中，主要是用 OTPROM（One Time Programmable Read-Only Memory，即一次可编程只读存储器）来存储单片机的程序，程序只能写入一次，如果发现错了，没办法，只能换一片，重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单片机复习——01">
+<meta property="og:url" content="http://example.com/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-01/index.html">
+<meta property="og:site_name" content="千山慕晗">
+<meta property="og:description" content="单片机提供给我们可以使用的内部资源。  Flash：程序存储空间，早期单片机是 OTPROM。 RAM：数据存储空间。 SFR：特殊功能寄存器。  1) Flash 在早期的单片机中，主要是用 OTPROM（One Time Programmable Read-Only Memory，即一次可编程只读存储器）来存储单片机的程序，程序只能写入一次，如果发现错了，没办法，只能换一片，重">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-05T07:28:47.000Z">
+<meta property="article:modified_time" content="2022-06-05T09:23:39.448Z">
+<meta property="article:author" content="Aries Peng">
+<meta property="article:tag" content="单片机">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>单片机复习——01 - 千山慕晗</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","app_key":"8Ua5DhRiSHzavGRmSjJzGoa3","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>慕晗</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="单片机复习——01"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-05 15:28" pubdate>
+          2022年6月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">单片机复习——01</h1>
+            
+            <div class="markdown-body">
+              
+              <p>单片机提供给我们可以使用的内部资源。</p>
+<ul>
+<li>Flash：程序存储空间，早期单片机是 OTPROM。</li>
+<li>RAM：数据存储空间。</li>
+<li>SFR：特殊功能寄存器。</li>
+</ul>
+<p><strong>1) Flash</strong> 在早期的单片机中，主要是用 OTPROM（One Time
+Programmable Read-Only
+Memory，即一次可编程只读存储器）来存储单片机的程序，程序只能写入一次，如果发现错了，没办法，只能换一片，重新写入了。随着技术的发展，Flash
+以其可重复擦写且容量大成本低的优点成为现在绝大多数单片机的程序存储器。对于单片机来说
+Flash
+最大的意义是断电后数据不丢失，这个概念类似于我们电脑的硬盘，我们保存了电影、文档、音乐等文件，把电源关掉后，下次重新开电脑，所有的文件都还照样存在。</p>
+<p><strong>2) RAM</strong> RAM
+是单片机的数据存储空间，用来存储程序运行过程中产生的和需要的数据，跟电脑的内存是相似的概念，其实最典型的比喻是我们的计算器，我们用计算器计算个加减法，一些中间的数据都会保存在
+RAM
+里边，关电后数据丢失，所以我们每次打开计算器，都是从归零开始计算。但是它的优点，第一是读写速度非常快，第二是理论上是可无限次写入的，即寿命无限，不管程序怎么运行怎么读写它都不会坏。</p>
+<p><strong>3) SFR</strong> 第三个资源是
+SFR，特殊功能寄存器。这个概念大家可能刚开始理解不了，但是一定要记住。单片机有很多很多功能，每个功能都会对应一个或多个
+SFR，我们就是通过对 SFR 的读写来实现单片机的多种多样的功能的。</p>
+<p><strong>单片机最小系统</strong>，也叫做单片机最小应用系统，是指用最少的原件组成单片机可以工作的系统。单片机最小系统的三要素就是<strong>电源、晶振、复位电路</strong>，如图
+2-1 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316134133918.png" srcset="/img/loading.gif" lazyload
+alt="图 2-1 单片机最小系统电路" /> 图 2-1 单片机最小系统电路</p>
+<p>这张最小系统的电路图节选自我们的 KST-51
+开发板原理图，下面我们就照这张电路图来具体分析最小系统的三要素。</p>
+<h2 id="电源">1) 电源</h2>
+<p>这个很好理解，电子设备都需要供电，就连我们的家用电器（手电筒^_^）也不例外。目前主流单片机的电源分为
+5V 和 3.3V
+这两个标准，当然现在还有对电压要求更低的单片机系统，一般多用在一些特定场合，在学习中我们不做过多的关注。</p>
+<p>我们所选用的 STC89C52，它需要 5V 的供电系统，我们的开发板是使用 USB
+口输出的5V 直流直接供电的。从图 2-1 可以看到，供电电路在 40 脚和 20
+脚的位置上，40 脚接的是+5V，通常也称为 VCC 或 VDD，代表的是电源正极，20
+脚接的是 GND，代表的是电源的负极。+5V 和 GND
+之间还有个电容，作用我们下节课介绍。</p>
+<p>这个地方我们还要普及一个看原理图的知识。<strong>电路原理图</strong>是为了表达这个电路的工作原理而存在的，很多器件在绘制的时候更多考虑的是方便原理分析，而不是表达各个器件实际位置。比如原理图中的单片机引脚图，<strong>引脚的位置我们是可以随意放的，但是每个引脚上有一个数字标号，这个数字标号代表的才是单片机真正的引脚位置</strong>。一般情况下，这种双列直插封装的芯片，左上角是
+1
+脚，逆时针旋转引脚号依次增加，一直到右上角是最大脚位，我们现在选用的单片机一共是
+40 个引脚，因此右上角就是 40（在表示芯片的方框的内部），如图 2-2
+所示，大家要分清原理图引脚标号和实际引脚位置的区别。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031613441B42.png" srcset="/img/loading.gif" lazyload
+alt="图 2-2 单片机封装图" /> 图 2-2 单片机封装图</p>
+<h2 id="晶振">2) 晶振</h2>
+<p>晶振，又叫晶体振荡器，从这个名字我们就可以看出来，它注定一生都要不停振荡的。</p>
+<p>他起到的作用是为单片机系统提供基准时钟信号，类似于我们部队训练时喊口令的人，单片机内部所有的工作都是以这个时钟信号为步调基准来进行工作的。STC89C52
+单片机的 18 脚和 19 脚是晶振引脚，我们接了一个 11.0592M
+的晶振（它每秒钟振荡 11,059,200 次），外加两个 20pF
+的电容，<strong>电容的作用是帮助晶振起振，并维持振荡信号的稳定</strong>。</p>
+<h2 id="复位电路">3) 复位电路</h2>
+<p>在图 2-1 左侧是一个复位电路，接到了单片机的 9 脚
+RST(Reset)复位引脚上，这个复位电路如何起作用我们后边再讲，现在着重讲一下复位对单片机的作用。单片机复位一般是
+3种情况：<strong>上电复位、手动复位、程序自动复位</strong>。</p>
+<p>假如我们的单片机程序有 100 行，当某一次运行到第 50
+行的时候，突然停电了，这个时候单片机内部有的区域数据会丢失掉，有的区域数据可能还没丢失。那么下次打开设备的时候，我们希望单片机能正常运行，所以上电后，单片机要进行一个内部的初始化过程，这个过程就可以理解为上电复位，上电复位保证单片机每次都从一个固定的相同的状态开始工作。这个过程跟我们打开电脑电源开电脑的过程是一致的。</p>
+<p>当我们的程序运行时，如果遭受到意外干扰而导致程序死机，或者程序跑飞的时候，我们就可以按下一个复位按键，让程序重新初始化重新运行，这个过程就叫做手动复位，最典型的就是我们电脑的重启按钮。</p>
+<p>当程序死机或者跑飞的时候，我们的单片机往往有一套自动复位机制，比如看门狗，具体应用以后再了解。在这种情况下，如果程序长时间失去响应，单片机看门狗模块会自动复位重启单片机。还有一些情况是我们程序故意重启复位单片机。</p>
+<p>电源、晶振、复位构成了单片机最小系统的三要素，也就是说，一个单片机具备了这三个条件，就可以运行我们下载的程序了，其他的比如
+LED
+小灯、数码管、液晶等设备都是属于单片机的外部设备，即外设。最终完成我们想要的功能就是通过对单片机编程来控制各种各样的外设实现的。</p>
+<h3 id="硬件基础知识学习">硬件基础知识学习</h3>
+<p>第一个知识点，<strong>去耦电容的应用</strong>。首先要介绍一下去耦电容的应用背景，这个背景就是电磁干扰，也就是“传说中”的
+EMI。</p>
+<ol type="1">
+<li><p>冬天的时候，尤其是空气比较干燥的内陆城市，很多朋友都有这样的经历，手触碰到电脑外壳、铁柜子等物品的时候会被电击，这就是<strong>静电放电”</strong>现象，也称之为<strong>ESD</strong>。</p></li>
+<li><p>不知道有没有同学有这样的经历，早期我们使用电钻这种电机设备，并且同时在听收音机或者看电视的时候，收音机或者电视会出现杂音，这就是“<strong>快速瞬间群脉冲</strong>”的效果，也称之为
+<strong>EFT</strong>。</p></li>
+<li><p>以前的老电脑，有的性能不是很好，带电热插拔优盘、移动硬盘等外围设备的时候，内部会产生一个百万分之一秒的电源切换，直接导致电脑出现蓝屏或者重启现象，就是热插拔的“浪涌”效果，称之为
+Surge。 ......</p></li>
+</ol>
+<p>电磁干扰的内容有很多，我们这里不能一一列举，但是有些内容非常重要，后边我们要一点点的了解。这些问题大家不要认为是小问题，比如一个简单的静电放电，我们用手能感觉到的静电，可能已经达到
+3KV 以上了，如果用眼睛能看得到的，至少是 5KV
+了，只是因为这个电压虽然很高，能量却非常小，持续的时间非常短，因此不会对人体造成伤害。但是我们应用的这些半导体元器件就不一样了，一旦瞬间电压过高，就有可能造成器件的损坏。</p>
+<p>而且，即使不损坏，在 2、3
+里边介绍的两种现象，也已经严重干扰到设备的正常使用了。基于以上的这些问题，就诞生了<strong>电磁兼容(EMC)</strong>这个名词。下节我们仅仅讲一下去耦电容的应用，电磁兼容的处理在今后设计电路，对
+PCB 画板布局中应用尤为重要，那是后话，暂且不说。</p>
+<p>首先来看图 3-1，这是上节课已经见过的 USB 接口和供电电路。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161J616114.png" srcset="/img/loading.gif" lazyload
+alt="图 3-1 USB 接口和供电电路" /> 图 3-1 USB 接口和供电电路</p>
+<p>左边这张图，过了保险丝以后，接了一个 470uF 的电容
+C16，右边这张图，经过开关后，接了一个 100uF 的电容 C19，并且并联了一个
+0.1uF 的电容 C10。其中 <strong>C16 和 C19
+起到的作用是一样的</strong>，<strong>C10
+的作用和他们两个不一样</strong>，我们先来介绍这 2 个大一点的电容。</p>
+<p><strong>容值比较大的电容，理论上可以理解成水缸或者水池子</strong>，同时，大家可以直接把电流理解成水流，其实大自然万物的原理都是类似的。</p>
+<p>作用一，<strong>缓冲作用</strong>。当上电的瞬间，电流从电源处流下来的时候，不稳定，容易冲击电子器件，加个电容可以起到缓冲作用。就如同我们直接用水龙头的水浇地，容易冲坏花花草草。我们只需要在水龙头处加个水池，让水经过水池后再缓慢流进草地，就不会冲坏花草，起到有效的保护作用。</p>
+<p>作用二，<strong>稳定作用</strong>。我们的一整套电路，后级电子器件的功率大小都不一样，而器件正常工作的时候，所需电流的大小也不是一成不变的。比如后级有个器件还没有工作的时候，电流消耗是
+100mA，突然它参与工作了，电流猛的增大到了
+150mA，这个时候如果没有一个水缸的话，电路中的电压（水位）就会直接突然下降，比如我们的
+5V 电压突然降低到
+3V了。而我们系统中有些电子元器件，必须高于一定的电压才能正常工作，电压太低就直接不工作了，这个时候水缸就必不可少了。电容会在这个时候把存储在里边的电量释放一下，稳定电压，当然，随后前级的电流会及时把水缸充满的。</p>
+<p>有了这个电容，可以说我们的电压和电流就会很稳定了，不会产生大的波动。这种电容常用的有如图
+3-2、图 3-3、图 3-4 所示三种：</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161JT4Z6.png" srcset="/img/loading.gif" lazyload
+alt="图 3-2 铝电解电容" /> 图 3-2 铝电解电容</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161J955125.png" srcset="/img/loading.gif" lazyload
+alt="图 3-3 钽电容" /> <img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161K051129.png" srcset="/img/loading.gif" lazyload
+alt="图 3-4 陶瓷电容" /> 图 3-3 钽电容 图 3-4 陶瓷电容</p>
+<p>这三种电容是最常用的三种，其中第一种个头大，占空间大，单位容量价格最便宜，第
+二种和第三种个头小，占空间小，性能一般也略好于第一种，但是价格也贵不少。当然，除
+了价格，还有一些特殊参数，在通信要求高的场合也要考虑很多，这里暂且不说。我们板子
+上现在用的是第一种，在同样的符合条件的耐压值和容值下，第一种 470uF
+的电容不到一毛钱，而第二种和第三种可能要 1 块钱左右了。</p>
+<p>电容的选取，第一个参数是<strong>耐压值的考虑</strong>。我们用的是 5V
+系统，电容的耐压值要高于5V，<strong>一般推荐 1.5 倍到 2
+倍即可</strong>，有些场合稍微再高点也可以。我们板子上用的是 10V
+耐压的。第二个参数是<strong>电容容值</strong>，这个就需要根据经验来选取了，选取的时候，要看这个电容起作用的<strong>整套系统的功率消耗情况</strong>，如果系统耗电较大，波动可能比较大，那么容值就要选大一些，反之可以小一些。</p>
+<p>同学们刚开始设计电路也是要模仿别人，别人用多大自己也用多大，慢慢积累。比如咱上边讲电容作用二的时候，电流从
+100mA 突然增大到 150mA
+的时候，其实即使加上这个电容，电压也会轻微波动，比如从 5V 波动到
+4.9V，但是只要我们板子上的器件在电压 4.9V
+以上也可以正常工作的话，这点波动是被容许的，但是如果不加或者加的很小，电压波动比较大，有些器件的工作就会不正常了。但是如果加的太大，占空间并且价格也高，所以这个地方电容的选取多参考经验。</p>
+<p>我们再来看图 3-1 中的另一种电容 C10，它容值较小，是 0.1uF，也就是
+100nF，是用来<strong>滤除高频信号干扰的</strong>。比如 ESD，EFT
+等。我们初中学过电容的特性——可以通交流隔直流，但是电容的参数对不同频率段的干扰的作用是不一样的。这个
+100nF
+的电容，是我们的前辈根据干扰的频率段，根据板子的参数，根据电容本身的参数所总结出来的一个值。也就是说，以后大家在设计数字电路的时候，在电源处的去耦高频电容，直接用这个
+0.1uF 就可以了，不需要再去计算和考量太多。</p>
+<h3 id="单片机中三极管的应用">单片机中三极管的应用</h3>
+<p>极管在数字电路里的开关特性，最常见的应用有 2
+个：<strong>一个是控制应用，一个是驱动应用</strong>。所谓的控制就是如图
+3-7
+里边介绍的，我们可以通过单片机控制三极管的基极来间接控制后边的小灯的亮灭，用法大家基本熟悉了。还有一个控制就是<strong>进行不同电压之间的转换控制</strong>，比如我们的单片机是
+5V 系统，它现在要跟一个 12V 的系统对接，如果 IO 直接接
+12V电压就会烧坏单片机，所以我们加一个三极管，三极管的工作电压高于单片机的
+IO 口电压，用 5V 的 IO 口来控制 12V 的电路，如图 3-8 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161QI3601.png" srcset="/img/loading.gif" lazyload
+alt="图 3-8 三极管实现电压转换" /> 图 3-8 三极管实现电压转换</p>
+<p>图 3-8 中，当 IO 口输出高电平 5V 时，三极管导通，OUT 输出低电平
+0V，当 IO 口输出低电平时，三极管截止，OUT 则由于上拉电阻 R2 的作用而输出
+12V 的高电平，这样就实现了低电压控制高电压的工作原理。</p>
+<p><strong>所谓的驱动，主要是指电流输出能力</strong>。我们再来看如图 3-9
+中两个电路之间的对比。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161QU0M4.png" srcset="/img/loading.gif" lazyload
+alt="图 3-9 LED 小灯控制方式对比" /> 图 3-9 LED 小灯控制方式对比</p>
+<p>图 3-9 中上边的 LED 灯，和我们第二课讲过的 LED 灯是一样的，当 IO
+口是高电平时，小灯熄灭，当 IO
+口是低电平时，小灯点亮。那么<strong>下边的电路呢，按照这种推理，IO
+口是高电平的时候，应该有电流流过并且点亮小灯，但实际上却并非这么简单</strong>。</p>
+<p>单片机主要是个控制器件，具备四两拨千斤的特点。就如同杠杆必须有一个支点一样，想要撑起整个地球必须有力量承受的支点。<strong>单片机的
+IO 口可以输出一个高电平，但是他的输出电流却很有限，普通 IO
+口输出高电平的时候，大概只有几十到几百 uA
+的电流，达不到1mA</strong>，也就点不亮这个 LED
+小灯或者是亮度很低，这个时候如果我们想用高电平点亮
+LED，就可以用上三极管来处理了，我们板上的这种三极管型号，可以通过 500mA
+的电流，有的三极管通过的电流还更大一些，如图 3-10 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161R020N2.png" srcset="/img/loading.gif" lazyload
+alt="图 3-10 三极管驱动 LED 小灯" /> 图 3-10 三极管驱动 LED 小灯</p>
+<p>图 3-10 中，当 IO 口是高电平，三极管导通，因为三极管的电流放大作用，c
+极电流就可以达到 mA 以上了，就可以成功点亮 LED 小灯。</p>
+<p>虽然我们用了 <strong>IO 口的低电平可以直接点亮 LED，但是单片机的 IO
+口作为低电平，输入电流就可以很大吗？</strong>这个我想大家都能猜出来，当然不可以。单片机的
+IO 口电流承受能力，不同型号不完全一样，就 STC89C52 来说，官方手册的 81
+页有对电气特性的介绍，整个单片机的工作电流，不要超过 50mA，单个 IO
+口总电流不要超过 6mA。即使一些增强型 51 的IO 口承受电流大一点，可以到
+25mA，但是还要受到总电流 50mA 的限制。那我们来看电路图的 8 个 LED
+小灯这部分电路，如图 3-11 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161R2112K.png" srcset="/img/loading.gif" lazyload
+alt="图 3-11 LED 电路图（一）" /> 图 3-11 LED 电路图（一）</p>
+<p>这里我们要学会看电路图的一个知识点，电路图右侧所有的 LED
+下侧的线最终都连到一根黑色的粗线上去了，大家注意，<strong>这个地方不是实际的完全连到一起，而是一种总线的画法，画了这种线以后，表示这是个总线结构</strong>。而所有的名字一样的节点是<strong>一一对应的连接到一起，其他名字不一样的，是不连在一起的</strong>。比如左侧的
+DB0 和右侧的最右边的 LED2 小灯下边的DB0 是连在一起的，而和 DB1
+等其他线不是连在一起的。</p>
+<p>那么我们把图 3-11 中现在需要讲解的这部分单独摘出来看，如图 3-12
+所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161R32W52.png" srcset="/img/loading.gif" lazyload
+alt="图 3-12 LED 电路图（二）" /> 图 3-12 LED 电路图（二）</p>
+<p>现在我们通过 3-12 的电路图来计算一下，5V 的电压减去 LED
+本身的压降，减掉三极管e 和 c 之间的压降，限流电阻用的是 330
+欧，那么每条支路的电流大概是 8mA，那么 8 路
+LED如果全部同时点亮的话电流总和就是
+64mA。这样如果<strong>直接接到单片机的 IO
+口，那单片机肯定是承受不了的</strong>，即使短时间可以承受，长时间工作就会不稳定，甚至导致单片机烧毁。</p>
+<p>有的同学会提出来可以加大限流电阻的方式来降低这个电流。比如改到
+1K，那么电流不到 3mA，8 路总的电流就是 20mA 左右。首先，降低电流会导致
+LED
+小灯亮度变暗，小灯的亮度可能关系还不大，但因为我们同样的电路接了数码管，后边我们要讲数码管还要动态显示，如果数码管亮度不够的话，那视觉效果就会很差，所以降低电流的方法并不可取。其次，<strong>对于单片机来说，他主要是起到控制作用，电流输入和输出的能力相对较弱</strong>，P0
+的 8 个口总电流也有一定限制，所以如果接一两个 LED
+小灯观察，可以勉强直接用单片机的 IO
+口来接，但是接多个小灯，从实际工程的角度去考虑，就不推荐直接接 IO
+口了。那么我们如果要用单片机控制多个 LED 小灯该怎么办呢？</p>
+<p><strong>除了三极管之外，其实还有一些驱动 IC</strong>，这些驱动 IC
+可以作为单片机的缓冲器，仅仅是电流驱动缓冲，不起到任何逻辑控制的效果，比如我们板子上用的
+74HC245
+这个芯片，这个芯片在逻辑上起不到什么别的作用，就是当做电流缓冲器的，我们通过查看其数据手册，74HC245
+稳定工作在 70mA 电流是没有问题的，比单片机的 8 个 IO
+口大多了，所以我们可以把他接在小灯和 IO 口之间做缓冲，如图 3-13
+所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161R534E8.png" srcset="/img/loading.gif" lazyload
+alt="图 3-13 74HC245 功能图" /> 图 3-13 74HC245 功能图</p>
+<p>从图 3-13 我们来分析，其中 VCC 和 GND
+就不用多说了，细心的同学会发现这里有个0.1uF 的去耦电容哦。</p>
+<p><strong>74HC245 是个双向缓冲器</strong>，1 引脚 DIR
+是<strong>方向引脚</strong>，当这个引脚接高电平的时候，右侧所有的 B
+编号的电压都等于左侧 A 编号对应的电压。比如 A1 是高电平，那么 B1
+就是高电平，A2 是低电平，B2 就是低电平等等。如果 DIR
+引脚接低电平，得到的效果是左侧 A 编号的电压都会等于右侧 B
+编号对应的电压。因为我们这个地方控制端是左侧接的是 P0 口，我们要求 B
+等于 A 的状态，所以 1 脚我们直接接的 5V 电源，即高电平。图 3-13
+中还有一排电阻 R10 到 R17 是上拉电阻，这个电阻的用法我们在后边介绍。</p>
+<p>还有最后一个使能引脚 19 脚
+OE，叫做<strong>输出使能</strong>，这个<strong>引脚上边有一横，表明是低电平有效，当接了低电平后</strong>，74HC245
+就会按照刚才上边说的起到双向缓冲器的作用，如果 OE接了高电平，那么无论
+DIR 怎么接，A 和 B 的引脚是没有关系的，也就是 74HC245
+功能不能实现出来。</p>
+<p>从下面的图 3-14 可以看出来，单片机的 P0 口和 74HC245 的 A
+端是直接接起来的。这个地方，有个别同学有个疑问，就是我们明明在<strong>电源
+VCC 那地方加了一个三极管驱动了，为何还要再加 245
+驱动芯片呢</strong>。这里大家要理解一个道理，电路上从正极经过器件到地，首先必须有电流才能正常工作，电路中任何一个位置断开，都不会有电流，器件也就不会参与工作了。其次，和水流一个道理，从电源正极到负极的电流水管的粗细都要满足要求，任何一个位置的管子过细，都会出现瓶颈效应，电流在整个通路中细管处会受到限制而降低，所以在电路通路的每个位置上，都要保证通道足够畅通，这个
+74HC245 的作用就是消除单片机IO 这一环节的瓶颈。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161RJ2a2.png" srcset="/img/loading.gif" lazyload
+alt="图 3-14 单片机与 74HC245 的连接" /> 图 3-14 单片机与 74HC245
+的连接</p>
+<h3
+id="单片机中74hc138三八译码器的应用">单片机中74HC138三八译码器的应用</h3>
+<p>在我们设计单片机电路的时候，单片机的 IO
+口数量是有限的，有时并满足不了我们的设计需求，比如我们的 STC89C52 一共有
+32 个 IO
+口，但是我们<strong>为了控制更多的器件，就要使用一些外围的数字芯片</strong>，这种数字芯片由简单的输入逻辑来控制输出逻辑，比如
+74HC138这个三八译码器，图 3-15 是 74HC138 在我们原理图上的一个应用。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161S41A38.png" srcset="/img/loading.gif" lazyload
+alt="图 3-15 74HC138 应用原理图" /> 图 3-15 74HC138 应用原理图</p>
+<p>从这个名字来分析，<strong>三八译码器，就是把 3 种输入状态翻译成 8
+种输出状态</strong>。从图 3-15所能看出来的，74HC138 有 1～6 一共是 6
+个输入引脚，但是<strong>其中 4、5、6
+这三个引脚是使能引脚</strong>。使能引脚和我们前边讲 74HC245 的 OE
+引脚是一样的，这三个引脚如果不符合规定的输入要求，Y0 到 Y7 不管你输入的
+1、2、3 引脚是什么电平状态，总是高电平。所以我们要想让这个 74HC138
+正常工作，ENLED 那个输入位置必须输入低电平，ADDR3
+位置必须输入高电平，这两个位置都是使能控制端口。不知道大家是否记得我们第二课的程序有这么两句
+ENLED = 0；ADDR3 = 1；就是控制使这个 74HC138 使能的。</p>
+<p>这类逻辑芯片，大多都是有使能引脚的，使能符合要求了，那下面就要研究控制逻辑了。对于数字器件的引脚，如果一个引脚输入的时候，有
+0 和 1 两种状态；对于两个引脚输入的时候，就会有 00、01、10、11
+这四种状态了，那么对于 3 个输入的时候，就会出现 8
+种状态了，大家可以看下边的这个真值表——图 3-16，其中输入是 A2、A1、A0
+的顺序，输出是从Y0、Y1......Y7 的顺序。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161S64M60.png" srcset="/img/loading.gif" lazyload
+alt="图 3-16 74HC138 真值表" /> 图 3-16 74HC138 真值表</p>
+<p>从图 3-16
+可以看出，<strong>任一输入状态下，只有一个输出引脚是低电平，其他的引脚都是高电平</strong>。在前面的电路中我们已经看到，8
+个 LED 小灯的总开关三极管 Q16 基极的控制端是LEDS6，也就是 Y6
+输出一个低电平的时候，可以开通三极管
+Q16，从右侧的希望输出的结果，我们可以推导出我们的 A2、A1、A0
+的输入状态应该是 110，如图 3-17。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161SKNQ.png" srcset="/img/loading.gif" lazyload
+alt="图 3-17 LED 小灯整体电路图" /> 图 3-17 LED 小灯整体电路图</p>
+<p>那么我们再整体捋一遍点亮 LED 小灯的过程，首先看 74HC138，我们要让
+LEDS6 为低电平才能导通三极管 Q16，所以 ENLED = 0;ADDR3 = 1;保证 74HC138
+使能。然后 ADDR2 =1; ADDR1 = 1; ADDR0 = 0;这样保证了三极管 Q16
+这个开关开通，5V 电源加到 LED 上。</p>
+<p>而 74HC245 左侧是通过 P0 口控制，我们让 P0.0 引脚等于 0，就是 DB_0
+等于 0，而右侧 DB0 等于 DB_0 的状态，也是 0，那么这样在这一排共 8 个 LED
+小灯当中，只有最右侧的小灯和 5V
+之间有压差，有压差就会有电流通过，有电流通过我们的 LED2 就会发光了。</p>
+<p>74HC245 左侧我们可以看出来，是直接接到 P0 口上的，而 74HC138 的 ADDR0
+~ ADDR3接在何处呢？来看图 3-18。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161S92U04.png" srcset="/img/loading.gif" lazyload
+alt="图 3-18 显示译码与步进电机的选择跳线" /> 图 3-18
+显示译码与步进电机的选择跳线</p>
+<p><strong>跳线是大家以后经常会接触到的一个器件</strong>，它就是 2
+根或者 3 根靠在一起的排针，然后可以用一个叫作跳线帽的东西连接其相邻的 2
+根针。它的作用就是起到导线的作用，我们可以通过<strong>跳线帽来实现连接线的切换</strong>。如图
+3-19。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-1403161T0363L.png" srcset="/img/loading.gif" lazyload
+alt="图3-19 跳线实物图" /> 图3-19 跳线实物图</p>
+<p>从图中可以看出，跳线帽本身可以占 2
+个针的位置，现在是把右侧和中间的针连到了一起，这样实现的就是图 3-18 中的
+P1.0 和 ADDR0 连接到一起、P1.1 和 ADDR1 接一起、P1.2和 ADDR2
+接一起、P1.3 和 ADDR3 接一起。这样就可以透彻理解我们第二课的程序了。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">#单片机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>单片机复习——01</div>
+      <div>http://example.com/2022/06/05/单片机复习-01/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Aries Peng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月5日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-02/" title="单片机复习--02">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单片机复习--02</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/31/%E7%BB%93%E6%9E%84%E4%BD%93%E5%85%B1%E7%94%A8%E4%BD%93%E5%86%85%E5%AD%98/" title="结构体共用体内存">
+                        <span class="hidden-mobile">结构体共用体内存</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"Y6YSufK6IPyuUNE5sEFAikfv-gzGzoHsz","appKey":"8Ua5DhRiSHzavGRmSjJzGoa3","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

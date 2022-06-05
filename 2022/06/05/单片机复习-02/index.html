@@ -16,22 +16,22 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="结构体的内存计算 struct 思路: 结构体的每个成员的字节相加, 然后注意一下字节对齐 解析在注释中 1234567891011121314151617181920212223typedef struct&amp;#123;	char a[5];&#x2F;&#x2F;占5字节	int b;&#x2F;&#x2F;占4字节	&#x2F;&#x2F;结构体的计算就是 5+4 &#x3D; 9, 但是9不是最大类型int(4字节的倍数), 就会补齐到12字节, (只有">
+    <meta name="description" content="单片机延时方法（keil软件延时） C 语言常用的延时方法，有如图 4-2 所示 4 种。  图 2-4 C 语言延时方法 图 4-2 是 C 语言编程常用的 4 种延时方法，其中两种非精确延时，两种精确一些的延时。for 语句和 while 语句都可以通过改变 i 的范围值来改变延时时间，但是 C 语言循环的执行时间都是不能通过程序看出来的。精确延时有两个方法，一个方法是用定时器来延">
 <meta property="og:type" content="article">
-<meta property="og:title" content="结构体共用体内存">
-<meta property="og:url" content="http://example.com/2022/05/31/%E7%BB%93%E6%9E%84%E4%BD%93%E5%85%B1%E7%94%A8%E4%BD%93%E5%86%85%E5%AD%98/index.html">
+<meta property="og:title" content="单片机复习--02">
+<meta property="og:url" content="http://example.com/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-02/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="结构体的内存计算 struct 思路: 结构体的每个成员的字节相加, 然后注意一下字节对齐 解析在注释中 1234567891011121314151617181920212223typedef struct&amp;#123;	char a[5];&#x2F;&#x2F;占5字节	int b;&#x2F;&#x2F;占4字节	&#x2F;&#x2F;结构体的计算就是 5+4 &#x3D; 9, 但是9不是最大类型int(4字节的倍数), 就会补齐到12字节, (只有">
+<meta property="og:description" content="单片机延时方法（keil软件延时） C 语言常用的延时方法，有如图 4-2 所示 4 种。  图 2-4 C 语言延时方法 图 4-2 是 C 语言编程常用的 4 种延时方法，其中两种非精确延时，两种精确一些的延时。for 语句和 while 语句都可以通过改变 i 的范围值来改变延时时间，但是 C 语言循环的执行时间都是不能通过程序看出来的。精确延时有两个方法，一个方法是用定时器来延">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-31T06:33:18.000Z">
-<meta property="article:modified_time" content="2022-05-31T06:40:33.029Z">
+<meta property="article:published_time" content="2022-06-05T09:23:31.000Z">
+<meta property="article:modified_time" content="2022-06-05T09:42:59.273Z">
 <meta property="article:author" content="Aries Peng">
-<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>结构体共用体内存 - 千山慕晗</title>
+  <title>单片机复习--02 - 千山慕晗</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="结构体共用体内存"></span>
+            <span id="subtitle" data-typed-text="单片机复习--02"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-31 14:33" pubdate>
-          2022年5月31日 下午
+        <time datetime="2022-06-05 17:23" pubdate>
+          2022年6月5日 下午
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          936 字
+          3.7k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          8 分钟
+          31 分钟
         
       </span>
     
@@ -278,27 +278,187 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">结构体共用体内存</h1>
+            <h1 style="display: none">单片机复习--02</h1>
             
             <div class="markdown-body">
               
-              <p><strong>结构体的内存计算 struct</strong></p>
-<p>思路: 结构体的每个成员的字节相加, 然后注意一下字节对齐</p>
-<p>解析在注释中</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>	<span class="hljs-type">char</span> a[<span class="hljs-number">5</span>];<span class="hljs-comment">//占5字节</span><br>	<span class="hljs-type">int</span> b;<span class="hljs-comment">//占4字节</span><br>	<span class="hljs-comment">//结构体的计算就是 5+4 = 9, 但是9不是最大类型int(4字节的倍数), 就会补齐到12字节, (只有12除以4才能整除)</span><br>	<span class="hljs-comment">//内存结构就是: aaaa a空空空 bbbb</span><br>	<span class="hljs-comment">//空就是补齐的内存, 每隔4个一组, 因为int是4字节</span><br>&#125;too;<br>too bb;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>	<span class="hljs-type">char</span> a[<span class="hljs-number">5</span>];<span class="hljs-comment">//占5字节</span><br>	<span class="hljs-type">double</span> b;<span class="hljs-comment">//占8字节</span><br>	<span class="hljs-comment">//内存就是: 5+8 = 13, 最大类型是double(8字节), 所以要补齐到16字节</span><br>	<span class="hljs-comment">//内存结构: aaaaa空空空 bbbbbbbb</span><br>	<span class="hljs-comment">//因为double是8字节, 所以8个一组</span><br>&#125;too1;<br>too1 bb1;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span><br>	<span class="hljs-type">char</span> a[<span class="hljs-number">5</span>];<span class="hljs-comment">//占5字节</span><br>	<span class="hljs-comment">//内存就是: 5, 最大字节类型就是char(1字节), 5除以1能整除, 就不用补齐</span><br>&#125;too2;<br>too2 bb2; <br></code></pre></td></tr></table></figure>
-<p>printf("%d",sizeof(bb));</p>
-<p>printf("%d",sizeof(bb1));</p>
-<p>printf("%d",sizeof(bb2));</p>
-<p>输出结果就是: 12 ,16, 5</p>
-<p><strong>共用体的内存计算 union</strong></p>
-<p>思路: 共用体的成员共用内存,
-所以找最大内存的数据类型,并且能被最大类型整除就行了,
-并且也要注意字节对齐</p>
-<p>解析在注释中</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span>&#123;</span><br>	<span class="hljs-type">char</span> a[<span class="hljs-number">5</span>];<span class="hljs-comment">//占5字节</span><br>	<span class="hljs-type">int</span> b;<span class="hljs-comment">//占4字节</span><br>	<span class="hljs-comment">//最大成员是5字节, 最大数据类型4字节,  对齐后就是 8字节 (可以被4字节整除)</span><br>&#125;uu;<br>uu u1;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span>&#123;</span><br>	<span class="hljs-type">char</span> a[<span class="hljs-number">9</span>];<span class="hljs-comment">//占9字节</span><br>	<span class="hljs-type">int</span> b;<span class="hljs-comment">//占4字节</span><br>	<span class="hljs-type">double</span> c;<span class="hljs-comment">//占8字节</span><br>	<span class="hljs-comment">//最大的内存是9字节, 最大数据类型是8字节, 对齐后就是 16字节</span><br>&#125;uu2;<br>uu2 u2; <br></code></pre></td></tr></table></figure>
-<p>printf("%d",sizeof(u1));</p>
-<p>printf("%d",sizeof(u2));</p>
-<p>输出结果是: 8,16</p>
+              <h2 id="单片机延时方法keil软件延时">单片机延时方法（keil软件延时）</h2>
+<p>C 语言常用的延时方法，有如图 4-2 所示 4 种。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620401VZ.png" srcset="/img/loading.gif" lazyload
+alt="图 2-4 C 语言延时方法" /> 图 2-4 C 语言延时方法</p>
+<p>图 4-2 是 C 语言编程常用的 4
+种延时方法，其中两种非精确延时，两种精确一些的延时。for 语句和 while
+语句都可以通过改变 i 的范围值来改变延时时间，但是 C
+语言循环的执行时间都是不能通过程序看出来的。<strong>精确延时有两个方法</strong>，一个方法是<strong>用定时器来延时</strong>*，这个方法我们后边课程要详细介绍，定时器是单片机的一个重点。另外一个就是用<strong>库函数_nop_()</strong>;，<strong>一个
+NOP 的时间是一个机器周期的时间</strong>，这个后边也要介绍。</p>
+<p>非精确延时，只是在我们做一些比如小灯闪烁，流水灯等简单演示实验中使用，而实际项目开发过程中其实这种非精确延时用的很少。</p>
+<p>好了，介绍完了，我们就要实战了。上节课的 LED
+小灯闪烁的程序，我们用的延时方式是
+for(i=0;i&lt;30000;i++);大家如果把这里的 i 改成
+100，下载进入单片机，会发现小灯一直亮，而不是闪烁状态，现在就请大家都把这个程序改一下，改成
+100，然后下载观察一下现象再继续......</p>
+<p>观察完了，毫无疑问，实际现象和我提到的理论是相符合的，这是为什么呢？这里介绍一个常识。我们人的肉眼对闪烁的光线有一个最低分辨能力，通常情况下当闪烁的频率高于50Hz
+时，我们看到的信号就是常亮的。即，延时的时间低于 20ms
+的时候，我们的肉眼是分辨不出来小灯是在闪烁的，可能最多看到的是小灯亮暗稍微变化了一下。要想清楚的看到小灯闪烁，延时的值必须大一点，大到什么程度呢，不同的亮度的灯不完全一样，大家可以自己做实验。</p>
+<p>那么如何观察我们写的延时到底有多长时间呢？选择 Keil 菜单项
+Project--&gt;Options for Target „Target1‟...，或点击在图 2-17
+中已提到过的图标，进入工程选项，如图 4-3 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620460B00.png" srcset="/img/loading.gif" lazyload
+alt="图 4-3 工程选项——时钟频率设置" /> 图 4-3 工程选项——时钟频率设置</p>
+<p>首先打开 Target 这个选项卡，找到里边的
+Xtal(MHz)这个位置，这是填写我们进行模拟时间的晶振选项，从我们原理图以及板子上都可以看到，单片机所使用的晶振是
+11.0592MHz，所以这个地方我们要填上 11.0592。然后找到 Debug
+这个选项卡，选择左侧的 Use Simulator，然后点击最下边的 OK 就可以了，如图
+4-4 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316205125161.png" srcset="/img/loading.gif" lazyload
+alt="图 4-4 工程选项——仿真设置" /> 图 4-4 工程选项——仿真设置</p>
+<p>选择菜单项 Debug--&gt;Start/Stop Debug Session，或者点击图 4-5
+中红框内的按钮，就会进入一个新的页面，如图 4-6 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316205235S1.png" srcset="/img/loading.gif" lazyload
+alt="图 4-5 启动/结束调试按钮" /> 图 4-5 启动/结束调试按钮</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620532L57.png" srcset="/img/loading.gif" lazyload
+alt="图 4-6 工程调试界面" /> 图 4-6 工程调试界面</p>
+<p>最左侧那一栏显示单片机一些寄存器的当前值和系统信息，最上边那一栏是
+Keil 将 C 语言转换成汇编的代码，下边就是我们写 C
+语言的程序，调试界面包含很多的子窗口，都可以通过菜单 View
+中的选项打开和关闭。你可能会感觉这种默认的分布不符合习惯或者不方便观察特定信息，好办，界面上几乎所有子窗口的位置都可以调整的。比如我想把
+Disassembly反汇编窗口和源代码窗口横向并排摆放，那么只需要用鼠标拖动反汇编窗口的标题栏，这时会在屏幕上出现多个指示目标位置的图标，拖着窗口把鼠标移动到相应的图标上，软件还会用蓝色底纹指示具体的位置，如图
+4-7 所示，松开鼠标窗口就会放到新位置了。调整后的效果如图 4-8 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620544aD.png" srcset="/img/loading.gif" lazyload
+alt="图 4-7 调整窗口位置" /> 图 4-7 调整窗口位置</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620560G10.png" srcset="/img/loading.gif" lazyload
+alt="图 4-8 窗口位置调整效果" /> 图 4-8 窗口位置调整效果</p>
+<p>你可能已经注意到在 C
+语言的源代码文件和反汇编窗口内都有一个黄色的箭头，这个箭头代表的就是程序当前运行的位置，因为反汇编内的代码就由源文件编译生成的，所以它们指示的是相同的实际位置。在这个工程调试界面里，我们可以看到程序运行的过程。在左上角的工具栏里有这样三个按钮：第一个标注有
+RST
+字样的是复位，点击一下之后，程序就会跑到最开始的位置运行；右侧紧挨着的按钮是全速运行，点击一下程序就会全速跑起来；再右边打叉的是停止按钮，当程序全速运行起来后，我们可以通过点击第三个图标来让程序停止，观察程序运行到哪里了。点击一下复位后，会发现
+C
+语言程序左侧有灰色或绿色，有的地方还是保持原来的白色，我们可以在我们灰色的位置双击鼠标设置断点，就是比如程序一共
+20
+行，在第十行设置断点后，点全速运行，程序就会运行到第十行停止，方便我们观察运行到这个地方的情况。</p>
+<p>同学们会发现，有的位置可以设置断点，有的地方不可以设置断点，这是为什么呢？因为
+Keil
+软件本身具备程序优化的功能，如果大家想在所有的代码位置都能设置断点，可以在工程选项里把优化等级设置为
+0，就是告诉 Keil 不要进行优化。如图 4-9 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316205JU23.png" srcset="/img/loading.gif" lazyload
+alt="图 4-9 工程优化等级" /> 图 4-9 工程优化等级</p>
+<p>这节课我们重点是看看 C 语言代码的运行时间，在最左侧的 register
+那个框内，有一个sec
+选项，这个选项显示就是单片机运行了多少时间。单击一下复位按钮，会发现这个
+sec 变成了 0，然后我们在 LED = 0;这一句加一个断点，在 LED =
+1;这个位置加一个断点，我们点击全速运行按钮，会直接停留在 LED =
+0;我们会看到我们的时间变化成 0.00042752 秒，如图4-10
+所示。请注意，我们这里设置的优化等级是默认的
+8，如果你用的是其它等级的话运行时间就会有所差别，因为优化等级会直接影响程序的执行效率。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-14031620592V57.png" srcset="/img/loading.gif" lazyload
+alt="图 4-10 查看程序运行时间" /> 图 4-10 查看程序运行时间</p>
+<p>再点一下全速运行，会发现 sec 变成了
+0.16342556，那么减去上次的值，就是程序在这两个断点之间执行所经历的时间，也就是这个
+for 循环的执行时间，大概是 163ms。我们也可以通过改变 30000
+这个数字来改变这个延时时间。当然了，大家要注意 i
+的取值范围，你如果写成了大于 65535
+的值以后，程序就一直运行不下去了，因为 i
+无论如何变化，都不会大于这个值，如果要大于这个值且正常运行，必须改变 i
+定义的类型了。后边如果我们要查看一段程序运行了多长时间，都可以通过这种方式来查看。</p>
+<p>实际上，进入 debug
+模式，除了可以看程序运行了多长时间外，还可以观察各个寄存器、各个变量的数值变化情况。点击
+View 菜单里的 Watch Windows--&gt;Watch 1，可以打开变量观察窗口，如图
+4-11 所示。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316210039233.png" srcset="/img/loading.gif" lazyload
+alt="图4-11 变量观察窗口" /> 图4-11 变量观察窗口</p>
+<p>在这个窗口内，可以通过双击或按 F2
+键，然后输入我们想观察的变量或寄存器的名字，后边就会显示出它的数值，这个功能在我们后边的调试程序中比较有用，大家先了解一下。</p>
+<h2 id="单片机逻辑电路与逻辑运算">单片机逻辑电路与逻辑运算</h2>
+<p>在数字电路，我们经常会遇到逻辑电路，而在 C
+语言中，我们则经常用到逻辑运算。二者在原理上是相互关联的，我们在这里就先简单介绍一下，随着学习的深入，再慢慢加深理解。</p>
+<p>首先，在“逻辑”这个概念范畴内，存在真和假这两个逻辑值，而将其对应到数字电路或
+C 语言中，就变成了“非 0 值”和“0
+值”这两个值，即逻辑上的“假”就是数字电路或C
+语言中的“0”这个值，而逻辑“真”就是其它一切“非 0 值”。</p>
+<p>然后，我们来具体分析一下几个主要的逻辑运算符。我们假定有 2
+个字节变量：A 和 B，二者进行某种逻辑运算后的结果为 F。</p>
+<p>以下逻辑运算符都是按照变量整体值进行运算的，通常就叫做<strong>逻辑运算符</strong>：</p>
+<table>
+
+<thead>
+<tr class="header">
+<th>逻辑运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&amp;&amp; 逻辑与</td>
+<td>F = A &amp;&amp; B，当 A、B 的值都为真（即非 0
+值，下同）时，其运算结果 F为真（具体数值为1，下同）；当 A、B
+值任意一个为假（即 0，下同）时，结果 F 为假（具体数值为 0，下同）。</td>
+</tr>
+<tr class="even">
+<td>|| 逻辑或</td>
+<td>F = A || B，当 A、B 值任意一个为真时，其运算结果 F 为真；当 A、B
+值都为假时，结果 F 为假。</td>
+</tr>
+<tr class="odd">
+<td>! 逻辑非</td>
+<td>F = !A，当 A 值为假时，其运算结果 F 为真；当 A 值为真时，结果 F
+为假。</td>
+</tr>
+</tbody>
+</table>
+<p>以下逻辑运算符都是按照变量内的每一个位来进行运算的，通常就叫做<strong>位运算符</strong>：</p>
+<table>
+
+<thead>
+<tr class="header">
+<th>逻辑运算</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&amp; 按位与</td>
+<td>F = A &amp; B，将 A、B
+两个字节中的每一位都进行与运算，再将得到的每一位结果组合为总结果 F，例如
+A = 0b11001100，B = 0b11110000，则结果 F 就等于 0b11000000。</td>
+</tr>
+<tr class="even">
+<td>| 按位或</td>
+<td>F = A | B，将 A、B
+两个字节中的每一位都进行或运算，再将得到的每一位结果组合为总结果 F，例如
+A = 0b11001100，B = 0b11110000，则结果 F 就等于 0b11111100。</td>
+</tr>
+<tr class="odd">
+<td>~ 按位取反</td>
+<td>F = ~A，将 A
+字节内的每一位进行非运算（就是取反），再将得到的每一位结果组合为总结果
+F，例如 A = 0b11001100，则结果 F 就等于
+0b00110011；这个运算符我们在前面的流水灯实验里已经用过了，现在再回头看一眼，是不是清楚多了。</td>
+</tr>
+<tr class="even">
+<td>^ 按位异或</td>
+<td>异或的意思是，如果运算双方的值不同（即相异）则结果为真，双方值相同则结果为假。在
+C 语言里没有按变量整体值进行的异或运算，所以我们仅以按位异或为例，F = A
+^ B，A = 0b11001100，B = 0b11110000，则结果 F 就等于 0b00111100。</td>
+</tr>
+</tbody>
+</table>
+<p>我们今后要看资料或芯片手册的时候，会经常遇到一些电路符号，图 5-1
+所示就是数字电路中的常用符号，知道这些符号有利于我们理解器件的逻辑结构，尤其重点认识图
+5-1
+中的国外流行图形符号。在这里我们先简单看一下，如果日后遇到了可以到这里来查阅。</p>
+<p><img
+src="http://c.biancheng.net/cpp/uploads/allimg/140316/1-140316214U3622.png" srcset="/img/loading.gif" lazyload
+alt="图 5-1 逻辑电路符号" /> 图 5-1 逻辑电路符号</p>
 
               
             </div>
@@ -310,7 +470,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">#单片机</a>
       
     </div>
   
@@ -322,8 +482,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>结构体共用体内存</div>
-      <div>http://example.com/2022/05/31/结构体共用体内存/</div>
+      <div>单片机复习--02</div>
+      <div>http://example.com/2022/06/05/单片机复习-02/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +495,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月31日</div>
+          <div>2022年6月5日</div>
         </div>
       
       
@@ -365,9 +525,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-01/" title="单片机复习——01">
+                      <a href="/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-03/" title="单片机复习-03">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">单片机复习——01</span>
+                        <span class="hidden-mobile">单片机复习-03</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -375,8 +535,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%9401/" title="数据结构——01">
-                        <span class="hidden-mobile">数据结构——01</span>
+                      <a href="/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-01/" title="单片机复习——01">
+                        <span class="hidden-mobile">单片机复习——01</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
