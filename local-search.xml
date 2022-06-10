@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>单片机复习-07</title>
+    <link href="/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-07/"/>
+    <url>/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-07/</url>
+    
+    <content type="html"><![CDATA[<h3 id="按键输入实验">按键输入实验</h3><p>前一节介绍STM32的IO口作为输出的使用，这一节向大家介绍如何使用STM32的IO口作为输入用，利用板载的4个按键，来控制板载的两个LED的亮灯。</p><p><strong><imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610183415589.png"alt="image-20220610183415589" /></strong></p><p>注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>IO 口输入</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>单片机复习-06</title>
+    <link href="/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-06/"/>
+    <url>/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-06/</url>
+    
+    <content type="html"><![CDATA[<h3 id="跑马灯实验">跑马灯实验</h3><p>Stm32 最简单的<strong>外设</strong>是IO口的高低电平控制，通过跑马灯了解IO口作为输出使用的方法。外设都是通过读写设备上的寄存器来进行的，<strong>外设寄存器也被称为“IO端口”</strong>，<strong>端口是单片机内部CPU和外部IO的接口组</strong>。IO端口有两种编址方式：独立编址和统一编址，暂且不谈。32单片机有多个端口组，每个端口组有16个IO口（引脚）。</p><p>STM32的IO口相比51而言复杂的多，STM32的IO口可以由软件配置成如下8种模式：1、输入浮空 2、输入上拉 3、输出下拉 4、模拟输入 5、开漏输出 6、推挽输出7、推挽式复用功能 8、开漏复用功能</p><p>介绍一下开漏输出和推挽输出<strong>推挽输出</strong>是由2个MOS或者三极管收到互补控制的信号控制，两个管子时钟一个在导通，一个在截止。推挽输出的<strong>最大特点就是可以真正的输出高电平和低电平，在两种电平下都具用驱动能力</strong>，所谓驱动能力就是指<strong>输出电流</strong>的能力。<strong>开漏输出</strong>常被说是与推挽输出相对，开漏输出无法真正的输出高电平，即<strong>高电平的时候没有驱动能力</strong>，需要借助外部上拉电阻完成对外驱动。<imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610153136587.png"alt="image-20220610153136587" /></p><p>每个IO口可以自由编程，但<strong>IO口寄存器必须按32位字被访问</strong>。</p><p>STM32的每个IO口都有7个寄存器来控制：1、配置模式的2个32位的端口配置寄存器CRL和CRH，它们控制每个IO口的模式以及输出速率;2、2个32位数据寄存器IDR和ODR，用于控制GPIOx输出电平；3、1个32位的置位、复位寄存器BSRR; 4、1个16位的复位寄存器BRR;5、1个32位的锁存寄存器LCKR;</p><p>1、STM32的CRL控制每组IO端口的低8位（eg：PA_01~08）的模式，每个IO引脚占用CRL的4个位，高两位的位CNF，低两位的位MODE。这里记住几个常用的配置：0X0 (0b0000)表示模拟输入模式（ADC 用）、 0X3 (0b0011)表示推挽输出模式（做输出口 用，50M 速率）、 0X8 (0b1000)表示上/下拉输入模式（做输入口用）、 0XB (0b1011)表示复用输出（使用 IO 口的第二功能，50M 速率）<imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610161729298.png"alt="image-20220610161729298" /></p><p>CRH的作用和CRL完全一样，CRH控制的是IO端口组的高8位（eg：PA_09~15）</p><p>在HAL库中，操作寄存器CRH和CRL来配置IO口的模式和速度是通过GPIO初始化函数完成的</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_Init</span><span class="hljs-params">(GPIO_TypeDef *GPIOx,GPIO_InitTypeDef *GPIO_Init)</span><br></code></pre></td></tr></table></figure><p>第一个参数是用来初始化指定的GPIO对应的GPIO组，取值范围为GPIOA~GPIOE（tip：这里是根据芯片类型包含的头文件而取的值范围）第二个参数为初始化参数结构体指针，结构体类型为GPIO_InitTypeDef，指定引脚的参数。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-type">uint32_t</span> Pin;<span class="hljs-comment">//指定IO口</span><br><span class="hljs-type">uint32_t</span> Mode;<span class="hljs-comment">//模式设置</span><br><span class="hljs-type">uint32_t</span> Pull;<span class="hljs-comment">//上下拉设置</span><br><span class="hljs-type">uint32_t</span> Speed;<span class="hljs-comment">//速度设置</span><br>&#125;GPIO_InitTypeDef;<br></code></pre></td></tr></table></figure><p>2.看完的GPIO的参数配置寄存器，接下来是<strong>GPIO输入输出电平控制</strong>相关的寄存器首先先看<strong>ODR寄存器</strong>，该寄存器用于控制GPIOx输出电平<imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610163833080.png"alt="image-20220610163833080" /></p><p>该寄存器用于设置某个IO口（应该就是引脚）输出高电平（ODRy=1）还是低电平，该寄存器也仅在输出模式下有效，在输入模式下不起作用。操作还寄存器的库函数，主要就是HAL_GPIO_TogglePin函数：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_TogglePin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx,<span class="hljs-type">uint16_t</span> GPIO_Pin)</span>;<br></code></pre></td></tr></table></figure><p>该函数通过操作ODR寄存器，达到取反IO口输出电平的功能。</p><p><strong>置位/复位寄存器(BSSR)</strong>是一个非常重要的寄存器。该寄存器和ODR寄存器具有类似的作用，都可以设置GPIO端口（引脚）的输出是1还是0。<imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610164910406.png"alt="image-20220610164910406" /></p><p>上表中，BSSR低16位设置1对应引脚（0~16）为高电平，高16位设置1对应引脚（0-16）为低电平。取0无效。BSSR寄存器使用方法如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIOA-&gt;BSRR=<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">1</span>;<span class="hljs-comment">//GPIOA的寄存器BSRR把1的值从0位移动到1位，所以是设置GPIOA.1为高电平</span><br>GPIOA-&gt;BSRR=<span class="hljs-number">1</span>&lt;&lt;(<span class="hljs-number">16</span>+<span class="hljs-number">1</span>);<span class="hljs-comment">//GPIOA的寄存器BSRR把1的值从0位移动到17位，17位还是对应引脚1，所以是设置GPIOA.1为低电平</span><br></code></pre></td></tr></table></figure><p>库函数操作BSSR寄存器来设置IO电平的函数为：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_WritePin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx,<span class="hljs-type">uint16_t</span> GPIO_Pin,GPIO_PinState PinState)</span><br></code></pre></td></tr></table></figure><p>该函数可以用来设置一组IO口（引脚，不在重复）中的一个或者多个IO口的电平状态。</p><p>接下来来看<strong>IDR寄存器</strong>，该寄存器用于读取GPIOx的输入数据，<imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610171410463.png"alt="image-20220610171410463" /></p><p>该寄存器用于读取每个IO口的电平，如果对应的位为0（IRRy=0），则说明IO输入的是低电平，库函数中用于操作该寄存器读取IO输入数据相关函数</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIO_PinState <span class="hljs-title function_">HAL_GPIO_ReadPin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx，<span class="hljs-type">uint16_t</span> GPIO_Pin)</span>;<br></code></pre></td></tr></table></figure><p>该函数用来读取一组IO口中一个或者多个IO口电平状态。该函数的返回值就是IO口电平状态。</p><p><strong>GPIO操作总结</strong> 1、使能IO口时钟，调用函数为<code>_HAL_RCC_GPIOX_CLK_ENABLE(其中X=A~E)</code>； 2、操作IO输入输出；3、初始化IO参数，调用函数HAL_GPIO_Init();</p><figure><imgsrc="C:\Users\ARIES\hexo-blog\source\images\image-20220610173656765.png"alt="image-20220610173656765" /><figcaption aria-hidden="true">image-20220610173656765</figcaption></figure><p>在编译信息中可以看到，代码占用FLASH大小为5256字节（4964+292），所用的SRAM大小为1920（1900+20）。Code：表示程序所占用的FLASH的大小。 RO-data：即ReadOnly-data，表示程序定义的常量（FLASH）。 RW-data：即ReadWrite-data，表示已被初始化的变量（SRAM）。 ZI-data：即ZeroInit-data，表示未被初始化的变量（SRAM）。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>IO口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>单片机总结-05</title>
     <link href="/2022/06/07/%E5%8D%95%E7%89%87%E6%9C%BA%E6%80%BB%E7%BB%93-05/"/>
     <url>/2022/06/07/%E5%8D%95%E7%89%87%E6%9C%BA%E6%80%BB%E7%BB%93-05/</url>
