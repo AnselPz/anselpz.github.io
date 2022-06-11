@@ -16,15 +16,15 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="按键输入实验 前一节介绍STM32的IO口作为输出的使用，这一节向大家介绍如何使用STM32的IO口作为输入用，利用板载的4个按键，来控制板载的两个LED 的亮灯。  注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。">
+    <meta name="description" content="按键输入实验 前一节介绍STM32的IO口作为输出的使用，这一节向大家介绍如何使用STM32的IO口作为输入用，利用板载的4个按键，来控制板载的两个LED 的亮灯。  注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。 首先先看一下key.c文件 123456789101112131415161">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单片机复习-07">
 <meta property="og:url" content="http://example.com/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-07/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="按键输入实验 前一节介绍STM32的IO口作为输出的使用，这一节向大家介绍如何使用STM32的IO口作为输入用，利用板载的4个按键，来控制板载的两个LED 的亮灯。  注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。">
+<meta property="og:description" content="按键输入实验 前一节介绍STM32的IO口作为输出的使用，这一节向大家介绍如何使用STM32的IO口作为输入用，利用板载的4个按键，来控制板载的两个LED 的亮灯。  注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。 首先先看一下key.c文件 123456789101112131415161">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-10T09:45:16.000Z">
-<meta property="article:modified_time" content="2022-06-10T10:39:44.266Z">
+<meta property="article:modified_time" content="2022-06-11T05:16:35.990Z">
 <meta property="article:author" content="Aries Peng">
 <meta property="article:tag" content="IO 口输入">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          151 字
+          1.7k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          2 分钟
+          15 分钟
         
       </span>
     
@@ -289,6 +289,12 @@
 src="C:\Users\ARIES\hexo-blog\source\images\image-20220610183415589.png" srcset="/img/loading.gif" lazyload
 alt="image-20220610183415589" /></strong></p>
 <p>注意：KEY0、KEY1、KEY2都是低电平有效，而KEY_UP是高电平有效的，而且外部都没有上下拉电阻，所以需要在STM32内部设置上下拉。</p>
+<p>首先先看一下key.c文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;key.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;sys.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;delay.h&quot;</span></span><br><span class="hljs-comment">//按键初始化函数</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">KEY_Init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><span class="hljs-comment">//IO初始化</span><br>&#123;<br>    GPIO_InitTypeDef GPIO_Initure;<br>    _HAL_RCC_GPIOA_CLK_ENABLE();<br>    _HAL_RCC_GPIOC_CLK_ENABLE();<br>    _HAL_RCC_GPIOD_CLK_ENABLE();<br>    <br><br>    GPIO_Initure.Pin=GPIO_PIN_0;<span class="hljs-comment">//PA0</span><br>    GPIO_Initure.Mode=GPIO_MODE_INPUT;<span class="hljs-comment">//输入</span><br>    GPIO_Initure.Pull=GPIO_PULLDOWN;<span class="hljs-comment">//下拉</span><br>    GPIO_Initure.Speed=GPIO_SPEED_HIGH;<span class="hljs-comment">//高速</span><br>    HAL_GPIO_Init(GPIOA,&amp;GPIO_Initure);<br><br>    GPIO_Initure.Pin=GPIO_PIN_8|GPIO_PIN_9;<br>    GPIO_Initure.Mode=GPIO_MODE_INPUT;<br>    GPIO_Initure.Pull=GPIO_PULLUP;<br>    GPIO_Initure.Speed=GPIO_SPEED_HIGH;<br>    HAL_GPIO_Init(GPIOC,&amp;GPIO_Initure);<br><br><br><br>    GPIO_Initure.Pin=GPIO_PIN_2;<br>    GPIO_Initure.Mode=GPIO_MODE_INPUT;<br>    GPIO_Initure.Pull=GPIO_PULLUP;<br>    HAL_GPIO_Init(GPIOD,&amp;GPIO_Initure);<br><br>&#125;<br><br><span class="hljs-comment">//按键处理函数</span><br><span class="hljs-comment">//返回按键值</span><br><span class="hljs-comment">// mode0 :不支持连按；mode1：支持连按</span><br><span class="hljs-comment">// 返回值 0 没有任何按键按下</span><br><span class="hljs-comment">// KEY0_PRES、KEY1_PRES分别表示 按键0 和1 按下</span><br><span class="hljs-comment">// 注意次函数有优先级；KEY0&gt;KEY1&gt;KEY2&gt;KEY_UP</span><br><br>u8 <span class="hljs-title function_">KEY_Scan</span><span class="hljs-params">(u8 mode)</span><br>&#123;<br>    <span class="hljs-type">static</span> u8 key_up=<span class="hljs-number">1</span>;<span class="hljs-comment">//按键松开标志</span><br><br>    <span class="hljs-keyword">if</span>(mode)key_up=<span class="hljs-number">1</span>; <span class="hljs-comment">//支持连按</span><br>    <br>    <span class="hljs-keyword">if</span>(key_up&amp;&amp;(KEY0==<span class="hljs-number">0</span>||KEY1==<span class="hljs-number">0</span>||KEY2==<span class="hljs-number">0</span>||WK_UP==<span class="hljs-number">1</span>))<br>    &#123;<br>        delay_ms(<span class="hljs-number">10</span>);<span class="hljs-comment">//去抖动</span><br>        key_up=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(KEY0==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> KEY0_PRES;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(KEY0==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> KEY0_PRES;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(KEY0==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> KEY0_PRES;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(WK_UP==<span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> WK_UP_PRES;<br><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(KEY0==<span class="hljs-number">1</span>&amp;&amp;KEY1==<span class="hljs-number">1</span>&amp;&amp;KEY2==<span class="hljs-number">1</span>&amp;&amp;WK_UP==<span class="hljs-number">0</span>)key_up=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>分析一下46行处的代码为啥支持连按：
+假设我们传入mode=0，假设有按键按下，持续一定的低电平时间了（抖动时间过去了），让key_up=0，然后判断此时是哪个键按下去，返回对应的值，如果我们一直按着不放，第二次执行，就会
+因为key_up在前一次函数执行中已经等于0，所以我们就算按着按键不放也进入不了
+当参数mode为1，总会执行<code>if(mode)key_up=1</code></p>
 
               
             </div>
@@ -354,6 +360,12 @@ alt="image-20220610183415589" /></strong></p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/06/11/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-08/" title="单片机复习-08">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单片机复习-08</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

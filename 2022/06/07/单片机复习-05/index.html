@@ -16,22 +16,22 @@
   <meta name="author" content="Aries Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="跑马灯实验 Stm32 最简单的外设是IO口的高低电平控制，通过跑马灯 了解IO口作为输出使用的方法。 外设都是通过读写设备上的寄存器来进行的，外设寄存器也被称为“IO端口”，端口是单片机内部CPU和外部IO的接口组。IO端口有两种编址方式：独立编址和统一编址，暂且不谈。32单片机有多个端口组，每个端口组有16个IO口（引脚）。 STM32的IO口相比51而言复杂的多，STM32的IO口可">
+    <meta name="description" content="名词总结： AHB，是Advanced High performance Bus的缩写，译作高级高性能总线，这是一种“系统总线”。AHB主要用于高性能模块(如CPU、DMA和DSP等)之间的连接。AHB 系统由主模块、从模块和基础结构(Infrastructure)3部分组成，整个AHB总线上的传输都由主模块发出，由从模块负责回应。 APB，是Advanced Peripheral Bu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单片机复习-06">
-<meta property="og:url" content="http://example.com/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-06/index.html">
+<meta property="og:title" content="单片机总结-05">
+<meta property="og:url" content="http://example.com/2022/06/07/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-05/index.html">
 <meta property="og:site_name" content="千山慕晗">
-<meta property="og:description" content="跑马灯实验 Stm32 最简单的外设是IO口的高低电平控制，通过跑马灯 了解IO口作为输出使用的方法。 外设都是通过读写设备上的寄存器来进行的，外设寄存器也被称为“IO端口”，端口是单片机内部CPU和外部IO的接口组。IO端口有两种编址方式：独立编址和统一编址，暂且不谈。32单片机有多个端口组，每个端口组有16个IO口（引脚）。 STM32的IO口相比51而言复杂的多，STM32的IO口可">
+<meta property="og:description" content="名词总结： AHB，是Advanced High performance Bus的缩写，译作高级高性能总线，这是一种“系统总线”。AHB主要用于高性能模块(如CPU、DMA和DSP等)之间的连接。AHB 系统由主模块、从模块和基础结构(Infrastructure)3部分组成，整个AHB总线上的传输都由主模块发出，由从模块负责回应。 APB，是Advanced Peripheral Bu">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-10T07:00:35.000Z">
-<meta property="article:modified_time" content="2022-06-10T09:43:40.839Z">
+<meta property="article:published_time" content="2022-06-07T06:09:00.000Z">
+<meta property="article:modified_time" content="2022-06-07T07:46:25.922Z">
 <meta property="article:author" content="Aries Peng">
-<meta property="article:tag" content="IO口">
+<meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>单片机复习-06 - 千山慕晗</title>
+  <title>单片机总结-05 - 千山慕晗</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="单片机复习-06"></span>
+            <span id="subtitle" data-typed-text="单片机总结-05"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-10 15:00" pubdate>
-          2022年6月10日 下午
+        <time datetime="2022-06-07 14:09" pubdate>
+          2022年6月7日 下午
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          2.4k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          21 分钟
+          20 分钟
         
       </span>
     
@@ -278,77 +278,85 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">单片机复习-06</h1>
+            <h1 style="display: none">单片机总结-05</h1>
             
             <div class="markdown-body">
               
-              <h3 id="跑马灯实验">跑马灯实验</h3>
-<p>Stm32 最简单的<strong>外设</strong>是IO口的高低电平控制，通过跑马灯
-了解IO口作为输出使用的方法。
-外设都是通过读写设备上的寄存器来进行的，<strong>外设寄存器也被称为“IO端口”</strong>，<strong>端口是单片机内部CPU和外部IO的接口组</strong>。IO端口有两种编址方式：独立编址和统一编址，暂且不谈。32单片机有多个端口组，每个端口组有16个IO口（引脚）。</p>
-<p>STM32的IO口相比51而言复杂的多，STM32的IO口可以由软件配置成如下8种模式：
-1、输入浮空 2、输入上拉 3、输出下拉 4、模拟输入 5、开漏输出 6、推挽输出
-7、推挽式复用功能 8、开漏复用功能</p>
-<p>介绍一下开漏输出和推挽输出
-<strong>推挽输出</strong>是由2个MOS或者三极管收到互补控制的信号控制，两个管子时钟一个在导通，一个在截止。推挽输出的<strong>最大特点就是可以真正的输出高电平和低电平，在两种电平下都具用驱动能力</strong>，所谓驱动能力就是指<strong>输出电流</strong>的能力。
-<strong>开漏输出</strong>常被说是与推挽输出相对，开漏输出无法真正的输出高电平，即<strong>高电平的时候没有驱动能力</strong>，需要借助外部上拉电阻完成对外驱动。<img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610153136587.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610153136587" /></p>
-<p>每个IO口可以自由编程，但<strong>IO口寄存器必须按32位字被访问</strong>。</p>
-<p>STM32的每个IO口都有7个寄存器来控制：
-1、配置模式的2个32位的端口配置寄存器CRL和CRH，它们控制每个IO口的模式以及输出速率;
-2、2个32位数据寄存器IDR和ODR，用于控制GPIOx输出电平；
-3、1个32位的置位、复位寄存器BSRR; 4、1个16位的复位寄存器BRR;
-5、1个32位的锁存寄存器LCKR;</p>
-<p>1、STM32的CRL控制每组IO端口的低8位（eg：PA_01~08）的模式，每个IO引脚占用CRL的4个位，高两位的位CNF，低两位的位MODE。这里记住几个常用的配置：
-0X0 (0b0000)表示模拟输入模式（ADC 用）、 0X3 (0b0011)
-表示推挽输出模式（做输出口 用，50M 速率）、 0X8 (0b1000)
-表示上/下拉输入模式（做输入口用）、 0XB (0b1011)表示复用输出（使用 IO 口
-的第二功能，50M 速率）<img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610161729298.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610161729298" /></p>
-<p>CRH的作用和CRL完全一样，CRH控制的是IO端口组的高8位（eg：PA_09~15）</p>
-<p>在HAL库中，操作寄存器CRH和CRL来配置IO口的模式和速度是通过GPIO初始化函数完成的</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_Init</span><span class="hljs-params">(GPIO_TypeDef *GPIOx,GPIO_InitTypeDef *GPIO_Init)</span><br></code></pre></td></tr></table></figure>
-<p>第一个参数是用来初始化指定的GPIO对应的GPIO组，取值范围为GPIOA~GPIOE（tip：这里是根据芯片类型包含的头文件而取的值范围）
-第二个参数为初始化参数结构体指针，结构体类型为GPIO_InitTypeDef，指定引脚的参数。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-type">uint32_t</span> Pin;<span class="hljs-comment">//指定IO口</span><br><span class="hljs-type">uint32_t</span> Mode;<span class="hljs-comment">//模式设置</span><br><span class="hljs-type">uint32_t</span> Pull;<span class="hljs-comment">//上下拉设置</span><br><span class="hljs-type">uint32_t</span> Speed;<span class="hljs-comment">//速度设置</span><br>&#125;GPIO_InitTypeDef;<br></code></pre></td></tr></table></figure>
-<p>2.看完的GPIO的参数配置寄存器，接下来是<strong>GPIO输入输出电平控制</strong>相关的寄存器
-首先先看<strong>ODR寄存器</strong>，该寄存器用于控制GPIOx输出电平<img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610163833080.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610163833080" /></p>
-<p>该寄存器用于设置某个IO口（应该就是引脚）输出高电平（ODRy=1）还是低电平，该寄存器也仅在输出模式下有效，在输入模式下不起作用。操作还寄存器的库函数，主要就是HAL_GPIO_TogglePin函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_TogglePin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx,<span class="hljs-type">uint16_t</span> GPIO_Pin)</span>;<br></code></pre></td></tr></table></figure>
-<p>该函数通过操作ODR寄存器，达到取反IO口输出电平的功能。</p>
-<p><strong>置位/复位寄存器(BSSR)</strong>是一个非常重要的寄存器。该寄存器和ODR寄存器具有类似的作用，都可以设置GPIO端口（引脚）的输出是1还是0。<img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610164910406.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610164910406" /></p>
-<p>上表中，BSSR低16位设置1对应引脚（0~16）为高电平，高16位设置1对应引脚（0-16）为低电平。取0无效。
-BSSR寄存器使用方法如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIOA-&gt;BSRR=<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">1</span>;<span class="hljs-comment">//GPIOA的寄存器BSRR把1的值从0位移动到1位，所以是设置GPIOA.1为高电平</span><br>GPIOA-&gt;BSRR=<span class="hljs-number">1</span>&lt;&lt;(<span class="hljs-number">16</span>+<span class="hljs-number">1</span>);<span class="hljs-comment">//GPIOA的寄存器BSRR把1的值从0位移动到17位，17位还是对应引脚1，所以是设置GPIOA.1为低电平</span><br></code></pre></td></tr></table></figure>
-<p>库函数操作BSSR寄存器来设置IO电平的函数为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_WritePin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx,<span class="hljs-type">uint16_t</span> GPIO_Pin,GPIO_PinState PinState)</span><br></code></pre></td></tr></table></figure>
-<p>该函数可以用来设置一组IO口（引脚，不在重复）中的一个或者多个IO口的电平状态。</p>
-<p>接下来来看<strong>IDR寄存器</strong>，该寄存器用于读取GPIOx的输入数据，<img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610171410463.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610171410463" /></p>
-<p>该寄存器用于读取每个IO口的电平，如果对应的位为0（IRRy=0），则说明IO输入的是低电平，库函数中用于操作该寄存器读取IO输入数据相关函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIO_PinState <span class="hljs-title function_">HAL_GPIO_ReadPin</span><span class="hljs-params">(GPIO_TypeDef* GPIOx，<span class="hljs-type">uint16_t</span> GPIO_Pin)</span>;<br></code></pre></td></tr></table></figure>
-<p>该函数用来读取一组IO口中一个或者多个IO口电平状态。该函数的返回值就是IO口电平状态。</p>
-<p><strong>GPIO操作总结</strong> 1、使能IO口时钟，调用函数为
-<code>_HAL_RCC_GPIOX_CLK_ENABLE(其中X=A~E)</code>； 2、操作IO输入输出；
-3、初始化IO参数，调用函数HAL_GPIO_Init();</p>
+              <p>名词总结：</p>
+<p><strong>AHB，是Advanced High performance
+Bus的缩写</strong>，译作高级高性能总线，这是一种“系统总线”。AHB主要用于高性能模块(如CPU、DMA和DSP等)之间的连接。AHB
+系统由主模块、从模块和基础结构(Infrastructure)3部分组成，整个AHB总线上的传输都由主模块发出，由从模块负责回应。</p>
+<p><strong>APB，是Advanced Peripheral
+Bus的缩写</strong>，这是一种外围总线。APB主要用于低带宽的周边外设之间的连接，例如UART、1284等，它的总线架构不像
+AHB支持多个主模块，在APB里面唯一的主模块就是APB 桥。</p>
+<p><strong>FSMC(Flexible Static Memory
+Controller，可变静态存储控制器)</strong>是STM32系列采用的一种新型的存储器扩展技术。通俗的说，就是用来扩展外部RAM的。</p>
+<p><strong>RTC，英文是Real-time
+clock</strong>，翻译过来就是“实时时钟”，即<strong>单片机实时时钟</strong>，指可以像时钟一样输出实际时间的电子设备，一般为集成电路，因此也称为时钟芯片。在电脑主板上，晶振32.768KHz显然是不可或缺的，我们关闭电源之后，再开机，时间日期之所以显示正常是因为我们为它专门提供了一颗纽扣电池供电，可以这样说，<strong>RTC</strong>一直在工作。</p>
+<p><strong>GPIO管脚复用：</strong>
+32芯片内部集成了很多外设控制器，（USART，ADC，CAN等），这些外设控制器也需要通过引脚与外设连接，复用功能是相对于单片机的引脚而言的，复用功能是指单片机的引脚既可以作为普通的GPIO也可以作为内部外设控制器的引脚来使用。比如F1系列PA5引脚可以作为多个SPI、DAC、ADC的复用引脚，但同一时刻只能选择一种。操作步骤：
+1.GPIO时钟使能 2.复用的外设时钟使能
+3.同时要初始化GPIO以及复用外设功能</p>
+<p><strong>端口重映射：</strong>
+GPIO重映射是原IO映射到其他IO口去，应注意操作步骤：
+1.使能被重映射IO端口时钟 2.使能被重映射的外设时钟
+3.使能AFIO复用时钟（重要） 4.进行重映射</p>
+<p><strong>NVIC称为嵌套向量中断控制器NVIC(Nested Vectored Interrupt
+Controller)</strong>：</p>
+<h3 id="stm32f1-时钟概述">STM32F1 时钟概述</h3>
 <figure>
 <img
-src="C:\Users\ARIES\hexo-blog\source\images\image-20220610173656765.png" srcset="/img/loading.gif" lazyload
-alt="image-20220610173656765" />
-<figcaption aria-hidden="true">image-20220610173656765</figcaption>
+src="C:\Users\ARIES\hexo-blog\source\images\image-20220607141917444.png" srcset="/img/loading.gif" lazyload
+alt="image-20220607141917444" />
+<figcaption aria-hidden="true">image-20220607141917444</figcaption>
 </figure>
-<p>在编译信息中可以看到，代码占用FLASH大小为5256字节（4964+292），所用的SRAM大小为1920（1900+20）。
-Code：表示程序所占用的FLASH的大小。 RO-data：即Read
-Only-data，表示程序定义的常量（FLASH）。 RW-data：即Read
-Write-data，表示已被初始化的变量（SRAM）。 ZI-data：即Zero
-Init-data，表示未被初始化的变量（SRAM）。</p>
+<p>在STM32中有五个时钟源，为HSI、HSE、LSI、LSE、PLL。从时钟频率来分可以分为<strong>高速时钟源和低速时钟源</strong>，在这
+5 个中 HIS，HSE 以及 PLL 是高速时钟，LSI 和 LSE
+是低速时钟。从来源可分为外部时钟源和内部时钟源，外部时钟源就是从外部通过接晶振的方式获取时钟源，其中
+HSE 和 LSE 是外部时钟源，其他的是内部时钟源。下面我们看看 STM32 的 5
+个时 钟源，我们讲解顺序是按图中红圈标示的顺序：</p>
+<p>①、HSI 是高速内部时钟，RC 振荡器，频率为 8MHz。 ②、HSE
+是高速外部时钟，可接石英/陶瓷谐振器，或者接外部时钟源，频率范围为
+4MHz~16MHz。我们的开发板接的是 8M 的晶振。 ③、LSI 是低速内部时钟，RC
+振荡器，频率为 40kHz。独立看门狗的时钟源只能是 LSI，同 时 LSI 还可以作为
+RTC 的时钟源。 ④、LSE 是低速外部时钟，接频率为 32.768kHz
+的石英晶体。这个主要是 RTC 的时钟源。 ⑤、PLL
+为锁相环倍频输出，其时钟输入源可选择为 HSI/2、HSE 或者
+HSE/2。倍频可选择为2~16 倍，但是其输出频率最大不得超过 72MHz。</p>
+<p>上面我们简要概括了 STM32 的时钟源，那么这 5
+个时钟源是怎么给各个外设以及系统提
+供时钟的呢？这里我们将一一讲解。我们还是从图的下方讲解起吧，因为下方比较简单。
+图中我们用 A~E 标示我们要讲解的地方。</p>
+<p><strong>A. </strong>MCO 是 STM32 的一个时钟输出
+IO(PA8)，它可以选择一个时钟信号输出，可以 选择为 PLL 输出的 2
+分频、HSI、HSE、或者系统时钟。这个时钟可以用来给外
+部其他系统提供时钟源。 <strong>B. </strong>这里是 RTC
+时钟源，从图上可以看出，RTC 的时钟源可以选择 LSI，LSE，以及 HSE 的 128
+分频。 <strong>C. </strong>从图中可以看出 C 处 USB 的时钟是来自 PLL
+时钟源。STM32 中有一个全速功能 的 USB 模块，其串行接口引擎需要一个频率为
+48MHz 的时钟源。该时钟源只能 从 PLL 输出端获取，可以选择为 1.5 分频或者
+1 分频，也就是，当需要使用 USB 模块时，PLL 必须使能，并且时钟频率配置为
+48MHz 或 72MHz。 <strong>D. </strong>D 处就是 STM32 的系统时钟
+SYSCLK，它是供 STM32 中绝大部分部件工作的时 钟源。系统时钟可选择为 PLL
+输出、HSI 或者 HSE。系统时钟最大频率为 72MHz，
+当然你也可以超频，不过一般情况为了系统稳定性是没有必要冒风险去超频的。
+<strong>E. </strong>这里的 E
+处是指其他所有外设了。从时钟图上可以看出，其他所有外设的时钟最
+终来源都是 SYSCLK。</p>
+<p>SYSCLK 通过 AHB 分频器分频后送给各模块使用。这些 模块包括：</p>
+<p>①、AHB 总线、内核、内存和 DMA 使用的 HCLK 时钟。 ②、通过 8 分频后送给
+Cortex 的系统定时器时钟，也就是 systick 了。 ③、直接送给 Cortex
+的空闲运行时钟 FCLK。 ④、送给 APB1 分频器。APB1 分频器输出一路供 APB1
+外设使用(PCLK1，最大 频率 36MHz)，另一路送给定时器(Timer)2、3、4
+倍频器使用。 ⑤、送给 APB2 分频器。APB2 分频器分频输出一路供 APB2
+外设使用(PCLK2， 最大频率 72MHz)，另一路送给定时器(Timer)1
+倍频器使用。</p>
+<p>其中需要理解的是 APB1 和 APB2 的区别，<strong>APB1
+上面连接的是低速外设</strong>，包括电源接口、
+备份接口、CAN、USB、I2C1、I2C2、UART2、UART3 等等，<strong>APB2
+上面连接的是高速外设</strong>包括
+UART1、SPI1、Timer1、ADC1、ADC2、所有普通 IO 口(PA~PE)、第二功能 IO
+口等。</p>
 
               
             </div>
@@ -360,7 +368,7 @@ Init-data，表示未被初始化的变量（SRAM）。</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/IO%E5%8F%A3/">#IO口</a>
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">#单片机</a>
       
     </div>
   
@@ -372,8 +380,8 @@ Init-data，表示未被初始化的变量（SRAM）。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>单片机复习-06</div>
-      <div>http://example.com/2022/06/10/单片机复习-06/</div>
+      <div>单片机总结-05</div>
+      <div>http://example.com/2022/06/07/单片机复习-05/</div>
     </div>
     <div class="license-meta">
       
@@ -385,7 +393,7 @@ Init-data，表示未被初始化的变量（SRAM）。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月10日</div>
+          <div>2022年6月7日</div>
         </div>
       
       
@@ -415,9 +423,9 @@ Init-data，表示未被初始化的变量（SRAM）。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-07/" title="单片机复习-07">
+                      <a href="/2022/06/10/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-06/" title="单片机复习-06">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">单片机复习-07</span>
+                        <span class="hidden-mobile">单片机复习-06</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -425,8 +433,8 @@ Init-data，表示未被初始化的变量（SRAM）。</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/07/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-05/" title="单片机总结-05">
-                        <span class="hidden-mobile">单片机总结-05</span>
+                      <a href="/2022/06/05/%E5%8D%95%E7%89%87%E6%9C%BA%E5%A4%8D%E4%B9%A0-04/" title="单片机复习-04">
+                        <span class="hidden-mobile">单片机复习-04</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
